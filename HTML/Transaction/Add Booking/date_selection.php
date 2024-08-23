@@ -100,7 +100,7 @@
                         <p class="heading-5">Check-In and Check-Out Dates Selection</p>
                     </div>
                 </div>
-                <form class="date-container" action="">
+                <form class="date-container">
                     <div class="calendar" id="currentMonthCalendar">
                         <div class="calendar-header">
                             <div class="calendar-btn prev">
@@ -153,14 +153,14 @@
                         </div>
                     </div>
                 </form>
-                <form action="information.php" method="POST" id="bookingForm">
+                <form action="room_selection.php" method="POST" id="bookingForm">
                     <input type="hidden" name="price" value="<?php echo $_GET['price'] ?? ''; ?>">
                     <input type="hidden" name="startDate" id="startDate" value=" ">
                     <input type="hidden" name="endDate" id="endDate" value=" ">
 
                     <div class="transaction-button">
-                        <a href="../booking.php" class="back-button">back</a>                    
-                        <a href="2_RoomSelection.html" class="next-button date-next">next</a>
+                        <a href="../booking.php" class="back-button">back</a>
+                        <a href="#" class="next-button date-next" onclick="submitForm(event)">next</a>
                     </div>
                 </form>
                 <div class="message-alert">

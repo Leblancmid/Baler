@@ -308,96 +308,97 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //for room selection
 document.addEventListener('DOMContentLoaded', () => {
-  const radios = document.querySelectorAll('input[type="radio"][name="room-selection"]');
+  const checks = document.querySelectorAll('input[type="checkbox"][name="room-selection"]');
   const nextButton = document.querySelector('.room-next');
   let errorContainer = document.querySelectorAll('.message-alert');
   const errorMessage = document.querySelector('.alert-message');
 
-  let previouslySelectedRoom = null;
-
-  radios.forEach((radio) => {
-    radio.addEventListener('change', (event) => {
+  checks.forEach((check) => {
+    check.addEventListener('change', (event) => {
       // Get the parent element with class "room"
       const room = event.target.parentNode;
 
-      // Reset styles of previously selected room
-      if (previouslySelectedRoom) {
-        previouslySelectedRoom.style.backgroundColor = 'var(--white)'; // reset background color
-        previouslySelectedRoom.querySelectorAll('.pax-number').forEach((element) => {
-          element.style.color = 'black'; // reset font color
+      if (event.target.checked) {
+        // Add the background color to the selected room element
+        room.style.backgroundColor = 'var(--blue-1)';
+        room.style.backgroundBlendMode = 'color-burn';
+        room.querySelectorAll('.pax-number').forEach((element) => {
+          element.style.color = 'var(--white)';
         });
-        previouslySelectedRoom.querySelectorAll('.room-price').forEach((element) => {
-          element.style.color = 'var(--blue-1)'; // reset font color
+        room.querySelectorAll('.room-price').forEach((element) => {
+          element.style.color = 'var(--white)';
         });
-        previouslySelectedRoom.querySelectorAll('.room-info').forEach((element) => {
-          element.style.backgroundColor = 'var(--blue-1)'; // reset background color
-          element.style.color = 'var(--white)'; // reset font color
+        room.querySelectorAll('.room-type').forEach((element) => {
+          element.style.color = 'var(--white)';
+        });
+        room.querySelectorAll('p.room-type').forEach((element) => {
+          const beforeStyle = getComputedStyle(element, '::before');
+          const afterStyle = getComputedStyle(element, '::after');
+
+          element.style.setProperty('--before-background-color', 'var(--white)');
+          element.style.setProperty('--after-background-color', 'var(--white)');
+        });
+        room.querySelectorAll('.room-info').forEach((element) => {
+          element.style.backgroundColor = 'var(--white)'; // set background color
+          element.style.color = 'var(--blue-1)';
+        });
+      } else {
+        // Reset styles of deselected room
+        room.style.backgroundColor = 'var(--white)';
+        room.style.backgroundBlendMode = '';
+        room.querySelectorAll('.pax-number').forEach((element) => {
+          element.style.color = 'var(--blue-1)';
+        });
+        room.querySelectorAll('.room-price').forEach((element) => {
+          element.style.color = 'var(--blue-1)';
+        });
+        room.querySelectorAll('.room-type').forEach((element) => {
+          element.style.color = 'var(--blue-1)';
+        });
+        room.querySelectorAll('.room-info').forEach((element) => {
+          element.style.backgroundColor = 'var(--blue-1)';
+          element.style.color = 'var(--white)';
+        });
+        room.querySelectorAll('p.room-type').forEach((element) => {
+          const beforeStyle = getComputedStyle(element, '::before');
+          const afterStyle = getComputedStyle(element, '::after');
+
+          element.style.setProperty('--before-background-color', 'var(--blue-1)');
+          element.style.setProperty('--after-background-color', 'var(--blue-1)');
         });
       }
 
-      // Add the background color to the selected.room element
-      room.style.backgroundColor = 'var(--blue-1)'; // set background color
-      room.querySelectorAll('.pax-number').forEach((element) => {
-        element.style.color = 'var(--white)'; // set font color
-      });
-      room.querySelectorAll('.room-price').forEach((element) => {
-        element.style.color = 'var(--white)'; // set font color
-      });
-      room.querySelectorAll('.room-info').forEach((element) => {
-        element.style.backgroundColor = 'var(--white)'; // set background color
-        element.style.color = 'var(--blue-1)'; // set font color
-      });
-
-      // Update previouslySelectedRoom
-      previouslySelectedRoom = room;
-
-      // // Enable next button
-      // nextButton.disabled = false;
-      // nextButton.style.backgroundColor = '';
-      // errorContainer.forEach((element) => {
-      //   element.style.display = 'none';
-      // });
-    });
-  });
-
-  // Check if any radio is selected on page load
-  if (!Array.prototype.some.call(radios, (radio) => radio.checked)) {
-    nextButton.disabled = true;
-    nextButton.style.backgroundColor = 'gray';
-  }
-
-  // Add an event listener to check if any radio is selected
-  radios.forEach((radio) => {
-    radio.addEventListener('click', () => {
-      if (!Array.prototype.some.call(radios, (radio) => radio.checked)) {
+      // Check if any checkbox is selected
+      if (Array.prototype.some.call(checks, (check) => check.checked)) {
+        nextButton.disabled = false;
+        nextButton.style.backgroundColor = 'var(--blue-1)';
+        nextButton.style.cursor = 'pointer';
+        errorContainer.forEach((element) => {
+          element.style.display = 'none';
+        });
+      } else {
         nextButton.disabled = true;
         nextButton.style.backgroundColor = 'gray';
         errorMessage.forEach((element) => {
           element.style.display = 'block';
         });
-      } else {
-        nextButton.disabled = false;
-        nextButton.style.backgroundColor = 'var(--blue-1)';
-        nextButton.style.cursor = 'pointer';
-        errorMessage.forEach((element) => {
-          element.style.display = 'none';
-        });
-        nextButton.onclick = function () {
-          window.location.href = '2_DateSelection.html';
-        };
       }
     });
   });
 
+  // Check if any checkbox is selected on page load
+  if (!Array.prototype.some.call(checks, (check) => check.checked)) {
+    nextButton.disabled = true;
+    nextButton.style.backgroundColor = 'gray';
+  }
+
   // Add an event listener to the next button to display the error message
   nextButton.addEventListener('click', () => {
-    if (!Array.prototype.some.call(radios, (radio) => radio.checked)) {
+    if (!Array.prototype.some.call(checks, (check) => check.checked)) {
       errorMessage.textContent = "Select a room first before proceeding";
       errorContainer.forEach((element) => {
         element.style.display = 'flex';
       });
-    } else {
-      window.location.href = '2_DateSelection.html';
     }
   });
 
@@ -714,9 +715,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         errorMessage.textContent = "You must select a check-out date.";
       }
-    } else {
-      // Submit the form or perform the desired action
-      window.location.href = '3_BookingInfo.html';
     }
   });
 
@@ -936,3 +934,9 @@ document.addEventListener("DOMContentLoaded", function () {
     image.rotate(45);
   });
 });
+
+
+function submitForm(event) {
+  event.preventDefault(); // Prevent the default link behavior
+  document.getElementById("bookingForm").submit(); // Submit the form
+}

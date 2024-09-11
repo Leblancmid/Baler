@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get the radio input and checkbox container
     const checkboxContainer = document.querySelector('.checkbox-container');
     const totalPrice = localStorage.getItem('newTotalPrice');
-    console.log(totalPrice)
 
     if (totalPrice) {
         // Convert the stored price to a number

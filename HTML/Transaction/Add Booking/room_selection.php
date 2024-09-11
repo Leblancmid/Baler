@@ -11,6 +11,7 @@ include 'room_selection_form.php';
     <title>Transaction | Baler Nina</title>
     <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
     <script src="../../../JS/script.js"></script>
+    <script src="../../../JS/room_selection.js"></script>
     <link rel="icon" href="../../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
     <link rel="stylesheet" href="../../../CSS/newstyle.css" />
 </head>
@@ -25,11 +26,11 @@ include 'room_selection_form.php';
 
             <div class="side-nav-content">
                 <div class="navigation">
-                    <a href="../../Dashboard.html">
+                    <a href="../../dashboard.php">
                         <i class="fa-solid fa-chart-line"></i>
                         <p>Dashboard</p>
                     </a>
-                    <a class="active-nav" href="../Booking.html">
+                    <a class="active-nav" href="../booking.php">
                         <i class="fa-solid fa-bars-progress"></i>
                         <p>Transaction</p>
                     </a>
@@ -104,26 +105,25 @@ include 'room_selection_form.php';
                         <p class="heading-5">Room Selection</p>
                     </div>
                     <div class="room-navigation">
-                        <a href="#" class="active-room">All</a>
-                        <a href="#">Small</a>
-                        <a href="#">Big</a>
-                        <a href="#">Sweet</a>
+                        <a href="#" class="active-room" data-filter="all">All</a>
+                        <a href="#" data-filter="small">Small</a>
+                        <a href="#" data-filter="big">Big</a>
+                        <a href="#" data-filter="sweet">Sweet</a>
                     </div>
                 </div>
-                <form class="room-container" action="booking_info.php" method="POST">
-                    <input type="hidden" name="startDate" id="startDate" value="<?php echo $_GET['startDate'] ?? ''; ?>">
-                    <input type="hidden" name="endDate" id="endDate" value="<?php echo $_GET['endDate'] ?? ''; ?>">
 
+                <!-- Add form element and method -->
+                <form class="room-container" action="date_selection.php" method="GET" id="roomSelectionForm">
                     <?php foreach ($rooms as $room) { ?>
-                        <div class="room">
-                            <label for="room-1">
+                        <div class="room room-<?php echo $roomClass[$room['type']]; ?>">
+                            <label for="room-<?php echo $room['id']; ?>">
                                 <div class="room-image">
-                                    <img class="actual-image" src="<?php echo $room['image'];?>" />
+                                    <img class="actual-image" src="<?php echo $room['image']; ?>" />
                                 </div>
                                 <div class="room-details">
                                     <div class="room-heading">
                                         <p class="pax-number"><?php echo $room['name']; ?></p>
-                                        <p class="room-price">₱ <?php echo $room['price']; ?><span>.00</span></p>
+                                        <p class="room-price">₱ <?php echo number_format($room['price'], 2); ?></p>
                                     </div>
                                     <button type="button" class="room-info">
                                         <i class="fa-solid fa-info"></i>
@@ -134,21 +134,21 @@ include 'room_selection_form.php';
                                         </button>
                                         <div class="room-description">
                                             <div class="image-container">
-                                                <img class="main-image" src="<?php echo $room['image'];?>">
+                                                <img class="main-image" src="<?php echo $room['image']; ?>">
                                             </div>
                                             <div class="room-pax">
                                                 <div>
-                                                    <p><?php echo $room['name'];?></p>
+                                                    <p><?php echo $room['name']; ?></p>
                                                     <p class="sub-room-type">&#91; ROOM TYPE: <span><?php echo $roomTypes[$room['type']]; ?></span>&#93;</p>
                                                 </div>
-                                                <button>SELECT</button>
+                                                <button type="button">SELECT</button>
                                             </div>
-                                            <p class="price">₱ <?php echo $room['price']; ?></p>
+                                            <p class="price">₱ <?php echo number_format($room['price'], 2); ?></p>
                                             <p class="details"><?php echo $room['description']; ?></p>
                                             <p class="inclusion-title">Room Inclusions:</p>
                                             <div class="room-inclusion">
-                                                <ul type="none">
-                                                    <li>Full Aircondtioned Room</li>
+                                                <ul>
+                                                    <li>Full Airconditioned Room</li>
                                                     <li>Private Bathroom</li>
                                                     <li>Cable TV</li>
                                                     <li>Towels</li>
@@ -156,16 +156,17 @@ include 'room_selection_form.php';
                                                     <li>Common Kitchen at Ground Floor</li>
                                                     <li>Grill</li>
                                                     <li>Standby Generator</li>
-                                                    <li>Driver’s Quarter(for Travel and Tours Only)</li>
+                                                    <li>Driver’s Quarter (for Travel and Tours Only)</li>
                                                     <li>Swimming Pool</li>
                                                     <li>Rooftop with Billiards (strictly exclusive for our guest)</li>
                                                     <li>Surfboard Rental w/ Instructor</li>
                                                     <li>Videoke Rental (for Ground Floor & Rooftop only)</li>
-                                                    <li>Convenince Store at Ground Floor</li>
+                                                    <li>Convenience Store at Ground Floor</li>
                                                     <li>24/7 Euronet ATM</li>
                                                 </ul>
                                             </div>
-                                            <div class="other-image"><!--max of 4 image per room-->
+                                            <!-- Other images for the room -->
+                                            <div class="other-image">
                                                 <div class="image-viewer">
                                                     <button type="button" class="image">
                                                         <img src="../../../IMAGES/shayne.jpeg">
@@ -174,7 +175,7 @@ include 'room_selection_form.php';
                                                         <button type="button" class="image-close">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
-                                                        <p class="image-name">Room for 1-2 Pax Room for 1-2 Pax Pax</p>
+                                                        <p class="image-name">Room for 1-2 Pax</p>
                                                         <img src="../../../IMAGES/shayne.jpeg">
                                                     </div>
                                                 </div>
@@ -186,7 +187,7 @@ include 'room_selection_form.php';
                                                         <button type="button" class="image-close">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
-                                                        <p class="image-name">Room for 1-2 Pax Room for 1-2 Pax Pax</p>
+                                                        <p class="image-name">Room for 1-2 Pax</p>
                                                         <img src="../../../IMAGES/room.jpg">
                                                     </div>
                                                 </div>
@@ -198,7 +199,7 @@ include 'room_selection_form.php';
                                                         <button type="button" class="image-close">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
-                                                        <p class="image-name">Room for 1-2 Pax Room for 1-2 Pax Pax</p>
+                                                        <p class="image-name">Room for 1-2 Pax</p>
                                                         <img src="../../../IMAGES/nab.jpg">
                                                     </div>
                                                 </div>
@@ -210,7 +211,7 @@ include 'room_selection_form.php';
                                                         <button type="button" class="image-close">
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
-                                                        <p class="image-name">Room for 1-2 Pax Room for 1-2 Pax Pax</p>
+                                                        <p class="image-name">Room for 1-2 Pax</p>
                                                         <img src="../../../IMAGES/hao.jpg">
                                                     </div>
                                                 </div>
@@ -220,24 +221,42 @@ include 'room_selection_form.php';
                                 </div>
                                 <p class="room-type"><?php echo $roomTypes[$room['type']]; ?></p>
                             </label>
-                            <input type="checkbox" id="room-1" name="room-selection" value="<?php echo $room['id']; ?>">
+                            <!-- Room Selection Checkbox -->
+
+                            <input class="room-selection" type="checkbox" id="room-<?php echo $room['id']; ?>" name="room-selection[]" value="<?php echo $room['id']; ?>">
+                            <span class="display-none form-price"><?php echo $room['price']; ?></span>
                         </div>
                     <?php } ?>
+                    <input type="hidden" name="price" id="total-price" value="">
+                    <input type="hidden" name="startDate" id="startDate" value="<?php echo htmlspecialchars($_GET['startDate'] ?? '', ENT_QUOTES); ?>">
+                    <input type="hidden" name="endDate" id="endDate" value="<?php echo htmlspecialchars($_GET['endDate'] ?? '', ENT_QUOTES); ?>">
+
                 </form>
+
+                <!-- Transaction buttons and summary -->
                 <div class="transaction-button">
-                    <a href="../Booking.html" class="back-button">back</a>
+                    <!-- Back button -->
+                    <div>
+                        <a href="../booking.php" class="back-button">Back</a>
+                    </div>
+
+                    <!-- Button for viewing the details and total amount -->
                     <button type="button" class="view-details">
-                        <p class="total-amount">₱ 0,000.00</p>
                         <p>Overall Total:</p>
+                        <p class="total-amount" id="total-amount">₱0.00</p>
                     </button>
+
+                    <!-- Summary section -->
                     <div class="details-amount">
                         <button type="button" class="button-close">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
+
                         <p class="summary-heading">Summary</p>
+
                         <div class="summary-main-container">
                             <div class="summary-container">
-                                <!-- <p class="summary-subheading">ROOM 1</p>                             -->
+                                <!-- Room details -->
                                 <table class="detail-summary">
                                     <tr class="summary-title">
                                         <td colspan="3">ROOM</td>
@@ -258,11 +277,6 @@ include 'room_selection_form.php';
                                         <td>2 pax</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td>:</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
-                                    <tr>
                                         <td>Room 2 Name</td>
                                         <td>:</td>
                                         <td>Room for 1-2 pax</td>
@@ -278,19 +292,14 @@ include 'room_selection_form.php';
                                         <td>2 pax</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td>Check-in Date</td>
                                         <td>:</td>
-                                        <td>₱ 0.00</td>
+                                        <td><?php echo htmlspecialchars($_GET['startDate'] ?? ''); ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Check-in date</td>
+                                        <td>Check-out Date</td>
                                         <td>:</td>
-                                        <td>11-02-2024</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Check-out date</td>
-                                        <td>:</td>
-                                        <td>11-05-2024</td>
+                                        <td><?php echo htmlspecialchars($_GET['endDate'] ?? ''); ?></td>
                                     </tr>
                                     <tr>
                                         <td>Total no. of stay</td>
@@ -303,17 +312,17 @@ include 'room_selection_form.php';
                                         <td>₱ 0.00</td>
                                     </tr>
                                 </table>
+
+                                <!-- Amenities details -->
                                 <table class="detail-summary">
                                     <tr class="summary-title">
                                         <td colspan="3">OTHER</td>
                                     </tr>
-                                    <!-- if no amenities avail. This is the display -->
                                     <tr>
                                         <td>Availed Amenities</td>
                                         <td>:</td>
                                         <td>none</td>
                                     </tr>
-                                    <!-- else this will be displayed -->
                                     <tr>
                                         <td>Gasul</td>
                                         <td>:</td>
@@ -325,12 +334,6 @@ include 'room_selection_form.php';
                                         <td>₱ 0.00</td>
                                     </tr>
                                     <tr>
-                                        <td>Additional Pax x0</td>
-                                        <td>:</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <!-- if theres additional pax -->
-                                    <tr>
                                         <td>Additional Pax x2</td>
                                         <td>:</td>
                                         <td>₱ 0.00</td>
@@ -341,6 +344,8 @@ include 'room_selection_form.php';
                                         <td>₱ 0.00</td>
                                     </tr>
                                 </table>
+
+                                <!-- Computation -->
                                 <table class="detail-summary">
                                     <tr class="summary-title">
                                         <td colspan="3">COMPUTATION</td>
@@ -354,9 +359,6 @@ include 'room_selection_form.php';
                                         <td>OTHER</td>
                                         <td>:</td>
                                         <td>+ ₱ 0.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>DISCOUNTS</td>
                                     </tr>
                                     <tr class="discount-text">
                                         <td>PWD/Senior Discount</td>
@@ -382,8 +384,13 @@ include 'room_selection_form.php';
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:void(0)" class="next-button room-next">next</a>
+
+                    <!-- Submit and next buttons -->
+                    <div class="transaction-button">
+                        <a href="#" class="next-button room-next">next</a>
+                    </div>
                 </div>
+
                 <div class="message-alert">
                     <div class="alert-container">
                         <p class="alert-heading">

@@ -4,7 +4,7 @@ $sname= "localhost";
 $username= "root";
 $password = "";
 
-$db_name = "baler_db";
+$db_name = "baler_db2";
 
 $conn = mysqli_connect($sname, $username, $password, $db_name);
 

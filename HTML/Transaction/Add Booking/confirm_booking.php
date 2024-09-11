@@ -1,3 +1,7 @@
+<?php
+include 'booking_info_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +11,7 @@
     <title>Transaction | Baler Nina</title>
     <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
     <script src="../../../JS/script.js"></script>
+    <script src="../../../JS/confirm_booking.js"></script>
     <link rel="icon" href="../../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
     <link rel="stylesheet" href="../../../CSS/newstyle.css" />
 </head>
@@ -101,72 +106,54 @@
                     </div>
                 </div>
 
-                <form class="confirmation-container" action="">
+                <form class="confirmation-container" action="booking_confirmed.php">
+                    <input type="hidden" name="startDate" id="startDate" value="<?php echo $_GET['startDate'] ?? ''; ?>">
+                    <input type="hidden" name="endDate" id="endDate" value="<?php echo $_GET['endDate'] ?? ''; ?>">
                     <table class="detail-summary">
                         <tr class="summary-title">
                             <td colspan="3">ROOM DETAILS</td>
                         </tr>
-                        <tr>
-                            <td>Room 1 Name</td>
-                            <td>:</td>
-                            <td>Room for 1-2 pax</td>
-                        </tr>
-                        <tr>
-                            <td>Room 1 Type</td>
-                            <td>:</td>
-                            <td>Small</td>
-                        </tr>
-                        <tr>
-                            <td>Room 1 Pax</td>
-                            <td>:</td>
-                            <td>2 pax</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>:</td>
-                            <td>₱ 0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Room 2 Name</td>
-                            <td>:</td>
-                            <td>Room for 1-2 pax</td>
-                        </tr>
-                        <tr>
-                            <td>Room 2 Type</td>
-                            <td>:</td>
-                            <td>Small</td>
-                        </tr>
-                        <tr>
-                            <td>Room 2 Pax</td>
-                            <td>:</td>
-                            <td>2 pax</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>:</td>
-                            <td>₱ 0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Check-in date</td>
-                            <td>:</td>
-                            <td>11-02-2024</td>
-                        </tr>
-                        <tr>
-                            <td>Check-out date</td>
-                            <td>:</td>
-                            <td>11-05-2024</td>
-                        </tr>
-                        <tr>
-                            <td>Total no. of stay</td>
-                            <td>:</td>
-                            <td>4</td>
-                        </tr>
-                        <tr class="price-text">
-                            <td>AMOUNT</td>
-                            <td>=</td>
-                            <td>₱ 0.00</td>
-                        </tr>
+                        <!-- Loop through rooms to populate details -->
+                        <?php foreach ($rooms as $room) { ?>
+                            <tr>
+                                <td>Room Name</td>
+                                <td>:</td>
+                                <td><?php echo $room['name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Room Type</td>
+                                <td>:</td>
+                                <td><?php echo $roomTypes[$room['type']]; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Room Pax</td>
+                                <td>:</td>
+                                <td><?php echo $room['pax']; ?> pax</td>
+                            </tr>
+                            <tr>
+                                <td>Price</td>
+                                <td>:</td>
+                                <td>₱ <?php echo $room['price']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Check-in date</td>
+                                <td>:</td>
+                                <td><?php echo $_GET['startDate'] ?? ''; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Check-out date</td>
+                                <td>:</td>
+                                <td><?php echo $_GET['endDate'] ?? ''; ?></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>==============</td>
+                                <td></td>
+                            </tr>
+
+                        <?php } ?>
                     </table>
+
                     <table class="detail-summary">
                         <tr class="summary-title">
                             <td colspan="3">OTHER</td>
@@ -205,6 +192,7 @@
                             <td>₱ 0.00</td>
                         </tr>
                     </table>
+
                     <table class="detail-summary">
                         <tr class="summary-title">
                             <td colspan="3">COMPUTATION</td>
@@ -243,12 +231,12 @@
                             <td>₱ 0,000.00</td>
                         </tr>
                     </table>
+                    <div class="transaction-button">
+                        <?php $parsedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>
+                        <a href="booking_info.php?<?php echo $parsedUrl; ?>" class="back-button">back</a>
+                        <a href="#" class="next-button confirm-button">confirm</a>
+                    </div>
                 </form>
-
-                <div class="transaction-button">
-                    <a href="3_BookingInfo.html" class="back-button">back</a>
-                    <a href="#" class="next-button confirm-button">cofirm</a>
-                </div>
 
                 <div class="message-alert">
                     <div class="alert-container">

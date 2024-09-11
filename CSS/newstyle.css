@@ -1454,7 +1454,7 @@ fieldset.header-sort input[type="checkbox"] {
     justify-content: center;
     flex-wrap: wrap;
     background-color: var(--white);
-    background-image: url('../IMAGES/wave6.png');
+    background-image: url('../IMAGES/wave.png');
     /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
     /* box-shadow: 12px 12px 12px rgba(55, 55, 55, 0.1) inset, -10px -10px 10px var(--blue-2) inset; */
     box-shadow: 11px 10px 113px -14px rgba(128, 127, 127, 0.5) inset;
@@ -2697,91 +2697,6 @@ table.detail-summary tr.overall-amount {
     scale: 0.98;
 }
 
-/* user account container */
-.user-account-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    padding: 15px;
-    background-color: var(--white);
-}
-
-.user-account-container button {
-    width: fit-content;
-    align-self: flex-end;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 35px;
-    border: none;
-    font-size: var(--xs);
-    font-family: var(--button);
-    font-weight: bold;
-    border-radius: 5px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: 300ms all;
-}
-
-.user-account-container button.edit {
-    background-color: var(--blue-1);
-    color: var(--white);
-}
-
-.user-account-container button:active {
-    scale: 0.95;
-}
-
-.user-account-info {
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    gap: 15px;
-    padding: 15px 0;
-}
-
-.user-account-info .user-image img {
-    max-width: 100%;
-    height: 170px;
-    border-radius: 50%;
-    padding: 5px;
-    border: 1px solid var(--blue-1)
-}
-
-.user-input-container {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.user-input-container .user-info {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    border: 1px solid var(--blue-3);
-    border-radius: 5px;
-}
-
-.user-input-container .user-info p.label {
-    font-family: var(--text);
-    font-size: var(--s);
-    color: var(--blue-3);
-}
-
-.user-input-container .user-info p.info {
-    /* color: var(--blue-3); */
-    font-family: var(--text);
-    font-size: var(--l);
-    padding: 10px 0;
-    letter-spacing: 1px;
-}
-
 .error {
     background: #F2DEDE;
     color: #a94442;
@@ -2789,4 +2704,440 @@ table.detail-summary tr.overall-amount {
     width: 95%;
     border-radius: 5px;
     margin: 20px auto;
+}
+
+* user account container */ .user-account-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+    border-radius: 15px;
+    gap: 3px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.user-account-container .user-info {
+    width: 60%;
+    border: 1px solid var(--blue-2);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.user-account-container .user-info:hover {
+    background-color: var(--blue-2);
+}
+
+.user-account-container .user-info:hover>.main-image-container .user-image::before {
+    opacity: 1;
+}
+
+.main-image-container,
+.pop-up-container .main-image-container {
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 50%;
+    border: 1px solid var(--blue-3);
+}
+
+.main-image-container .user-image::before {
+    content: '⛶';
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: var(--black-2);
+    font-size: var(--xl);
+    color: var(--white);
+    font-weight: bold;
+    transition: 300ms all;
+}
+
+.main-image-container .user-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-image-container .user-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-account-container .user-info p.label {
+    font-size: var(--s);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--blue-1);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.user-account-container .user-info p.info {
+    font-size: var(--l);
+    color: var(--gray-1);
+    padding: 12px 0;
+    font-family: var(--text);
+}
+
+.user-account-container .user-info i {
+    font-size: var(--s);
+    color: var(--gray-1);
+    padding: 10px 0;
+}
+
+.pop-up-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black-1);
+    backdrop-filter: blur(2px);
+}
+
+.pop-up-container .pop-image,
+.pop-up-container .pop-name,
+.pop-up-container .pop-username,
+.pop-up-container .pop-email,
+.pop-up-container .pop-password-one,
+.pop-up-container .pop-password-two,
+.pop-up-container .pop-updated {
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 15px;
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px 0px inset, rgba(17, 17, 26, 0.05) 0px 8px 32px 0px;
+    /* animation: zoomIn; */
+    animation-duration: 200ms;
+}
+
+.pop-up-container .pop-updated {
+    width: 20%;
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+
+/* .pop-up-container .pop-password-one {
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 15px;
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    justify-content: space-between;
+    animation-duration: 200ms;
+    background-color: var(--red-3);
+    box-shadow: none;
+} */
+
+.pop-image .main-image-container {
+    width: 400px;
+    height: 400px;
+    align-self: center;
+}
+
+.pop-image .main-image-container .user-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.pop-image .main-image-container:hover .user-image span {
+    opacity: 1;
+}
+
+/*
+.pop-image .main-image-container:hover .user-image::after {
+    opacity: 1;
+}
+
+.pop-image .user-image::before {
+    content: '⛶';
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: var(--black-2);
+    font-size: var(--xxl);
+    color: var(--white);
+    font-weight: bold;
+    transition: 300ms all;
+}
+
+.pop-image .user-image::after {
+    content: 'upload image';
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    bottom: 30%;    
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    opacity: 0;
+    color: var(--white);
+    font-family: var(--text);
+    font-size: var(--l);
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 300ms all;
+} */
+
+.pop-image .user-image span {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: var(--black-2);
+    font-size: var(--xl);
+    font-family: var(--text);
+    color: var(--white);
+    transition: 300ms all;
+    text-align: center;
+}
+
+.pop-image .user-image span i {
+    font-size: var(--xxl);
+}
+
+.pop-image .user-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pop-up-container input[type='file'] {
+    display: none;
+}
+
+.pop-up-container .account-button {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.account-button button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    cursor: pointer;
+    border: none;
+    font-family: var(--text);
+    font-size: var(--s);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--white);
+    padding: 0.6rem;
+    border-radius: 5px;
+}
+
+.account-button button:nth-child(1) {
+    background-color: var(--gray-1);
+}
+
+.account-button button:nth-child(2) {
+    background-color: var(--blue-4);
+}
+
+.account-button button.password {
+    background-color: var(--current-2);
+}
+
+.pop-up-container p.heading {
+    padding: 1.3rem 0 0 0;
+    font-family: var(--text);
+    font-size: var(--xl);
+    font-weight: bold;
+    color: var(--gray-1);
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.pop-name .user-info,
+.pop-username .user-info,
+.pop-email .user-info,
+.pop-password-one .user-info,
+.pop-password-two .user-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--blue-2);
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.pop-name .user-info label,
+.pop-username .user-info label,
+.pop-email .user-info label,
+.pop-password-one .user-info label,
+.pop-password-two .user-info label {
+    font-family: var(--text);
+    font-size: var(--s);
+    color: var(--blue-4);
+    letter-spacing: 2px;
+}
+
+.pop-name .user-info input,
+.pop-username .user-info input,
+.pop-email .user-info input {
+    margin-top: 10px;
+    padding: 10px 6px;
+    outline: none;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    border: 1px solid var(--gray-3);
+    color: var(--gray-1);
+    font-size: var(--m);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pop-name .user-info:nth-child(2) label span {
+    color: var(--gray-1);
+    font-style: italic;
+    font-size: var(--xs);
+}
+
+.pop-name .user-info input:focus,
+.pop-username .user-info input:focus,
+.pop-email .user-info input:focus {
+    outline: 1px solid var(--blue-3);
+}
+
+.pop-name .user-info span.warning,
+.pop-username .user-info span.warning,
+.pop-email .user-info span.warning,
+.pop-password-one .user-info span.warning,
+.pop-password-two .user-info span.warning {
+    color: var(--red-2);
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 5px;
+    font-size: var(--xxs);
+    letter-spacing: 1px;
+}
+
+/* passowrd visibility for account */
+.pop-password-one .user-info .password-container,
+.pop-password-two .user-info .password-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px solid var(--gray-3);
+    border-radius: 5px;
+    background-color: var(--white);
+}
+
+.pop-password-one .user-info input,
+.pop-password-two .user-info input {
+    flex-grow: 1;
+    padding: 10px 6px;
+    outline: none;
+    border: none;
+    letter-spacing: 1px;
+    background-color: transparent;
+    color: var(--gray-1);
+    font-size: var(--m);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pop-password-one .user-info:focus-within .password-container,
+.pop-password-two .user-info:focus-within .password-container {
+    outline: 1px solid var(--blue-3);
+}
+
+.pop-password-one .user-info i,
+.pop-password-two .user-info i {
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: var(--s);
+    color: var(--gray-1)
+}
+
+.pop-up-container .description {
+    color: var(--gray-1);
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: var(--text); */
+    font-size: var(--s);
+}
+
+/* succesful update animation */
+.pop-up-updated lord-icon {
+    --lord-icon-primary: var(--blue-1);
+    width: 50%;
+    height: 50%;
+}
+
+.pop-updated p.heading {
+    font-weight: lighter;
+}
+
+.pop-updated button.pop-close {
+    cursor: pointer;
+    padding: 8px 35px;
+    font-size: var(--s);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--white);
+    background-color: var(--blue-1);
+    border-radius: 5px;
+    border: none;
+    margin: 1.5rem 0;
+    transition: 300ms all;
+}
+
+.pop-updated button.pop-close:active {
+    scale: 0.95;
+}
+
+.display-none {
+    display: none;
 }

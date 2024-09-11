@@ -15,6 +15,7 @@ include 'sales.php'
         const monthlySalesData = <?php echo $monthlySalesDataJSON; ?>;
     </script> <!--chart database-->
     <script src="../JS/script.js"></script>
+    <script src="../JS/dashboard.js"></script>
     <link rel="icon" href="../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!--chart-->
     <link rel="stylesheet" href="../CSS/newstyle.css" />
@@ -37,7 +38,7 @@ include 'sales.php'
                         <i class="fa-solid fa-bars-progress"></i>
                         <p>Transaction</p>
                     </a>
-                    <a href="#">
+                    <a href="accounts.php">
                         <i class="fa-solid fa-user"></i>
                         <p>Accounts</p>
                     </a>

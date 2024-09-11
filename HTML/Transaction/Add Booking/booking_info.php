@@ -1,3 +1,7 @@
+<?php
+include 'booking_info_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +11,7 @@
     <title>Transaction | Baler Nina</title>
     <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
     <script src="../../../JS/script.js"></script>
+    <script src="../../../JS/booking_info.js"></script>
     <link rel="icon" href="../../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
     <link rel="stylesheet" href="../../../CSS/newstyle.css" />
 </head>
@@ -100,53 +105,68 @@
                         <p class="heading-5">Form</p>
                     </div>
                 </div>
-                <form class="info-container" action="">
+                <form class="info-container" action="confirm_booking.php" id="bookingInfoForm" method="GET">
+                    <?php
+                    if (isset($_GET['room-selection'])) {
+                        foreach ($_GET['room-selection'] as $room) { ?>
+                            <input type="hidden" name="room-selection[]" value="<?php echo $room; ?>">
+                    <?php
+                        }
+                    }
+                    ?>
+                    <input type="hidden" name="price" value="<?php echo htmlspecialchars($_GET['price'] ?? '', ENT_QUOTES); ?>">
+                    <input type="hidden" name="startDate" id="startDate" value="<?php echo htmlspecialchars($_GET['startDate'] ?? '', ENT_QUOTES); ?>">
+                    <input type="hidden" name="endDate" id="endDate" value="<?php echo htmlspecialchars($_GET['endDate'] ?? '', ENT_QUOTES); ?>">
+
                     <p class="heading-6">Client information</p>
                     <div class="client-info">
                         <div class="details-input">
                             <label for="clientFirstName">First Name:</label>
-                            <input type="text" id="clientFirstName">
+                            <input type="text" name="first_name" id="clientFirstName">
                         </div>
                         <div class="details-input">
                             <label for="clientLastName">Last Name:</label>
-                            <input type="text" id="clientLastName">
+                            <input type="text" name="last_name" id="clientLastName">
                         </div>
                         <div class="details-input">
                             <label for="clientEmail">Email:</label>
-                            <input type="email" id="clientEmail">
+                            <input type="email" name="email" id="clientEmail">
                         </div>
                         <div class="details-input">
                             <label for="clientContact">Contact #:</label>
-                            <input type="text" id="clientContact">
+                            <input type="text" name="contact" id="clientContact">
                         </div>
                         <div class="details-input">
                             <label for="clientAddress">Address:</label>
-                            <input type="text" id="clientAddress">
+                            <input type="text" name="address" id="clientAddress">
                         </div>
                     </div>
                     <p class="heading-6">Booking information</p>
-                    <!-- <div class="booked-info">
-                        <div class="details-input">
-                            <p>Room Name:</p>
-                            <p>Room for 1-2 pax</p>
+                    <?php foreach ($rooms as $room) { ?>
+                        <div class="booked-info">
+                            <div class="details-input">
+                                <p>Room Name:</p>
+                                <p><?php echo $room['name']; ?></p>
+                            </div>
+                            <div class="details-input">
+                                <p>Room Type:</p>
+                                <p><?php echo $roomTypes[$room['type']]; ?></p>
+                            </div>
+                            <div class="details-input">
+                                <p>Room Pax:</p>
+                                <p><?php echo $room['pax']; ?> pax</p>
+                            </div>
+                            <div class="details-input">
+                                <p>Check-in date:</p>
+                                <p><?php echo $checkInDate; ?></p>
+                            </div>
+                            <div class="details-input">
+                                <p>Check-out date:</p>
+                                <p><?php echo $checkOutDate; ?></p>
+                            </div>
                         </div>
-                        <div class="details-input">
-                            <p>Room Type:</p>
-                            <p>Small</p>
-                        </div>
-                        <div class="details-input">
-                            <p>Room Pax:</p>
-                            <p>2 pax</p>
-                        </div>
-                        <div class="details-input">
-                            <p>Check-in date:</p>
-                            <p>11-02-2024</p>
-                        </div>
-                        <div class="details-input">
-                            <p>Check-out date:</p>
-                            <p>11-05-2024</p>
-                        </div>
-                    </div> -->
+                    <?php } ?>
+
                     <div class="booking-info">
                         <div class="details-input">
                             <label for="addPax">Additional pax</label>
@@ -205,13 +225,16 @@
                             </div>
                         </div>
                     </div>
+                    <a href="#" class="next-button date-next">next</a>
+                    <input type="hidden" id="hidden-total-amount" name="totalAmount" value="0">
+                    <button type="submit" class="view-details">
+                        <p>Overall Total:</p>
+                        <p class="total-amount" id="booking-total-amount">₱0.00</p>
+                    </button>
                 </form>
                 <div class="transaction-button">
-                    <a href="2_RoomSelection.html" class="back-button">back</a>
-                    <button type="button" class="view-details">
-                        <p class="total-amount">₱ 0,000.00</p>
-                        <p>Overall Total:</p>
-                    </button>
+                    <?php $parsedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>
+                    <a href="date_selection.php?<?php echo $parsedUrl; ?>" class="back-button">back</a>
                     <div class="details-amount">
                         <button type="button" class="button-close">
                             <i class="fa-solid fa-xmark"></i>
@@ -224,35 +247,37 @@
                                     <tr class="summary-title">
                                         <td colspan="3">ROOM DETAILS</td>
                                     </tr>
-                                    <tr>
-                                        <td>Room Name</td>
-                                        <td>:</td>
-                                        <td>Room for 1-2 pax</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Room Type</td>
-                                        <td>:</td>
-                                        <td>Small</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Room Pax</td>
-                                        <td>:</td>
-                                        <td>2 pax</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>:</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
+                                    <?php foreach ($rooms as $room) { ?>
+                                        <tr>
+                                            <td>Room Name</td>
+                                            <td>:</td>
+                                            <td><?php echo $room['name']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Room Type</td>
+                                            <td>:</td>
+                                            <td><?php echo $roomTypes[$room['type']]; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Room Pax</td>
+                                            <td>:</td>
+                                            <td><?php echo $room['pax']; ?> pax</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price</td>
+                                            <td>:</td>
+                                            <td>₱ <?php echo $room['price']; ?></td>
+                                        </tr>
+                                    <?php  } ?>
                                     <tr>
                                         <td>Check-in date</td>
                                         <td>:</td>
-                                        <td>11-02-2024</td>
+                                        <td><?php echo $_GET['startDate']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Check-out date</td>
                                         <td>:</td>
-                                        <td>11-05-2024</td>
+                                        <td><?php echo $_GET['endDate']; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Total no. of stay</td>
@@ -344,7 +369,6 @@
                             </div>
                         </div>
                     </div>
-                    <a href="4_ConfirmBooking.html" class="next-button">next</a>
                 </div>
                 <div class="message-alert">
                     <div class="alert-container">

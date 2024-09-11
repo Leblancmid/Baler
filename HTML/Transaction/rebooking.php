@@ -108,7 +108,7 @@
                     </label>
                     <input id="search" type="text" placeholder="search...">
                 </div>
-                <button type="button" class="add-new" onclick="window.location.href='Add Booking/1_DateSelection.html'">
+                <button type="button" class="add-new" onclick="window.location.href='Add Booking/date_selection.php'">
                     <i class="fa-solid fa-plus"></i>
                     <!-- <span></span> -->
                     <p>add</p>

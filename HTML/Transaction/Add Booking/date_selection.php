@@ -7,6 +7,7 @@
     <title>Transaction | Baler Nina</title>
     <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
     <script src="../../../JS/script.js"></script>
+    <script src="../../../JS/date_selection.js"></script>
     <link rel="icon" href="../../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
     <link rel="stylesheet" href="../../../CSS/newstyle.css" />
 </head>
@@ -100,7 +101,7 @@
                         <p class="heading-5">Check-In and Check-Out Dates Selection</p>
                     </div>
                 </div>
-                <form class="date-container">
+                <div class="date-container">
                     <div class="calendar" id="currentMonthCalendar">
                         <div class="calendar-header">
                             <div class="calendar-btn prev">
@@ -152,15 +153,30 @@
                         <div class="days">
                         </div>
                     </div>
-                </form>
-                <form action="room_selection.php" method="POST" id="bookingForm">
-                    <input type="hidden" name="price" value="<?php echo $_GET['price'] ?? ''; ?>">
-                    <input type="hidden" name="startDate" id="startDate" value=" ">
-                    <input type="hidden" name="endDate" id="endDate" value=" ">
+                </div>
+                <form action="booking_info.php" method="GET" id="bookingForm">
+
+                    <?php
+                    if (isset($_GET['room-selection'])) {
+                        foreach ($_GET['room-selection'] as $room) { ?>
+                            <input type="hidden" name="room-selection[]" value="<?php echo $room; ?>">
+                    <?php
+                        }
+                    }
+
+                    $parsedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+                    ?>
+                    <input type="hidden" name="price" value="<?php echo $_POST['price'] ?? ''; ?>">
+                    <input type="hidden" name="startDate" id="startDate" value="<?php echo $_GET['startDate'] ?? ''; ?>">
+                    <input type="hidden" name="endDate" id="endDate" value="<?php echo $_GET['endDate'] ?? ''; ?>">
 
                     <div class="transaction-button">
-                        <a href="../booking.php" class="back-button">back</a>
-                        <a href="#" class="next-button date-next" onclick="submitForm(event)">next</a>
+                        <a href="room_selection.php?<?php echo $parsedUrl; ?>" class="back-button">back</a>
+                        <button type="button" class="view-details">
+                            <p>Overall Total:</p>
+                            <p class="total-amount" id="total-amount">₱0.00</p>
+                        </button>
+                        <a href="#" class="next-button date-next">next</a>
                     </div>
                 </form>
                 <div class="message-alert">

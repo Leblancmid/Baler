@@ -122,23 +122,23 @@ include 'booking_info_form.php';
                     <div class="client-info">
                         <div class="details-input">
                             <label for="clientFirstName">First Name:</label>
-                            <input type="text" name="first_name" id="clientFirstName">
+                            <input type="text" name="first_name" id="clientFirstName" value="">
                         </div>
                         <div class="details-input">
                             <label for="clientLastName">Last Name:</label>
-                            <input type="text" name="last_name" id="clientLastName">
+                            <input type="text" name="last_name" id="clientLastName" value="">
                         </div>
                         <div class="details-input">
                             <label for="clientEmail">Email:</label>
-                            <input type="email" name="email" id="clientEmail">
+                            <input type="email" name="email" id="clientEmail" value="">
                         </div>
                         <div class="details-input">
                             <label for="clientContact">Contact #:</label>
-                            <input type="text" name="contact" id="clientContact">
+                            <input type="text" name="contact" id="clientContact" value="">
                         </div>
                         <div class="details-input">
                             <label for="clientAddress">Address:</label>
-                            <input type="text" name="address" id="clientAddress">
+                            <input type="text" name="address" id="clientAddress" value="">
                         </div>
                     </div>
                     <p class="heading-6">Booking information</p>
@@ -225,151 +225,153 @@ include 'booking_info_form.php';
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="next-button date-next">next</a>
+
                     <input type="hidden" id="hidden-total-amount" name="totalAmount" value="0">
                     <button type="submit" class="view-details">
                         <p>Overall Total:</p>
                         <p class="total-amount" id="booking-total-amount">₱0.00</p>
                     </button>
-                </form>
-                <div class="transaction-button">
-                    <?php $parsedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>
-                    <a href="date_selection.php?<?php echo $parsedUrl; ?>" class="back-button">back</a>
-                    <div class="details-amount">
-                        <button type="button" class="button-close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        <p class="summary-heading">Summary</p>
-                        <div class="summary-main-container">
-                            <div class="summary-container">
-                                <!-- <p class="summary-subheading">ROOM 1</p>                             -->
-                                <table class="detail-summary">
-                                    <tr class="summary-title">
-                                        <td colspan="3">ROOM DETAILS</td>
-                                    </tr>
-                                    <?php foreach ($rooms as $room) { ?>
+                    <div class="transaction-button">
+                        <?php $parsedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY); ?>
+                        <a href="date_selection.php?<?php echo $parsedUrl; ?>" class="back-button">back</a>
+                        <a href="#" class="next-button date-next">next</a>
+
+                        <div class="details-amount">
+                            <button type="button" class="button-close">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                            <p class="summary-heading">Summary</p>
+                            <div class="summary-main-container">
+                                <div class="summary-container">
+                                    <!-- <p class="summary-subheading">ROOM 1</p>                             -->
+                                    <table class="detail-summary">
+                                        <tr class="summary-title">
+                                            <td colspan="3">ROOM DETAILS</td>
+                                        </tr>
+                                        <?php foreach ($rooms as $room) { ?>
+                                            <tr>
+                                                <td>Room Name</td>
+                                                <td>:</td>
+                                                <td><?php echo $room['name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Room Type</td>
+                                                <td>:</td>
+                                                <td><?php echo $roomTypes[$room['type']]; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Room Pax</td>
+                                                <td>:</td>
+                                                <td><?php echo $room['pax']; ?> pax</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Price</td>
+                                                <td>:</td>
+                                                <td>₱ <?php echo $room['price']; ?></td>
+                                            </tr>
+                                        <?php  } ?>
                                         <tr>
-                                            <td>Room Name</td>
+                                            <td>Check-in date</td>
                                             <td>:</td>
-                                            <td><?php echo $room['name']; ?></td>
+                                            <td><?php echo $_GET['startDate']; ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Room Type</td>
+                                            <td>Check-out date</td>
                                             <td>:</td>
-                                            <td><?php echo $roomTypes[$room['type']]; ?></td>
+                                            <td><?php echo $_GET['endDate']; ?></td>
                                         </tr>
                                         <tr>
-                                            <td>Room Pax</td>
+                                            <td>Total no. of stay</td>
                                             <td>:</td>
-                                            <td><?php echo $room['pax']; ?> pax</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr class="price-text">
+                                            <td>AMOUNT</td>
+                                            <td>=</td>
+                                            <td>₱ 0.00</td>
+                                        </tr>
+                                    </table>
+                                    <table class="detail-summary">
+                                        <tr class="summary-title">
+                                            <td colspan="3">OTHER</td>
+                                        </tr>
+                                        <!-- if no amenities avail. This is the display -->
+                                        <tr>
+                                            <td>Availed Amenities</td>
+                                            <td>:</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <!-- else this will be displayed -->
+                                        <tr>
+                                            <td>Gasul</td>
+                                            <td>:</td>
+                                            <td>₱ 0.00</td>
                                         </tr>
                                         <tr>
-                                            <td>Price</td>
+                                            <td>Karaoke</td>
                                             <td>:</td>
-                                            <td>₱ <?php echo $room['price']; ?></td>
+                                            <td>₱ 0.00</td>
                                         </tr>
-                                    <?php  } ?>
-                                    <tr>
-                                        <td>Check-in date</td>
-                                        <td>:</td>
-                                        <td><?php echo $_GET['startDate']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Check-out date</td>
-                                        <td>:</td>
-                                        <td><?php echo $_GET['endDate']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total no. of stay</td>
-                                        <td>:</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="price-text">
-                                        <td>AMOUNT</td>
-                                        <td>=</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
-                                </table>
-                                <table class="detail-summary">
-                                    <tr class="summary-title">
-                                        <td colspan="3">OTHER</td>
-                                    </tr>
-                                    <!-- if no amenities avail. This is the display -->
-                                    <tr>
-                                        <td>Availed Amenities</td>
-                                        <td>:</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <!-- else this will be displayed -->
-                                    <tr>
-                                        <td>Gasul</td>
-                                        <td>:</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Karaoke</td>
-                                        <td>:</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Additional Pax x0</td>
-                                        <td>:</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <!-- if theres additional pax -->
-                                    <tr>
-                                        <td>Additional Pax x2</td>
-                                        <td>:</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
-                                    <tr class="price-text">
-                                        <td>AMOUNT</td>
-                                        <td>=</td>
-                                        <td>₱ 0.00</td>
-                                    </tr>
-                                </table>
-                                <table class="detail-summary">
-                                    <tr class="summary-title">
-                                        <td colspan="3">COMPUTATION</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ROOM</td>
-                                        <td>:</td>
-                                        <td>+ ₱ 0.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>OTHER</td>
-                                        <td>:</td>
-                                        <td>+ ₱ 0.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>DISCOUNTS</td>
-                                    </tr>
-                                    <tr class="discount-text">
-                                        <td>PWD/Senior Discount</td>
-                                        <td>:</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr class="discount-text">
-                                        <td>Promo Discount</td>
-                                        <td>:</td>
-                                        <td>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>:</td>
-                                        <td>- (amount)</td>
-                                    </tr>
-                                    <tr class="overall-amount">
-                                        <td>TOTAL</td>
-                                        <td>=</td>
-                                        <td>₱ 0,000.00</td>
-                                    </tr>
-                                </table>
+                                        <tr>
+                                            <td>Additional Pax x0</td>
+                                            <td>:</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <!-- if theres additional pax -->
+                                        <tr>
+                                            <td>Additional Pax x2</td>
+                                            <td>:</td>
+                                            <td>₱ 0.00</td>
+                                        </tr>
+                                        <tr class="price-text">
+                                            <td>AMOUNT</td>
+                                            <td>=</td>
+                                            <td>₱ 0.00</td>
+                                        </tr>
+                                    </table>
+                                    <table class="detail-summary">
+                                        <tr class="summary-title">
+                                            <td colspan="3">COMPUTATION</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ROOM</td>
+                                            <td>:</td>
+                                            <td>+ ₱ 0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OTHER</td>
+                                            <td>:</td>
+                                            <td>+ ₱ 0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DISCOUNTS</td>
+                                        </tr>
+                                        <tr class="discount-text">
+                                            <td>PWD/Senior Discount</td>
+                                            <td>:</td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr class="discount-text">
+                                            <td>Promo Discount</td>
+                                            <td>:</td>
+                                            <td>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>:</td>
+                                            <td>- (amount)</td>
+                                        </tr>
+                                        <tr class="overall-amount">
+                                            <td>TOTAL</td>
+                                            <td>=</td>
+                                            <td>₱ 0,000.00</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="message-alert">
                     <div class="alert-container">
                         <p class="alert-heading">

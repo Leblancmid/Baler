@@ -1,25 +1,71 @@
-
 // booking form
 document.addEventListener("DOMContentLoaded", function () {
     // Get the radio input and checkbox container
     const checkboxContainer = document.querySelector('.checkbox-container');
-    const totalPrice = localStorage.getItem('newTotalPrice');
+    const totalPriceElement = document.getElementById('booking-total-amount');
+    let totalPrice = parseFloat(localStorage.getItem('newTotalPrice')) || 0; // Get stored total or initialize to 0
 
-    if (totalPrice) {
-        // Convert the stored price to a number
-        const total = parseFloat(totalPrice);
+    // Display the initial total price
+    totalPriceElement.textContent = `₱${totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-        // Display the total price
-        document.getElementById('booking-total-amount').textContent = `₱${total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    } else {
-        console.log('No total price found in local storage.');
-    }
-
+    // Show/hide checkbox container based on amenities option
     document.querySelectorAll('.amenities-option input').forEach((input) => {
         input.addEventListener('change', () => {
             checkboxContainer.style.display = input.id === 'yesAmenities' ? 'flex' : 'none';
+
+            // Reset amenities when 'No' is selected
+            if (input.id === 'noneAmenities') {
+                checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateTotal(); // Reset total when no amenities are selected
+            }
         });
     });
+
+    // Add event listener for each checkbox to update the total price
+    document.querySelectorAll('.checkbox-container input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', updateTotal);
+    });
+
+    updateTotal();
+
+    // Function to update the total price
+    document.getElementById('addPax').addEventListener('input', updateTotal);
+
+    function updateTotal() {
+        console.log('updateTotal triggered'); // Check if the function is triggered
+
+        let amenitiesTotal = 0;
+
+        // Check which amenities are selected and update total accordingly
+        if (document.getElementById('gasul').checked) {
+            amenitiesTotal += 300;
+        }
+        if (document.getElementById('karaoke').checked) {
+            amenitiesTotal += 500;
+        }
+
+        console.log('amenitiesTotal:', amenitiesTotal); // Check if the amenities are added correctly
+
+        // Get the number of additional pax
+        const addPax = parseInt(document.getElementById('addPax').value) || 0;
+        let paxTotal = addPax * 350;  // 350 per additional pax
+        console.log('paxTotal:', paxTotal); // Check if the pax total is calculated correctly
+
+        // Calculate the new total
+        const newTotal = totalPrice + amenitiesTotal + paxTotal;
+        console.log('newTotal:', newTotal); // Check if the total is calculated correctly
+
+
+        // Update the displayed total
+        const totalPriceElement = document.getElementById('booking-total-amount'); // Your total display element
+        totalPriceElement.textContent = `₱${newTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+        let totalElement = document.getElementById('hidden-total-amount');
+        totalElement.value = newTotal;
+    }
+
 
     const addButton = document.getElementById("add-id");
     const inputsContainer = document.getElementById("input-container");
@@ -93,8 +139,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     const nextButton = document.querySelector(".next-button");
 
+    let firstName = document.getElementById('clientFirstName');
+    let lastName = document.getElementById('clientLastName');
+    let email = document.getElementById('clientEmail');
+    let contact = document.getElementById('clientContact');
+    let address = document.getElementById('clientAddress');
+    const errorContainer = document.querySelector(".message-alert");
+    const errorMessage = document.querySelector(".alert-message");
+
     nextButton.addEventListener("click", () => {
+        if (!(firstName.value) || !(lastName.value) || !(email.value) || !(contact.value) || !(address.value)) {
+            errorContainer.style.display = "flex";
+            errorMessage.textContent = "Please complete all required fields.";
+            return;
+        }
         document.getElementById('bookingInfoForm').submit(); // Submit the form
     });
 
+    nextButton.style.backgroundColor = 'var(--blue-1)';
+    nextButton.style.cursor = 'pointer';
+    nextButton.addEventListener('mouseover', () => {
+        nextButton.style.backgroundColor = 'var(--blue-4)';
+    });
+    nextButton.addEventListener('mouseout', () => {
+        nextButton.style.backgroundColor = 'var(--blue-1)';
+    });
 });

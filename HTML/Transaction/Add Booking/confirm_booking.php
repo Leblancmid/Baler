@@ -1,5 +1,35 @@
 <?php
 include 'booking_info_form.php';
+
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Retrieve form data using $_POST
+    $firstName = $_GET['first_name'];
+    $lastName = $_GET['last_name'];
+    $email = $_GET['email'];
+    $contact = $_GET['contact'];
+    $address = $_GET['address'];
+    $totalAmount = $_GET['totalAmount'];
+
+    // Validate and sanitize input if needed
+    $firstName = htmlspecialchars($firstName);
+    $lastName = htmlspecialchars($lastName);
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $contact = htmlspecialchars($contact);
+    $address = htmlspecialchars($address);
+
+    // Use these values, for example, insert them into the database or display a confirmation
+    //echo "First Name: " . $firstName . "<br>";
+    //echo "Last Name: " . $lastName . "<br>";
+    //echo "Email: " . $email . "<br>";
+    //echo "Contact: " . $contact . "<br>";
+    //echo "Address: " . $address . "<br>";
+    echo "Total Amount: " . $totalAmount . "<br>";
+
+    // Proceed with your booking confirmation logic here
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -162,8 +192,9 @@ include 'booking_info_form.php';
                         <tr>
                             <td>Availed Amenities</td>
                             <td>:</td>
-                            <td>none</td>
+                            <td id="availed-amenities">none</td> <!-- Add the ID here -->
                         </tr>
+
                         <!-- else this will be displayed -->
                         <tr>
                             <td>Gasul</td>
@@ -225,10 +256,10 @@ include 'booking_info_form.php';
                             <td>:</td>
                             <td>- (amount)</td>
                         </tr>
-                        <tr class="overall-amount">
+                        <tr id="booking-total-amount" class="overall-amount">
                             <td>TOTAL</td>
                             <td>=</td>
-                            <td>₱ 0,000.00</td>
+                            <td><?php echo '₱' . number_format($totalAmount, 2, '.', ','); ?></td> <!-- This will be updated by JavaScript -->
                         </tr>
                     </table>
                     <div class="transaction-button">

@@ -24,3 +24,11 @@ if (isset($_GET['room-selection']) && is_array($_GET['room-selection'])) {
 
 $checkInDate = $_GET['startDate'];
 $checkOutDate = $_GET['endDate'];
+
+$query = "SELECT * FROM amenities";
+$result = $conn->query($query);
+if ($result) {
+    $amenities = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    die("Error fetching rooms: " . $conn->error);
+}

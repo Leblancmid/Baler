@@ -169,10 +169,16 @@ include 'booking_info_form.php';
 
                     <div class="booking-info">
                         <div class="details-input">
+                            <!-- if no big rooms selected -->
                             <label for="addPax">Additional pax</label>
                             <div class="add-pax">
-                                <input type="number" id="addPax" min="0" max="2" value="0">
-                                <p>P350 per head (max of 2 only)</p>
+                                <p>No big rooms selected for additional pax</p>
+                            </div>
+                            <!-- if theres big rooms selected -->
+                            <label for="addPax">Additional pax for [ROOM NAME]</label>
+                            <div class="add-pax">
+                                <input type="number" id="addPax" name="additionalPax" min="0" max="2" value="0">
+                                <p>P350 per head (max of 2 only per ROOM)</p>
                             </div>
                         </div>
                         <div class="details-input">
@@ -185,22 +191,16 @@ include 'booking_info_form.php';
                                     <label for="yesAmenities">Yes</label>
                                 </div>
                                 <div class="checkbox-container">
-                                    <div class="flex">
-                                        <input type="checkbox" name="option" id="gasul" value="gasul">
-                                        <label for="gasul">
-                                            <span class="checked-amenities">✔</span>
-                                            Gasul
-                                        </label>
-                                        <span>₱ 300</span>
-                                    </div>
-                                    <div class="flex">
-                                        <input type="checkbox" name="option" id="karaoke" value="karaoke">
-                                        <label for="karaoke">
-                                            <span class="checked-amenities">✔</span>
-                                            Karaoke
-                                        </label>
-                                        <span>₱ 500</span>
-                                    </div>
+                                    <?php foreach ($amenities as $amenity) { ?>
+                                        <div class="flex">
+                                            <input type="checkbox" name="options[]" id="<?php echo $amenity['name']; ?>" value="<?php echo $amenity['id']; ?>">
+                                            <label for="<?php echo $amenity['name']; ?>">
+                                                <span class="checked-amenities">✔</span>
+                                                <?php echo $amenity['name']; ?>
+                                            </label>
+                                            <span>₱<?php echo $amenity['price']; ?></span>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

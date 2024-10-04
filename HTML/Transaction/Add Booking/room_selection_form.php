@@ -4,7 +4,7 @@ include '../../connection.php';
 $roomTypes = [
     1 => 'Small Room',
     2 => 'Big Room',
-    3 => 'Sweet Room'
+    3 => 'Suite Room'
 ];
 
 $roomClass = [

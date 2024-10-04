@@ -200,12 +200,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  closeButtons.forEach(button => {
-    button.addEventListener("click", function () {
-      const roomContent = button.closest(".room-content");
-      roomContent.style.display = "none";
-    });
-  });
+//  closeButtons.forEach(button => {
+//    button.addEventListener("click", function () {
+//      const roomContent = button.closest(".room-content");
+//      roomContent.style.display = "none";
+//    });
+//  });
 
   imageCloseButtons.forEach(button => {
     button.addEventListener("click", function () {

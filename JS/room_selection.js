@@ -6,10 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let errorContainer = document.querySelectorAll('.message-alert');
     const errorMessage = document.querySelector('.alert-message');
     let total = 0;
+    let selectedRooms = [];
+
     checks.forEach((check) => {
         check.addEventListener('change', (event) => {
             // Get the parent element with class "room"
             const room = event.target.parentNode;
+            const roomId = room.querySelectorAll('.room-selection')[0].value
+            const roomSummaries = document.querySelectorAll(`.room-summary-` + roomId);
+
             let price = parseInt(room.querySelector('.form-price').textContent);
             if (event.target.checked) {
                 // Add the background color to the selected room element
@@ -38,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 total = total + price;
                 localStorage.setItem('totalPrice', total);
+                selectedRooms.push(roomId);
             } else {
                 // Reset styles of deselected room
                 room.style.backgroundColor = 'var(--white)';
@@ -63,9 +69,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.style.setProperty('--after-background-color', 'var(--blue-1)');
                 });
                 total = total - price;
+
+                selectedRooms = selectedRooms.filter(room => room !== roomId);
             }
+
+            roomSummaries.forEach(roomSummary => {
+                if (selectedRooms.includes(roomId)) {
+                    roomSummary.classList.remove('display-none');
+                } else {
+                    roomSummary.classList.add('display-none');
+                }
+            });
+
             document.getElementById('total-amount').textContent = total.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });; // Submit the form
             document.getElementById('total-price').value = total
+
+            document.getElementById('total-amount-summary').textContent = total.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
             // Check if any checkbox is selected
             if (Array.prototype.some.call(checks, (check) => check.checked)) {
                 nextButton.disabled = false;
@@ -78,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextButton.disabled = true;
                 nextButton.style.backgroundColor = 'gray';
             }
+
         });
     });
 
@@ -120,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Get the filter value (all, small, big, sweet)
             const filter = this.getAttribute('data-filter');
-            console.log(`room-${filter}`)
             // Show or hide rooms based on the filter
             document.querySelectorAll('.room').forEach(room => {
                 if (filter === 'all') {

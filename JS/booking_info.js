@@ -35,55 +35,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateTotal() {
         console.log('updateTotal triggered'); // Check if the function is triggered
-
+    
         let amenitiesTotal = 0;
-
+        let gasul = 300;
+        let karaoke = 500;
+    
         // Check which amenities are selected and update total accordingly
         if (document.getElementById('gasul').checked) {
-            amenitiesTotal += 300;
+            amenitiesTotal += gasul;
         }
         if (document.getElementById('karaoke').checked) {
-            amenitiesTotal += 500;
+            amenitiesTotal += karaoke;
         }
-
+    
         console.log('amenitiesTotal:', amenitiesTotal); // Check if the amenities are added correctly
-
+    
         // Get the number of additional pax
         const addPax = parseInt(document.getElementById('addPax').value) || 0;
         let paxTotal = addPax * 350;  // 350 per additional pax
         console.log('paxTotal:', paxTotal); // Check if the pax total is calculated correctly
-
+    
         // Calculate the new total
-        const newTotal = totalPrice + amenitiesTotal + paxTotal;
-        console.log('newTotal:', newTotal); // Check if the total is calculated correctly
-
-
+        let newTotal = totalPrice + amenitiesTotal + paxTotal;
+    
+        // Apply discount if there's any Senior or PWD ID input present
+        const discountInputs = document.querySelectorAll('.id-container select'); // Get all ID select elements
+        if (discountInputs.length > 0) {
+            newTotal = newTotal * 0.80; // Apply 20% discount
+            console.log('Discount applied');
+        }
+    
+        console.log('newTotal after discount (if any):', newTotal); // Check if the total is calculated correctly
+    
         // Update the displayed total
         const totalPriceElement = document.getElementById('booking-total-amount'); // Your total display element
         totalPriceElement.textContent = `₱${newTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-
+    
         let totalElement = document.getElementById('hidden-total-amount');
         totalElement.value = newTotal;
     }
-
-
+    
     const addButton = document.getElementById("add-id");
     const inputsContainer = document.getElementById("input-container");
     const totalInputs = document.getElementById("total-counts");
-
+    
     let inputCount = 0;
-
+    
     addButton.addEventListener("click", function () {
         inputCount++;
         const inputContainer = document.createElement("div");
         inputContainer.classList.add("id-container");
-
+    
         const idInput = document.createElement("input");
         idInput.setAttribute("type", "text");
         idInput.classList.add("id-input");
         idInput.setAttribute("placeholder", "ID Number");
         inputContainer.appendChild(idInput);
-
+    
         const selectInput = document.createElement("select");
         const options = [
             { value: "idPWD", text: "PWD" },
@@ -96,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectInput.appendChild(optionElement);
         });
         inputContainer.appendChild(selectInput);
-
+    
         const removeButton = document.createElement("button");
         removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
         removeButton.classList.add("id-remove");
@@ -104,13 +112,19 @@ document.addEventListener("DOMContentLoaded", function () {
             inputContainer.remove();
             inputCount--;
             totalInputs.textContent = inputCount;
+    
+            // Update total when an ID is removed
+            updateTotal();
         });
         inputContainer.appendChild(removeButton);
-
+    
         inputsContainer.appendChild(inputContainer);
         totalInputs.textContent = inputCount;
+    
+        // Update total when a new ID is added
+        updateTotal();
     });
-
+    
     const messageAlert = document.querySelector('.message-alert');
     const messageNote = document.querySelector('.alert-message');
     const okButton = document.querySelector('.ok-button');

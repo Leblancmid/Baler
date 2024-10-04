@@ -1,35 +1,6 @@
 <?php
 include 'booking_info_form.php';
-
-
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Retrieve form data using $_POST
-    $firstName = $_GET['first_name'];
-    $lastName = $_GET['last_name'];
-    $email = $_GET['email'];
-    $contact = $_GET['contact'];
-    $address = $_GET['address'];
-    $totalAmount = $_GET['totalAmount'];
-
-    // Validate and sanitize input if needed
-    $firstName = htmlspecialchars($firstName);
-    $lastName = htmlspecialchars($lastName);
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    $contact = htmlspecialchars($contact);
-    $address = htmlspecialchars($address);
-
-    // Use these values, for example, insert them into the database or display a confirmation
-    //echo "First Name: " . $firstName . "<br>";
-    //echo "Last Name: " . $lastName . "<br>";
-    //echo "Email: " . $email . "<br>";
-    //echo "Contact: " . $contact . "<br>";
-    //echo "Address: " . $address . "<br>";
-    echo "Total Amount: " . $totalAmount . "<br>";
-
-    // Proceed with your booking confirmation logic here
-}
-
-
+include 'confirm_booking_form.php';
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                             <td colspan="3">ROOM DETAILS</td>
                         </tr>
                         <!-- Loop through rooms to populate details -->
-                        <?php foreach ($rooms as $room) { ?>
+                        <?php foreach ($rooms as $index => $room) { ?>
                             <tr>
                                 <td>Room Name</td>
                                 <td>:</td>
@@ -163,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                             <tr>
                                 <td>Price</td>
                                 <td>:</td>
-                                <td>₱ <?php echo $room['price']; ?></td>
+                                <td>₱ <span id="totalPrice<?php echo $index; ?>"><?php echo $room['price']; ?></span></td>
                             </tr>
                             <tr>
                                 <td>Check-in date</td>
@@ -188,41 +159,39 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         <tr class="summary-title">
                             <td colspan="3">OTHER</td>
                         </tr>
-                        <!-- if no amenities avail. This is the display -->
+                        <!-- Availed Amenities -->
                         <tr>
                             <td>Availed Amenities</td>
                             <td>:</td>
-                            <td id="availed-amenities">none</td> <!-- Add the ID here -->
+                            <td id="availed-amenities"><?php echo count($options); ?></td>
                         </tr>
 
-                        <!-- else this will be displayed -->
+                        <!-- Individual Amenity Rows -->
+                        <?php foreach ($amenities as $amenity) { ?>
+                            <?php if (in_array($amenity['id'], $options)) { ?>
+                                <tr>
+                                    <td><?php echo ucfirst($amenity['name']); ?></td>
+                                    <td>:</td>
+                                    <td data-item="gasul">₱ <?php echo $amenity['price']; ?></td> <!-- Add data-item="gasul" here -->
+                                </tr>
+                        <?php }
+                        } ?>
+
+                        <!-- Additional Pax -->
                         <tr>
-                            <td>Gasul</td>
+                            <td>Additional Pax x<?php echo $additionalPax; ?></td>
                             <td>:</td>
-                            <td>₱ 0.00</td>
+                            <td>₱ <?php echo $paxTotal; ?></td>
                         </tr>
-                        <tr>
-                            <td>Karaoke</td>
-                            <td>:</td>
-                            <td>₱ 0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Additional Pax x0</td>
-                            <td>:</td>
-                            <td>none</td>
-                        </tr>
-                        <!-- if theres additional pax -->
-                        <tr>
-                            <td>Additional Pax x2</td>
-                            <td>:</td>
-                            <td>₱ 0.00</td>
-                        </tr>
+
+                        <!-- Total Amount -->
                         <tr class="price-text">
                             <td>AMOUNT</td>
                             <td>=</td>
-                            <td>₱ 0.00</td>
+                            <td>₱<?php echo $totalSum; ?></td>
                         </tr>
                     </table>
+
 
                     <table class="detail-summary">
                         <tr class="summary-title">
@@ -288,3 +257,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 </body>
 
 </html>
+
+<script>
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+
+    if (startDate && endDate) {
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+        var timeDifference = end - start;
+        var daysDifference = timeDifference / (1000 * 3600 * 24);
+        if (daysDifference < 1) {
+            daysDifference = 1;
+        }
+
+        <?php foreach ($rooms as $index => $room) { ?>
+            var roomPrice<?php echo $index; ?> = <?php echo $room['price']; ?>;
+            var totalPrice<?php echo $index; ?> = roomPrice<?php echo $index; ?> * daysDifference;
+            document.getElementById("totalPrice<?php echo $index; ?>").textContent = totalPrice<?php echo $index; ?>.toFixed(2);
+        <?php } ?>
+    }
+</script>

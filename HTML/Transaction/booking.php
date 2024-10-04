@@ -1,3 +1,7 @@
+<?php
+include 'booking_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +60,7 @@
         </div>
         <button type="button" class="navsize-button">
           <i class="fa-solid fa-arrow-left"></i>
-      </button>
+        </button>
       </div>
     </div>
     <div class="container">
@@ -134,21 +138,18 @@
             </thead>
 
             <tbody class="record-list">
+                <?php
+                foreach ($bookings as $booking) {
+                ?>
               <tr>
-                <td class="booking-no">
-                  <p>1234567890</p>
-                  <div class="customer-dropdown">
-                    <a href="#">Payment</a>
-                    <a href="#">Penalty</a>
-                  </div>
-                </td>
-                <td>103</td>
-                <td>11-09-2024</td>
-                <td>Michael Nabong</td>
-                <td>11-10-2024</td>
-                <td>11-15-2024</td>
-                <td>10500.00</td>
-                <td>2500.00</td>
+                <td><?php echo htmlspecialchars($booking['reference_no']); ?></td>
+                <td><?php echo $booking['id']; ?></td>
+                <td><?php echo formatDateTime($booking['created_at']); ?></td>
+                <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
+                <td><?php echo formatDate($booking['check_in']); ?></td>
+                <td><?php echo formatDate($booking['check_out']); ?></td>
+                <td><?php echo $booking['total']; ?></td>
+                <td><?php echo $booking['balance']; ?></td>
                 <td class="record-status">
                   <select class="booking-status" name="status">
                     <option value="booked">Booked</option>
@@ -169,48 +170,20 @@
                   </button>
                 </td>
               </tr>
-                <td class="booking-no">
-                  <p>1234567890</p>
-                  <div class="customer-dropdown">
-                    <a href="#">Payment</a>
-                    <a href="#">Penalty</a>
-                  </div>
-                </td>
-                <td>103</td>
-                <td>11-08-2024</td>
-                <td>Sean Consignado</td>
-                <td>11-10-2024</td>
-                <td>11-15-2024</td>
-                <td>10500.00</td>
-                <td>2500.00</td>
-                <td class="record-status">
-                  <select class="booking-status" name="status">
-                    <option value="booked">Booked</option>
-                    <option value="pending" selected>Pending</option>
-                    <option value="canceled">Canceled</option>
-                    <option value="checkIn">Checked-In</option>
-                    <option value="checkOut">Checked-Out</option>
-                  </select>
-                </td>
-                <td class="modify-button">
-                  <button class="edit-button">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <span class="modify-edit">edit</span>
-                  </button>
-                  <button class="delete-button">
-                    <i class="fa-solid fa-ban"></i>
-                    <span class="modify-delete">delete</span>
-                  </button>
-                </td>
-              </tr>
-              <!-- wag mo gagalawin to for extra space sa baba to para di matabunan yung dropdown ng booking ref no -->
-              <tr>
-                <td>
-                  <br>
-                  <br>
-                  <br>
-                </td>
-              </tr>
+            <?php
+                }
+                if (empty($bookings)) {
+                  echo "<tr><td colspan='3'>No records found</td></tr>";
+                }
+            ?>
+            <!-- wag mo gagalawin to for extra space sa baba to para di matabunan yung dropdown ng booking ref no -->
+            <tr>
+              <td>
+                <br>
+                <br>
+                <br>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>

@@ -107,9 +107,24 @@ include 'confirm_booking_form.php';
                     </div>
                 </div>
 
-                <form class="confirmation-container" action="booking_confirmed.php">
+                <form id="confirmBookingForm" class="confirmation-container" action="booking_confirmed.php" method="POST">
                     <input type="hidden" name="startDate" id="startDate" value="<?php echo $_GET['startDate'] ?? ''; ?>">
                     <input type="hidden" name="endDate" id="endDate" value="<?php echo $_GET['endDate'] ?? ''; ?>">
+                    <input type="hidden" name="firstName" value="<?php echo $firstName; ?>">
+                    <input type="hidden" name="lastName" value="<?php echo $lastName; ?>">
+                    <input type="hidden" name="email" value="<?php echo $email; ?>">
+                    <input type="hidden" name="contact" value="<?php echo $contact; ?>">
+                    <input type="hidden" name="address" value="<?php echo $address; ?>">
+                    <input type="hidden" name="totalAmount" value="<?php echo $totalAmount; ?>">
+                    <input type="hidden" name="paxTotal" value="<?php echo $paxTotal; ?>">
+                    <?php foreach ($options as $amenity) { ?>
+                        <input type="hidden" name="amenities[]" value="<?php echo $amenity; ?>">
+                    <?php } ?>
+                    <?php foreach ($selectedRooms as $selectedRoom) { ?>
+                        <input type="hidden" name="rooms[]" value="<?php echo $selectedRoom; ?>">
+                    <?php } ?>
+                    <input type="hidden" name="paxTotal" value="<?php echo $paxTotal; ?>">
+
                     <table class="detail-summary">
                         <tr class="summary-title">
                             <td colspan="3">ROOM DETAILS</td>

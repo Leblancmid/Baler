@@ -26,20 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.yes-button').forEach((button) => {
         button.addEventListener('click', () => {
             messageAlerts.forEach((alert) => {
-                window.location.href = 'booking_confirmed.php';
+                document.getElementById('confirmBookingForm').submit(); // Submit the form
             });
         });
     });
 
-    const checkmark = document.querySelector('.checkmark');
-
-    //Add event listener to trigger animation
-    checkmark.addEventListener('click', () => {
-        checkmark.classList.add('animate');
-        setTimeout(() => {
-            checkmark.classList.remove('animate');
-        }, 500);
-   });
-
-  
 });

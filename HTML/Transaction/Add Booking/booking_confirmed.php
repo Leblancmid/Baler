@@ -1,8 +1,6 @@
 <?php
-include '../../connection.php'; // Include your database connection file
-
+include 'booking_confirmed_form.php'; // Include your database connection file
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

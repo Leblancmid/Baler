@@ -5,14 +5,16 @@ $paxPrice = 350;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Retrieve form data using $_POST
-    $firstName = $_GET['first_name'];
-    $lastName = $_GET['last_name'];
-    $email = $_GET['email'];
-    $contact = $_GET['contact'];
-    $address = $_GET['address'];
-    $totalAmount = $_GET['totalAmount'];
+    $firstName = $_GET['first_name'] ?? '';
+    $lastName = $_GET['last_name']  ?? '';
+    $email = $_GET['email']  ?? '';
+    $contact = $_GET['contact']  ?? '';
+    $address = $_GET['address'] ?? '';
+    $totalAmount = $_GET['totalAmount'] ?? '';
     $options = $_GET['options'] ?? [];
-    $additionalPax = $_GET['additionalPax'] ?? [];
+    $additionalPax = $_GET['additionalPax'] ?? 0;
+    $selectedRooms = $_GET['room-selection'];
+
     // Validate and sanitize input if needed
     $firstName = htmlspecialchars($firstName);
     $lastName = htmlspecialchars($lastName);
@@ -60,5 +62,4 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $totalSum = $paxTotal + $amenitiesTotal;
 
     // Proceed with your booking confirmation logic here
-    
 }

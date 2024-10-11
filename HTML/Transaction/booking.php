@@ -138,52 +138,55 @@ include 'booking_form.php';
             </thead>
 
             <tbody class="record-list">
-                <?php
-                foreach ($bookings as $booking) {
-                ?>
+              <?php
+              foreach ($bookings as $booking) {
+              ?>
+                <tr>
+                  <td><?php echo htmlspecialchars($booking['reference_no']); ?></td>
+                  <td><?php echo $booking['id']; ?></td>
+                  <td><?php echo formatDateTime($booking['created_at']); ?></td>
+                  <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
+                  <td><?php echo formatDate($booking['check_in']); ?></td>
+                  <td><?php echo formatDate($booking['check_out']); ?></td>
+                  <td><?php echo $booking['total']; ?></td>
+                  <td><?php echo $booking['balance']; ?></td>
+                  <td class="record-status">
+                    <select class="booking-status" name="status">
+                      <option value="booked">Booked</option>
+                      <option value="pending">Pending</option>
+                      <option value="canceled">Canceled</option>
+                      <option value="checkIn">Checked-In</option>
+                      <option value="checkOut">Checked-Out</option>
+                    </select>
+                  </td>
+                  <td class="modify-button">
+                    <form action="edit_booking.php" method="POST">
+                      <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                      <button type="submit" class="edit-button">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span class="modify-edit">edit</span>
+                      </button>
+                      <button class="delete-button">
+                        <i class="fa-solid fa-ban"></i>
+                        <span class="modify-delete">delete</span>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <?php
+              }
+              if (empty($bookings)) {
+                echo "<tr><td colspan='3'>No records found</td></tr>";
+              }
+              ?>
+              <!-- wag mo gagalawin to for extra space sa baba to para di matabunan yung dropdown ng booking ref no -->
               <tr>
-                <td><?php echo htmlspecialchars($booking['reference_no']); ?></td>
-                <td><?php echo $booking['id']; ?></td>
-                <td><?php echo formatDateTime($booking['created_at']); ?></td>
-                <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
-                <td><?php echo formatDate($booking['check_in']); ?></td>
-                <td><?php echo formatDate($booking['check_out']); ?></td>
-                <td><?php echo $booking['total']; ?></td>
-                <td><?php echo $booking['balance']; ?></td>
-                <td class="record-status">
-                  <select class="booking-status" name="status">
-                    <option value="booked">Booked</option>
-                    <option value="pending">Pending</option>
-                    <option value="canceled">Canceled</option>
-                    <option value="checkIn">Checked-In</option>
-                    <option value="checkOut">Checked-Out</option>
-                  </select>
-                </td>
-                <td class="modify-button">
-                  <button class="edit-button">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <span class="modify-edit">edit</span>
-                  </button>
-                  <button class="delete-button">
-                    <i class="fa-solid fa-ban"></i>
-                    <span class="modify-delete">delete</span>
-                  </button>
+                <td>
+                  <br>
+                  <br>
+                  <br>
                 </td>
               </tr>
-            <?php
-                }
-                if (empty($bookings)) {
-                  echo "<tr><td colspan='3'>No records found</td></tr>";
-                }
-            ?>
-            <!-- wag mo gagalawin to for extra space sa baba to para di matabunan yung dropdown ng booking ref no -->
-            <tr>
-              <td>
-                <br>
-                <br>
-                <br>
-              </td>
-            </tr>
             </tbody>
           </table>
         </div>

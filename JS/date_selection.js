@@ -242,6 +242,10 @@ document.addEventListener("DOMContentLoaded", function () {
             currentDisplayedMonth += 2;
             renderCalendar(currentMonthContainer, 0);
             renderCalendar(nextMonthContainer, 1);
+
+            let prevBtn = document.querySelector('.prev');
+
+            prevMonthDisable(prevBtn)
         });
     });
 
@@ -252,14 +256,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderCalendar(currentMonthContainer, 0);
                 renderCalendar(nextMonthContainer, 1);
             }
+            prevMonthDisable(btn)
         });
+        prevMonthDisable(btn)
+
+    });
+
+    function prevMonthDisable(btn)
+    {
         if (currentDisplayedMonth === 0) {
             btn.disabled = true;
             btn.style.backgroundColor = 'var(--gray-1)';
         } else {
             btn.disabled = false;
+            btn.style.backgroundColor = 'var(--blue-1)';
         }
-    });
+    }
 
     renderCalendar(currentMonthContainer, 0);
     renderCalendar(nextMonthContainer, 1);

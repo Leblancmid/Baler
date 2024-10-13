@@ -134,9 +134,9 @@
                                 <i class="fa-solid fa-calendar-day"></i>
                             </div>
                             <div class="calendar-month"></div>
-                            <div class="calendar-btn">
+                            <div class="calendar-btn btn next">
                                 <!-- next month -->
-                                <div class="btn next">
+                                <div class="">
                                     <i class="fa-solid fa-angle-right"></i>
                                 </div>
                             </div>

@@ -149,7 +149,7 @@ include 'confirm_booking_form.php';
                             <tr>
                                 <td>Price</td>
                                 <td>:</td>
-                                <td>₱ <span id="totalPrice<?php echo $index; ?>"><?php echo $room['price']; ?></span></td>
+                                <td>₱<span id="totalPrice<?php echo $index; ?>"><?php echo $room['price']; ?></span></td>
                             </tr>
                             <tr>
                                 <td>Check-in date</td>
@@ -203,7 +203,8 @@ include 'confirm_booking_form.php';
                         <tr class="price-text">
                             <td>AMOUNT</td>
                             <td>=</td>
-                            <td>₱<?php echo $totalSum; ?></td>
+                            <td>₱<?php echo number_format($totalSum, 2); ?></td>
+
                         </tr>
                     </table>
 
@@ -215,12 +216,13 @@ include 'confirm_booking_form.php';
                         <tr>
                             <td>ROOM</td>
                             <td>:</td>
-                            <td>+ ₱ 0.00</td>
+                            <td id="roomTotal">₱ 0.00</td>
                         </tr>
                         <tr>
                             <td>OTHER</td>
                             <td>:</td>
-                            <td>+ ₱ 0.00</td>
+                            <td>₱<?php echo number_format($totalSum, 2); ?></td>
+
                         </tr>
                         <tr>
                             <td>DISCOUNTS</td>
@@ -276,7 +278,7 @@ include 'confirm_booking_form.php';
 <script>
     var startDate = document.getElementById("startDate").value;
     var endDate = document.getElementById("endDate").value;
-
+    let roomTotal = 0;
     if (startDate && endDate) {
         var start = new Date(startDate);
         var end = new Date(endDate);
@@ -285,11 +287,19 @@ include 'confirm_booking_form.php';
         if (daysDifference < 1) {
             daysDifference = 1;
         }
-
         <?php foreach ($rooms as $index => $room) { ?>
             var roomPrice<?php echo $index; ?> = <?php echo $room['price']; ?>;
             var totalPrice<?php echo $index; ?> = roomPrice<?php echo $index; ?> * daysDifference;
-            document.getElementById("totalPrice<?php echo $index; ?>").textContent = totalPrice<?php echo $index; ?>.toFixed(2);
+            document.getElementById("totalPrice<?php echo $index; ?>").textContent = totalPrice<?php echo $index; ?>.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            roomTotal += totalPrice<?php echo $index; ?>;
         <?php } ?>
+        roomTotal = roomTotal.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'PHP'
+        });
+        document.getElementById('roomTotal').textContent = roomTotal;
     }
 </script>

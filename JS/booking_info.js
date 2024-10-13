@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // Get the number of additional pax
         const addPax = parseInt(document.getElementById('addPax').value) || 0;
-        let paxTotal = addPax * 350;  // 350 per additional pax
+            let paxTotal = addPax * 350;  // 350 per additional pax
         console.log('paxTotal:', paxTotal); // Check if the pax total is calculated correctly
     
         // Calculate the new total
@@ -127,24 +127,26 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const messageAlert = document.querySelector('.message-alert');
     const messageNote = document.querySelector('.alert-message');
-    const okButton = document.querySelector('.ok-button');
+    //const okButton = document.querySelector('.ok-button');
     const inputField = document.querySelector('.add-pax input');
 
-    okButton.addEventListener("click", () => {
-        messageAlert.style.display = "none";
-    });
+    //okButton.addEventListener("click", () => {
+    //    messageAlert.style.display = "none";
+    //});
 
     inputField.value = 0;
 
     inputField.addEventListener('input', function () {
         const inputValue = this.value;
+        let maxNumber = document.getElementById('addPax').max;
+
         if (inputValue.startsWith('0') && inputValue.length > 1) {
             this.value = inputValue.substring(1);
         }
         const numericValue = parseInt(this.value);
-        if (numericValue < 0 || numericValue > 2) {
+        if (numericValue < 0 || numericValue > maxNumber) {
             this.value = 0;
-            messageNote.textContent = "max of additional 2 pax only";
+            messageNote.textContent = `Max of additional ${maxNumber} pax only!`;
             messageAlert.style.display = "flex";
             inputField.style.outline = "1px solid red";
         } else {

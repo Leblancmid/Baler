@@ -32,3 +32,14 @@ if ($result) {
 } else {
     die("Error fetching rooms: " . $conn->error);
 }
+
+$isBigRoom = false;
+$i = 0;
+foreach ($rooms as $room) {
+    if (in_array($room['type'], [2, 3])) {
+        $isBigRoom = true;
+        ++$i;
+    }
+}
+
+$totalPax = 2 * $i;

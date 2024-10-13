@@ -1,5 +1,6 @@
 <?php
 include 'booking_info_form.php';
+include 'confirm_booking_form.php';
 ?>
 
 <!DOCTYPE html>
@@ -169,17 +170,22 @@ include 'booking_info_form.php';
 
                     <div class="booking-info">
                         <div class="details-input">
-                            <!-- if no big rooms selected -->
-                            <label for="addPax">Additional pax</label>
-                            <div class="add-pax">
-                                <p>No big rooms selected for additional pax</p>
-                            </div>
-                            <!-- if theres big rooms selected -->
-                            <label for="addPax">Additional pax for [ROOM NAME]</label>
-                            <div class="add-pax">
-                                <input type="number" id="addPax" name="additionalPax" min="0" max="2" value="0">
-                                <p>P350 per head (max of 2 only per ROOM)</p>
-                            </div>
+                            <?php
+                            if (!$isBigRoom) { ?>
+                                <!-- if no big rooms selected -->
+                                <label for="addPax">Additional pax</label>
+                                <div class="add-pax">
+                                    <input type="hidden" id="addPax" name="additionalPax" value="0">
+                                    <p>No big rooms selected for additional pax</p>
+                                </div>
+                            <?php } else { ?>
+                                <!-- if theres big rooms selected -->
+                                <label for="addPax">Additional pax for [ROOM NAME]</label>
+                                <div class="add-pax">
+                                    <input type="number" id="addPax" name="additionalPax" min="0" max="<?php echo $totalPax; ?>" value="0">
+                                    <p>P350 per head (max of 2 only per ROOM)</p>
+                                </div>
+                            <?php } ?>
                         </div>
                         <div class="details-input">
                             <p>Add Amenities?</p>
@@ -227,7 +233,7 @@ include 'booking_info_form.php';
                     </div>
 
                     <input type="hidden" id="hidden-total-amount" name="totalAmount" value="0">
-                    <button type="submit" class="view-details">
+                    <button type="button" class="view-details">
                         <p>Overall Total:</p>
                         <p class="total-amount" id="booking-total-amount">₱0.00</p>
                     </button>
@@ -269,6 +275,11 @@ include 'booking_info_form.php';
                                                 <td>:</td>
                                                 <td>₱ <?php echo $room['price']; ?></td>
                                             </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>=======================================</td>
+                                                <td></td>
+                                            </tr>
                                         <?php  } ?>
                                         <tr>
                                             <td>Check-in date</td>
@@ -299,7 +310,7 @@ include 'booking_info_form.php';
                                         <tr>
                                             <td>Availed Amenities</td>
                                             <td>:</td>
-                                            <td>none</td>
+                                            <td id="availed-amenities"><?php echo count($options); ?></td>
                                         </tr>
                                         <!-- else this will be displayed -->
                                         <tr>

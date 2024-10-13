@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     const currentMonthContainer = document.getElementById("currentMonthCalendar");
     const nextMonthContainer = document.getElementById("nextMonthCalendar");
 
@@ -82,37 +83,46 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         for (let i = 1; i <= lastDayDate; i++) {
-            let classList = "day";
+            let classList = ["day"];  // Start with "day" as the base class
             const currentDate = new Date(currentYear, currentMonth, i);
-
             if (currentDate < today) {
-                classList += " day-over"; // Add "day-over" class if the day is in the past
+                classList.push("day-over");  // Add "day-over" class if the day is in the past
+            }
+            if (selectedStartDate) {
+                let formattedSelectedStartDate = formatDate(selectedStartDate);
+                let formattedSelectedCurrentDate = formatDate(currentDate);
+                if (formattedSelectedStartDate === formattedSelectedCurrentDate) {
+                    classList.push("selected-start");
+                }
             }
 
-            if (selectedStartDate && selectedStartDate.getTime() === currentDate.getTime()) {
-                classList += " selected-start";
-            }
-
-            if (selectedEndDate && selectedEndDate.getTime() === currentDate.getTime()) {
-                classList += " selected-end";
+            if (selectedEndDate) {
+                let formattedSelectedEndDate = formatDate(selectedEndDate);
+                let formattedSelectedCurrentDate = formatDate(currentDate);
+                if (formattedSelectedEndDate === formattedSelectedCurrentDate) {
+                    classList.push("selected-end");
+                }
             }
 
             if (selectedStartDate && selectedEndDate &&
                 currentDate > selectedStartDate && currentDate < selectedEndDate) {
-                classList += " in-range";
+                classList.push("in-range");
             }
-
 
             if (
                 i === new Date().getDate() &&
                 currentMonth === new Date().getMonth() &&
                 currentYear === new Date().getFullYear()
             ) {
-                classList += " today";
+                classList.push("today");
             }
 
-            days += `<div class="${classList}" data-date="${currentYear}-${currentMonth + 1}-${i}">${i}</div>`;
+            // Join the classes into a single string
+            const classString = classList.join(" ");
+
+            days += `<div class="${classString}" data-date="${currentYear}-${currentMonth + 1}-${i}">${i}</div>`;
         }
+
 
         for (let j = 1; j <= nextDays; j++) {
             days += `<div class="day next">${j}</div>`;
@@ -194,6 +204,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
+    function formatDate(date) {
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
     // for closing the alert message
     document.querySelectorAll('.ok-button').forEach((button) => {
         button.addEventListener('click', () => {
@@ -294,5 +307,8 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('bookingForm').submit(); // Submit the form
         }
     });
+
+    // Call this function whenever you update the displayed month
+    updateButtonColor();
 
 });

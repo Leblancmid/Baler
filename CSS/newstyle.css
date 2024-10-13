@@ -2264,6 +2264,7 @@ button.no-button {
 .calendar .days .day.selected-end {
     background-color: var(--blue-1);
     color: var(--white);
+    font-weight: normal !important;
 }
 
 .calendar .days .day.in-range {

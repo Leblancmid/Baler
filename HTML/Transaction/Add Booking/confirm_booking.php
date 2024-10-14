@@ -196,7 +196,7 @@ include 'confirm_booking_form.php';
 
                         <!-- Additional Pax -->
                         <tr>
-                            <td>Additional Pax x<?php echo $additionalPax; ?></td>
+                            <td>Additional Pax x<?php echo $totalPax; ?></td>
                             <td>:</td>
                             <td>₱ <?php echo $paxTotal; ?></td>
                         </tr>

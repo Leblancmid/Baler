@@ -153,14 +153,19 @@ include 'confirm_booking_form.php';
                                 <p>Room Type:</p>
                                 <p><?php echo $roomTypes[$room['type']]; ?></p>
                             </div>
-                            <div class="details-input">
+                            <div class="details-input d-flex flex-column fixed-width">
                                 <p>Room Pax:</p>
-                                <p><?php echo $room['pax']; ?> pax</p>
-                                <div class="counter-container">
-                                    <button class="counter-btn" id="decrement-btn-<?php echo $room['id']; ?>" type="button">-</button>
-                                    <input type="text" id="counter-value-<?php echo $room['id']; ?>" class="counter-value" value="0" readonly>
-                                    <button class="counter-btn" id="increment-btn-<?php echo $room['id']; ?>" type="button">+</button>
+                                <div class="d-flex no-wrap">
+                                    <p class="w-50"><?php echo $room['pax']; ?> pax</p>
+                                    <?php if (in_array($room['type'], [2, 3])) { ?>
+                                        <div class="ms-2">
+                                            <button class="counter-btn decrement-btn" id="decrement-btn-<?php echo $room['id']; ?>" type="button">-</button>
+                                            <input type="number" name="additionalPax[]" id="counter-value-<?php echo $room['id']; ?>" class="counter-value" value="0" readonly>
+                                            <button class="counter-btn increment-btn" id="increment-btn-<?php echo $room['id']; ?>" type="button">+</button>
+                                        </div>
+                                    <?php } ?>
                                 </div>
+
                             </div>
                             <div class=" details-input">
                                 <p>Check-in date:</p>
@@ -175,22 +180,9 @@ include 'confirm_booking_form.php';
 
                     <div class="booking-info">
                         <div class="details-input">
-                            <?php
-                            if (!$isBigRoom) { ?>
-                                <!-- if no big rooms selected -->
-                                <label for="addPax">Additional pax</label>
-                                <div class="add-pax">
-                                    <input type="hidden" id="addPax" name="additionalPax" value="0">
-                                    <p>No big rooms selected for additional pax</p>
-                                </div>
-                            <?php } else { ?>
-                                <!-- if theres big rooms selected -->
-                                <label for="addPax">Additional pax for [ROOM NAME]</label>
-                                <div class="add-pax">
-                                    <input type="number" id="addPax" name="additionalPax" min="0" max="<?php echo $totalPax; ?>" value="0">
-                                    <p>P350 per head (max of 2 only per ROOM)</p>
-                                </div>
-                            <?php } ?>
+                            <div class="add-pax">
+                                <h1>P350 per head (max of 2 only per ROOM)</h1>
+                            </div>
                         </div>
                         <div class="details-input">
                             <p>Add Amenities?</p>
@@ -406,6 +398,11 @@ include 'confirm_booking_form.php';
     document.addEventListener('DOMContentLoaded', function() {
         // Iterate over each room to initialize their respective counters
         <?php foreach ($rooms as $room): ?>
+            <?php
+            if ($room['type'] == 1) {
+                continue;
+            }
+            ?>
             let counter<?php echo $room['id']; ?> = 0;
 
             // Elements
@@ -416,13 +413,16 @@ include 'confirm_booking_form.php';
             // Update counter value display
             function updateCounter<?php echo $room['id']; ?>() {
                 counterValue<?php echo $room['id']; ?>.value = counter<?php echo $room['id']; ?>;
+                incrementBtn<?php echo $room['id']; ?>.classList.toggle('disabled', counter<?php echo $room['id']; ?> === 2);
                 decrementBtn<?php echo $room['id']; ?>.classList.toggle('disabled', counter<?php echo $room['id']; ?> === 0);
             }
 
             // Increment button
             incrementBtn<?php echo $room['id']; ?>.addEventListener('click', function() {
-                counter<?php echo $room['id']; ?>++;
-                updateCounter<?php echo $room['id']; ?>();
+                if (counter<?php echo $room['id']; ?> < 2) {
+                    counter<?php echo $room['id']; ?>++;
+                    updateCounter<?php echo $room['id']; ?>();
+                }
             });
 
             // Decrement button

@@ -3142,3 +3142,57 @@ table.detail-summary tr.overall-amount {
 .display-none {
     display: none;
 }
+
+.counter-btn {
+    display: inline-block;
+    background-color: #22326E;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+
+.counter-btn:active {
+    background-color: #0056b3;
+}
+
+.counter-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.counter-value {
+    width: 50px;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 2px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.no-wrap {
+    text-wrap: nowrap;
+}
+
+.fixed-width {
+    width: 150px;
+}
+
+.ms-2 {
+    margin-left: 20px;
+}
+
+.w-50 {
+    width: 60px;
+}

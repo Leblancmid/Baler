@@ -156,8 +156,13 @@ include 'confirm_booking_form.php';
                             <div class="details-input">
                                 <p>Room Pax:</p>
                                 <p><?php echo $room['pax']; ?> pax</p>
+                                <div class="counter-container">
+                                    <button class="counter-btn" id="decrement-btn-<?php echo $room['id']; ?>" type="button">-</button>
+                                    <input type="text" id="counter-value-<?php echo $room['id']; ?>" class="counter-value" value="0" readonly>
+                                    <button class="counter-btn" id="increment-btn-<?php echo $room['id']; ?>" type="button">+</button>
+                                </div>
                             </div>
-                            <div class="details-input">
+                            <div class=" details-input">
                                 <p>Check-in date:</p>
                                 <p><?php echo $checkInDate; ?></p>
                             </div>
@@ -397,5 +402,41 @@ include 'confirm_booking_form.php';
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Iterate over each room to initialize their respective counters
+        <?php foreach ($rooms as $room): ?>
+            let counter<?php echo $room['id']; ?> = 0;
+
+            // Elements
+            const decrementBtn<?php echo $room['id']; ?> = document.getElementById('decrement-btn-<?php echo $room['id']; ?>');
+            const incrementBtn<?php echo $room['id']; ?> = document.getElementById('increment-btn-<?php echo $room['id']; ?>');
+            const counterValue<?php echo $room['id']; ?> = document.getElementById('counter-value-<?php echo $room['id']; ?>');
+
+            // Update counter value display
+            function updateCounter<?php echo $room['id']; ?>() {
+                counterValue<?php echo $room['id']; ?>.value = counter<?php echo $room['id']; ?>;
+                decrementBtn<?php echo $room['id']; ?>.classList.toggle('disabled', counter<?php echo $room['id']; ?> === 0);
+            }
+
+            // Increment button
+            incrementBtn<?php echo $room['id']; ?>.addEventListener('click', function() {
+                counter<?php echo $room['id']; ?>++;
+                updateCounter<?php echo $room['id']; ?>();
+            });
+
+            // Decrement button
+            decrementBtn<?php echo $room['id']; ?>.addEventListener('click', function() {
+                if (counter<?php echo $room['id']; ?> > 0) {
+                    counter<?php echo $room['id']; ?>--;
+                    updateCounter<?php echo $room['id']; ?>();
+                }
+            });
+
+            // Initialize counter
+            updateCounter<?php echo $room['id']; ?>();
+        <?php endforeach; ?>
+    });
+</script>
 
 </html>

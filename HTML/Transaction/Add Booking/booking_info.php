@@ -123,23 +123,23 @@ include 'confirm_booking_form.php';
                     <div class="client-info">
                         <div class="details-input">
                             <label for="clientFirstName">First Name:</label>
-                            <input type="text" name="first_name" id="clientFirstName" value="">
+                            <input type="text" name="first_name" id="clientFirstName" value="<?php echo $_GET['first_name'] ?? ''; ?>">
                         </div>
                         <div class="details-input">
                             <label for="clientLastName">Last Name:</label>
-                            <input type="text" name="last_name" id="clientLastName" value="">
+                            <input type="text" name="last_name" id="clientLastName" value="<?php echo $_GET['last_name'] ?? ''; ?>">
                         </div>
                         <div class="details-input">
                             <label for="clientEmail">Email:</label>
-                            <input type="email" name="email" id="clientEmail" value="">
+                            <input type="email" name="email" id="clientEmail" value="<?php echo $_GET['email'] ?? ''; ?>">
                         </div>
                         <div class="details-input">
                             <label for="clientContact">Contact #:</label>
-                            <input type="text" name="contact" id="clientContact" value="">
+                            <input type="text" name="contact" id="clientContact" value="<?php echo $_GET['contact'] ?? ''; ?>">
                         </div>
                         <div class="details-input">
                             <label for="clientAddress">Address:</label>
-                            <input type="text" name="address" id="clientAddress" value="">
+                            <input type="text" name="address" id="clientAddress" value="<?php echo $_GET['address'] ?? ''; ?>">
                         </div>
                     </div>
                     <p class="heading-6">Booking information</p>

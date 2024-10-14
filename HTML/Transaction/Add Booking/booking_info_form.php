@@ -4,7 +4,7 @@ include '../../connection.php';
 $roomTypes = [
     1 => 'Small Room',
     2 => 'Big Room',
-    3 => 'Sweet Room'
+    3 => 'Suite Room'
 ];
 
 if (isset($_GET['room-selection']) && is_array($_GET['room-selection'])) {
@@ -33,11 +33,14 @@ if ($result) {
     die("Error fetching rooms: " . $conn->error);
 }
 
-$isBigRoom = false;
-$i = 0;
+$i = 0; // Counter for big rooms
+$bigRooms = []; // To store selected big rooms
+
+// Check how many big rooms or suite rooms are selected
 foreach ($rooms as $room) {
-    if (in_array($room['type'], [2, 3])) {
+    if (in_array($room['type'], [2, 3])) { // Assuming 2 and 3 represent big or suite rooms
         $isBigRoom = true;
+        $bigRooms[] = $room; // Add big room to the array
         ++$i;
     }
 }

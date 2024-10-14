@@ -144,7 +144,7 @@ include 'booking_form.php';
                 <tr>
                   <td><?php echo htmlspecialchars($booking['reference_no']); ?></td>
                   <td><?php echo $booking['id']; ?></td>
-                  <td><?php echo formatDateTime($booking['created_at']); ?></td>
+                  <td><?php echo formatDate($booking['created_at']); ?></td>
                   <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
                   <td><?php echo formatDate($booking['check_in']); ?></td>
                   <td><?php echo formatDate($booking['check_out']); ?></td>

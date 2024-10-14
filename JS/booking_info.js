@@ -127,12 +127,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const messageAlert = document.querySelector('.message-alert');
     const messageNote = document.querySelector('.alert-message');
-    //const okButton = document.querySelector('.ok-button');
+    const okButton = document.querySelector('.ok-button');
     const inputField = document.querySelector('.add-pax input');
 
-    //okButton.addEventListener("click", () => {
-    //    messageAlert.style.display = "none";
-    //});
+    okButton.addEventListener("click", () => {
+        messageAlert.style.display = "none";
+    });
 
     inputField.value = 0;
 

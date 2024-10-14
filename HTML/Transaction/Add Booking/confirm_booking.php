@@ -178,7 +178,9 @@ include 'confirm_booking_form.php';
                         <tr>
                             <td>Availed Amenities</td>
                             <td>:</td>
-                            <td id="availed-amenities"><?php echo count($options); ?></td>
+                            <td id="availed-amenities">
+                                <?php echo empty($options) ? "No availed amenities" : count($options); ?>
+                            </td>
                         </tr>
 
                         <!-- Individual Amenity Rows -->

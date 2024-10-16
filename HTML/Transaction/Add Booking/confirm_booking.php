@@ -117,7 +117,11 @@ include 'confirm_booking_form.php';
                     <input type="hidden" name="address" value="<?php echo $address; ?>">
                     <input type="hidden" name="totalAmount" value="<?php echo $totalAmount; ?>">
                     <input type="hidden" name="paxTotal" value="<?php echo $paxTotal; ?>">
-                    <?php foreach ($options as $amenity) { ?>
+                    <input type="hidden" name="additionalPax[]" value="<?php echo $additionalPax; ?>">
+                    <input type="hidden" name="roomPax" value="<?php echo $roomPax; ?>">
+                    <input type="hidden" name="amenitiesString" value="<?php echo $amenitiesString; ?>">
+
+                    <?php foreach ($amenities as $amenity) { ?>
                         <input type="hidden" name="amenities[]" value="<?php echo $amenity; ?>">
                     <?php } ?>
                     <?php foreach ($selectedRooms as $selectedRoom) { ?>
@@ -134,17 +138,12 @@ include 'confirm_booking_form.php';
                             <tr>
                                 <td>Room Name</td>
                                 <td>:</td>
-                                <td><?php echo $room['name']; ?></td>
+                                <td><?php echo $room['pax']; ?></td>
                             </tr>
                             <tr>
                                 <td>Room Type</td>
                                 <td>:</td>
                                 <td><?php echo $roomTypes[$room['type']]; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Room Pax</td>
-                                <td>:</td>
-                                <td><?php echo $room['pax']; ?> pax</td>
                             </tr>
                             <tr>
                                 <td>Price</td>
@@ -179,13 +178,13 @@ include 'confirm_booking_form.php';
                             <td>Availed Amenities</td>
                             <td>:</td>
                             <td id="availed-amenities">
-                                <?php echo empty($options) ? "No availed amenities" : count($options); ?>
+                                <?php echo empty($amenities) ? "No availed amenities" : count($amenities); ?>
                             </td>
                         </tr>
 
                         <!-- Individual Amenity Rows -->
                         <?php foreach ($amenities as $amenity) { ?>
-                            <?php if (in_array($amenity['id'], $options)) { ?>
+                            <?php if (in_array($amenity['id'], $amenities)) { ?>
                                 <tr>
                                     <td><?php echo ucfirst($amenity['name']); ?></td>
                                     <td>:</td>

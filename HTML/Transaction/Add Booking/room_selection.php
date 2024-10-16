@@ -122,7 +122,8 @@ include 'room_selection_form.php';
                                 </div>
                                 <div class="room-details">
                                     <div class="room-heading">
-                                        <p class="pax-number"><?php echo $room['name']; ?></p>
+                                        <p class="pax-number"><?php echo $room['pax']; ?></p>
+                                        <p class="pax-number">[Room <?php echo $room['room_id']; ?>]</p>
                                         <p class="room-price">₱ <?php echo number_format($room['price'], 2); ?></p>
                                     </div>
                                     <button type="button" class="room-info">
@@ -138,7 +139,7 @@ include 'room_selection_form.php';
                                             </div>
                                             <div class="room-pax">
                                                 <div>
-                                                    <p><?php echo $room['name']; ?></p>
+                                                    <p><?php echo $room['pax']; ?></p>
                                                     <p class="sub-room-type">&#91; ROOM TYPE: <span><?php echo $roomTypes[$room['type']]; ?></span>&#93;</p>
                                                 </div>
                                                 <button type="button">SELECT</button>
@@ -268,7 +269,7 @@ include 'room_selection_form.php';
                                         <tr class="display-none room-summary-<?php echo $room['id']; ?>">
                                             <td>Room Name</td>
                                             <td>:</td>
-                                            <td><?php echo $room['name']; ?></td>
+                                            <td><?php echo $room['pax']; ?></td>
                                         </tr>
                                         <tr class="display-none room-summary-<?php echo $room['id']; ?>">
                                             <td>Room Type</td>

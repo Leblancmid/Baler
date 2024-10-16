@@ -147,7 +147,7 @@ include 'confirm_booking_form.php';
                         <div class="booked-info">
                             <div class="details-input">
                                 <p>Room Name:</p>
-                                <p><?php echo $room['name']; ?></p>
+                                <p><?php echo $room['pax']; ?></p>
                             </div>
                             <div class="details-input">
                                 <p>Room Type:</p>
@@ -156,7 +156,7 @@ include 'confirm_booking_form.php';
                             <div class="details-input d-flex flex-column fixed-width">
                                 <p>Room Pax:</p>
                                 <div class="d-flex no-wrap">
-                                    <p class="w-50"><?php echo $room['pax']; ?> pax</p>
+                                    <!-- <p class="w-50"><?php echo $room['pax']; ?> pax</p> -->
                                     <?php if (in_array($room['type'], [2, 3])) { ?>
                                         <div class="ms-2">
                                             <button class="counter-btn decrement-btn" id="decrement-btn-<?php echo $room['id']; ?>" type="button">-</button>
@@ -196,7 +196,7 @@ include 'confirm_booking_form.php';
                                 <div class="checkbox-container">
                                     <?php foreach ($amenities as $amenity) { ?>
                                         <div class="flex">
-                                            <input type="checkbox" name="options[]" id="<?php echo $amenity['name']; ?>" value="<?php echo $amenity['id']; ?>">
+                                            <input type="checkbox" name="amenities[]" id="<?php echo $amenity['name']; ?>" value="<?php echo $amenity['id']; ?>">
                                             <label for="<?php echo $amenity['name']; ?>">
                                                 <span class="checked-amenities">✔</span>
                                                 <?php echo $amenity['name']; ?>
@@ -255,17 +255,12 @@ include 'confirm_booking_form.php';
                                             <tr>
                                                 <td>Room Name</td>
                                                 <td>:</td>
-                                                <td><?php echo $room['name']; ?></td>
+                                                <td><?php echo $room['pax']; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Room Type</td>
                                                 <td>:</td>
                                                 <td><?php echo $roomTypes[$room['type']]; ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Room Pax</td>
-                                                <td>:</td>
-                                                <td><?php echo $room['pax']; ?> pax</td>
                                             </tr>
                                             <tr>
                                                 <td>Price</td>
@@ -307,7 +302,7 @@ include 'confirm_booking_form.php';
                                         <tr>
                                             <td>Availed Amenities</td>
                                             <td>:</td>
-                                            <td id="availed-amenities"><?php echo count($options); ?></td>
+                                            <td id="availed-amenities"><?php echo count($amenities); ?></td>
                                         </tr>
                                         <!-- else this will be displayed -->
                                         <tr>

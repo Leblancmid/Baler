@@ -11,9 +11,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $contact = $_GET['contact']  ?? '';
     $address = $_GET['address'] ?? '';
     $totalAmount = $_GET['totalAmount'] ?? '';
-    $options = $_GET['options'] ?? [];
+    $selectedAmenities = $_GET['amenities'] ?? [];
     $additionalPax = $_GET['additionalPax'] ?? [];
     $selectedRooms = $_GET['room-selection'];
+
+    $roomPax = '';
+    foreach ($selectedRooms as $id) {
+        $query = $query = "SELECT * FROM rooms WHERE id = " . $id;
+        $result = $conn->query($query);
+
+        $room = $result->fetch_assoc();
+        if (in_array($room['type'], [2, 3])) { // Assuming 2 and 3 represent big or suite rooms
+            $pax = array_shift($additionalPax);
+            $roomPax = $roomPax . $room['id'] . ":$pax";
+            $roomPax = $roomPax . ',';
+        }
+        if ($result) {
+        } else {
+            die("Error fetching room: " . $conn->error);
+        }
+    }
 
     // Validate and sanitize input if needed
     $firstName = htmlspecialchars($firstName);
@@ -38,10 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         die("Error fetching rooms: " . $conn->error);
     }
 
-    $optionsString = implode(',', $options);
+    $amenitiesString = implode(',', $selectedAmenities);
 
-    if (!empty($optionsString)) {
-        $query = "SELECT * FROM amenities WHERE id IN ($optionsString)";
+    if (!empty($amenitiesString)) {
+        $query = "SELECT * FROM amenities WHERE id IN ($amenitiesString)";
         $result = $conn->query($query);
         if ($result) {
             $selectedAmenities = $result->fetch_all();

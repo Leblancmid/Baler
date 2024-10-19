@@ -1,0 +1,35 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const messageAlerts = document.querySelectorAll('.alert-type-2');
+    console.log(messageAlerts);
+    const buttonConfirms = document.querySelectorAll('.confirm-button');
+    const messageTexts = document.querySelectorAll('.alert-message');
+
+    buttonConfirms.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            messageTexts.forEach((text) => {
+                text.textContent = "Confirm this booking?";
+            });
+            messageAlerts.forEach((alert) => {
+                alert.style.display = 'flex';
+            });
+        });
+    });
+
+    document.querySelectorAll('.button-no').forEach((button) => {
+        button.addEventListener('click', () => {
+            messageAlerts.forEach((alert) => {
+                alert.style.display = 'none';
+            });
+        });
+    });
+
+    document.querySelectorAll('.button-yes').forEach((button) => {
+        button.addEventListener('click', () => {
+            console.log(button);
+            messageAlerts.forEach(() => {
+                document.getElementById('confirmBookingForm').submit(); // Submit the form
+            });
+        });
+    });
+
+});

@@ -1,9 +1,19 @@
 <?php
 include '../../connection.php';
 
-// Fetch the existing data from the database
-$sql = "SELECT first_name, last_name, email, contact, address FROM bookings WHERE id = 15"; // Adjust this for dynamic ID
-$result = $conn->query($sql);
+// Get the ID from the URL parameter
+$bookingId = isset($_GET['id']) ? intval($_GET['id']) : 0; // Default to 0 if not set
+
+// Prepare the SQL query
+$sql = "SELECT first_name, last_name, email, contact, address FROM bookings WHERE id = ?"; // Using a prepared statement for safety
+$stmt = $conn->prepare($sql);
+
+// Bind the ID parameter
+$stmt->bind_param("i", $bookingId);
+
+// Execute the statement
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     // Fetch the data
@@ -17,8 +27,11 @@ if ($result->num_rows > 0) {
     echo "No results found.";
 }
 
+// Close the statement and connection
+$stmt->close();
 $conn->close();
 ?>
+
 
 <div class="individual-pop indiv-pop-container clientInfo-pop-up">
     <div class="pop-clientInfo">
@@ -31,6 +44,7 @@ $conn->close();
                 </button>
             </p>
             <form action="edit_booking_form.php" method="POST">
+                <input type="hidden" name="booking_id" value="<?php echo $bookingId; ?>">
                 <div class="pop-input">
                     <div class="details-input">
                         <label for="clientFirstName">First Name:</label>

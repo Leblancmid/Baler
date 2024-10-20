@@ -240,7 +240,7 @@ form.login-form {
     }
 }
 
-form.login-form p.login-title{
+form.login-form p.login-title {
     margin: 1rem 0 2rem;
     font-size: var(--xxl);
     color: var(--blue-1);
@@ -256,7 +256,7 @@ form.login-form p.login-title{
 }
 
 form.login-form p.login-title::before,
-form.login-form p.login-title::after{
+form.login-form p.login-title::after {
     content: "";
     position: relative;
     display: flex;
@@ -1529,7 +1529,7 @@ table.overall-table tbody tr:not(table.overall-table tbody tr:last-child):hover 
     background-color: var(--blue-2);
 }
 
-table.overall-table tbody tr:last-child{
+table.overall-table tbody tr:last-child {
     pointer-events: none;
     cursor: none;
     user-select: none;
@@ -1853,7 +1853,8 @@ fieldset.header-sort input[type="checkbox"] {
 }
 
 .container img {
-    pointer-events: none; /* disabling the dragging of all images */
+    pointer-events: none;
+    /* disabling the dragging of all images */
 }
 
 .form-header {
@@ -1882,7 +1883,7 @@ fieldset.header-sort input[type="checkbox"] {
     width: 25%;
 }
 
-.main-form-navigation{
+.main-form-navigation {
     background-color: var(--blue-1);
     width: 75%;
     border-radius: 7px;
@@ -1957,7 +1958,7 @@ fieldset.header-sort input[type="checkbox"] {
 
 /* room style */
 
-.main-form-container .room-list{
+.main-form-container .room-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -1986,7 +1987,8 @@ fieldset.header-sort input[type="checkbox"] {
     -moz-box-shadow: 11px 10px 113px -14px rgba(100, 98, 98, 0.5) inset;
     transition: background-color 300ms;
     border-radius: 10px;
-    user-select: none; /* disable the selection or highlight*/
+    user-select: none;
+    /* disable the selection or highlight*/
 }
 
 
@@ -2024,7 +2026,7 @@ fieldset.header-sort input[type="checkbox"] {
     transition: 200ms all;
 }
 
-.room-details{
+.room-details {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -2035,7 +2037,7 @@ fieldset.header-sort input[type="checkbox"] {
     /* text-shadow: 0 0 40px var(--white); */
 }
 
-.room:hover button.room-info{
+.room:hover button.room-info {
     transform: translateX(0) translateY(-30px) scale(1.4);
     animation-name: infoButton;
     animation-duration: 900ms;
@@ -2048,7 +2050,7 @@ fieldset.header-sort input[type="checkbox"] {
     gap: 5px;
 }
 
-.room .room-text{
+.room .room-text {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -2079,7 +2081,7 @@ fieldset.header-sort input[type="checkbox"] {
     font-size: 18px;
 }
 
-.room p.room-type{
+.room p.room-type {
     width: 100%;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -2348,9 +2350,10 @@ p.inclusion-title {
     font-size: 20px;
 }
 
-.room-inclusion ul{
+.room-inclusion ul {
     list-style-type: none;
 }
+
 .room-inclusion ul li::before {
     content: '✔';
     padding-right: 5px;
@@ -2754,7 +2757,7 @@ button.view-details p.total-amount {
     flex-direction: column;
 }
 
-.booked-info .details-input{
+.booked-info .details-input {
     width: calc(100% / 4 - 10px);
 }
 
@@ -2785,7 +2788,7 @@ input[type="number"] {
     gap: 10px;
 }
 
-.in-out span{
+.in-out span {
     color: var(--blue-1);
 }
 
@@ -3052,15 +3055,15 @@ table.detail-summary tr.overall-amount {
     gap: 10px;
 }
 
-table.room-confirm-list tr:nth-child(5){
+table.room-confirm-list tr:nth-child(5) {
     outline: 1px solid red;
 }
 
-table.confirm-room{
+table.confirm-room {
     margin-top: 2rem;
 }
 
-table.confirm-room tr.room-name{
+table.confirm-room tr.room-name {
     background-color: var(--blue-2);
 }
 
@@ -3207,7 +3210,7 @@ table.confirm-room tr.room-name{
     /* margin: 0 0.6rem; */
 }
 
-.earning .individual-content{
+.earning .individual-content {
     padding: 0 1.2rem 0.5rem;
 }
 
@@ -3462,7 +3465,7 @@ table.confirm-room tr.room-name{
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.644) 0%, rgba(0, 0, 0, 0.247) 100%);
 }
 
-.individual-pop p.record-subheading button.close-button{
+.individual-pop p.record-subheading button.close-button {
     background: transparent;
     position: absolute;
     right: 1.8%;
@@ -3666,7 +3669,7 @@ table.confirm-room tr.room-name{
     position: relative;
 }
 
-.room-content-2 .room-list .room-image::before{
+.room-content-2 .room-list .room-image::before {
     content: '';
     position: absolute;
     height: 100%;
@@ -3778,7 +3781,7 @@ table.confirm-room tr.room-name{
 }
 
 .other-content-1 .selected-room-list::-webkit-scrollbar-track,
-.other-content-4 .penalty-record-list::-webkit-scrollbar-track  {
+.other-content-4 .penalty-record-list::-webkit-scrollbar-track {
     border-radius: 10px;
 }
 
@@ -3894,11 +3897,11 @@ table.confirm-room tr.room-name{
     border: none;
 }
 
-.other-content-1 p.note{
+.other-content-1 p.note {
     width: 60%;
     text-align: center;
     font-style: italic;
-    color:var(--gray-4);
+    color: var(--gray-4);
     text-wrap: nowrap;
     display: flex;
     align-items: center;
@@ -3908,13 +3911,13 @@ table.confirm-room tr.room-name{
     margin: 20px 0 0;
 }
 
-.other-content-1 p.note span{
+.other-content-1 p.note span {
     font-weight: bold;
     margin-right: 5px;
 }
 
 .other-content-1 p.note::before,
-.other-content-1 p.note::after{
+.other-content-1 p.note::after {
     content: '';
     background-color: var(--gray-3);
     width: 100%;
@@ -3922,7 +3925,7 @@ table.confirm-room tr.room-name{
 }
 
 .other-content-2 .details-input,
-.other-content-3 .details-input{
+.other-content-3 .details-input {
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -3930,35 +3933,35 @@ table.confirm-room tr.room-name{
 }
 
 .other-content-2 .details-input p,
-.other-content-3 .details-input p{
+.other-content-3 .details-input p {
     font-size: var(--xl);
 }
 
 .other-content-3 .details-input .id-container input,
-.other-content-3 .details-input .id-container select{
+.other-content-3 .details-input .id-container select {
     padding: 0.5rem;
     font-size: var(--m);
     border: 1px solid var(--blue-3);
     border-radius: 5px;
 }
 
-.other-content-3 .details-input .id-container input:focus{
+.other-content-3 .details-input .id-container input:focus {
     outline: 1px solid var(--blue-1);
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.other-content-3 .details-input .id-container select{
+.other-content-3 .details-input .id-container select {
     cursor: pointer;
     background-color: var(--blue-1);
     color: white;
     text-transform: uppercase;
 }
 
-.other-content-3 .details-input .id-count button{
+.other-content-3 .details-input .id-count button {
     font-size: var(--s);
 }
 
-.other-content-3 .details-input .id-count p{
+.other-content-3 .details-input .id-count p {
     font-size: var(--m);
 }
 
@@ -3968,7 +3971,7 @@ table.confirm-room tr.room-name{
     gap: 10px;
 }
 
-.penalty-record .main-record{
+.penalty-record .main-record {
     width: 100%;
     position: relative;
     display: flex;
@@ -3988,7 +3991,7 @@ table.confirm-room tr.room-name{
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(255,225,201,1) 0%, rgba(255,255,255,0.17970938375350143) 100%);
+    background: linear-gradient(90deg, rgba(255, 225, 201, 1) 0%, rgba(255, 255, 255, 0.17970938375350143) 100%);
 }
 
 .penalty-record .penalty-info {
@@ -3999,27 +4002,27 @@ table.confirm-room tr.room-name{
 
 .penalty-record i,
 .penalty-record .penalty-info,
-.penalty-record p.penalty-price{
+.penalty-record p.penalty-price {
     z-index: 1;
 }
 
-.penalty-record i{
+.penalty-record i {
     color: var(--pending-2);
     font-size: var(--xl);
 }
 
-.penalty-record .penalty-info{
+.penalty-record .penalty-info {
     flex: 1;
     gap: 5px;
 }
 
-.penalty-info p.penalty-name{
+.penalty-info p.penalty-name {
     font-size: var(--l);
     color: var(--blue-1);
     letter-spacing: 1px;
 }
 
-.penalty-record p.penalty-category{
+.penalty-record p.penalty-category {
     font-size: var(--xs);
     color: var(--pending-2);
     font-weight: bolder;
@@ -4027,13 +4030,13 @@ table.confirm-room tr.room-name{
     /* text-transform: lowercase; */
 }
 
-.penalty-record p.penalty-price{
+.penalty-record p.penalty-price {
     color: var(--blue-1);
     font-weight: bold;
     font-size: var(--xl);
 }
 
-.penalty-record button.remove{
+.penalty-record button.remove {
     cursor: pointer;
     height: fit-content;
     background-color: var(--red-2);
@@ -4042,23 +4045,23 @@ table.confirm-room tr.room-name{
     border-radius: 50px;
 }
 
-.penalty-record button.remove i{
+.penalty-record button.remove i {
     color: var(--white);
     font-size: var(--m);
 }
 
-.penalty-record-list button.penalty{
+.penalty-record-list button.penalty {
     width: fit-content;
     padding: 0.5rem;
     font-size: var(--s);
     background-color: var(--pending-2);
     border: none;
     border-radius: 5px;
-    margin: 10px 0 ;
+    margin: 10px 0;
     cursor: pointer;
 }
 
-.main-form-container .penalty-list{
+.main-form-container .penalty-list {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -4076,19 +4079,19 @@ table.confirm-room tr.room-name{
     border-radius: 10px;
 }
 
-.confirmation-container .penalty{
+.confirmation-container .penalty {
     background-color: var(--pending-2);
 }
 
-.confirmation-container .penalty .penalty-text p{
+.confirmation-container .penalty .penalty-text p {
     color: var(--white);
 }
 
-.penalty:not(.confirmation-container .penalty):hover{
+.penalty:not(.confirmation-container .penalty):hover {
     background-color: var(--pending-3);
 }
 
-.penalty .penalty-text{
+.penalty .penalty-text {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -4134,7 +4137,7 @@ table.confirm-room tr.room-name{
     padding-top: 0.5rem;
 }
 
-.penalty p.penalty-type::before{
+.penalty p.penalty-type::before {
     content: '';
     display: block;
     background-color: var(--before-penalty-color);
@@ -4163,7 +4166,7 @@ table.confirm-room tr.room-name{
     padding: 0 1rem;
 }
 
-.penalty-list button.other-penalty{
+.penalty-list button.other-penalty {
     width: fit-content;
     align-self: self-end;
     padding: 0.5rem 1rem;
@@ -4175,28 +4178,28 @@ table.confirm-room tr.room-name{
     cursor: pointer;
 }
 
-.penalty-other{
+.penalty-other {
     gap: 10px;
 }
 
 /* payment */
-.payment-info .details-input.payment-amount{
+.payment-info .details-input.payment-amount {
     /* max-width: calc(100% / 3 - 10px); */
     max-width: calc(100% / 2 - 5px);
 }
 
-.payment-info .details-input.payment-amount .amount{
+.payment-info .details-input.payment-amount .amount {
     display: flex;
     align-items: center;
 }
 
-.payment-info .details-input.payment-amount .amount p{
+.payment-info .details-input.payment-amount .amount p {
     font-size: var(--l);
     font-family: Arial, Helvetica, sans-serif;
     padding: 0.5rem;
 }
 
-.payment-info .details-input.payment-amount .amount input{
+.payment-info .details-input.payment-amount .amount input {
     flex: 1 0 0;
 }
 
@@ -4212,31 +4215,32 @@ table.confirm-room tr.room-name{
 .payment-amount {
     max-width: calc(100% / 2 - 5px);
 }
-.payment-amount .amount{
+
+.payment-amount .amount {
     display: flex;
     gap: 10px;
 }
 
-.payment-amount .amount input{
+.payment-amount .amount input {
     flex: 1;
 }
 
-.payment-info .payment-ref{
+.payment-info .payment-ref {
     display: none;
 }
 
-.payment-summary table.detail-summary td{
+.payment-summary table.detail-summary td {
     padding: 1rem 0;
 }
 
 .confirmation-container table.detail-summary td.date-time,
-.individual-container table.content td.date-time{
+.individual-container table.content td.date-time {
     display: flex;
     gap: 10px;
 }
 
 /* penalty */
-.client-container{
+.client-container {
     display: flex;
     flex-direction: column;
     padding: 1rem 0;
@@ -4245,7 +4249,7 @@ table.confirm-room tr.room-name{
     position: relative;
 }
 
-ul.record-list{
+ul.record-list {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -4270,26 +4274,26 @@ ul.record-list::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
-.client-container::before{
+.client-container::before {
     content: '';
     position: absolute;
     top: 13%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.7763480392156863) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.7763480392156863) 0%, rgba(0, 0, 0, 0) 100%);
     width: 100%;
     height: 15px;
 }
 
-.client-container::after{
+.client-container::after {
     content: '';
     position: absolute;
     bottom: 0;
-    background: linear-gradient(0deg, rgba(255,255,255,0.7763480392156863) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.7763480392156863) 0%, rgba(0, 0, 0, 0) 100%);
     width: 100%;
     height: 60px;
 }
 
 
-ul.record-list li button.selected{
+ul.record-list li button.selected {
     cursor: pointer;
     width: 100%;
     display: flex;
@@ -4304,24 +4308,24 @@ ul.record-list li button.selected{
     transition: 200ms all;
 }
 
-ul.record-list li button.selected:hover{
+ul.record-list li button.selected:hover {
     background-color: var(--blue-1);
 }
 
-ul.record-list li button.selected:hover .client-record{
+ul.record-list li button.selected:hover .client-record {
     color: var(--white);
 }
 
-ul.record-list li button.selected .client-record i{
+ul.record-list li button.selected .client-record i {
     font-size: var(--xl);
 }
 
-ul.record-list li button.selected:hover p:last-child{
+ul.record-list li button.selected:hover p:last-child {
     opacity: 1;
     animation-name: blink;
 }
 
-ul.record-list li button.selected p:not(.client-record p){
+ul.record-list li button.selected p:not(.client-record p) {
     color: white;
     opacity: 0;
     text-transform: uppercase;
@@ -4330,16 +4334,24 @@ ul.record-list li button.selected p:not(.client-record p){
     animation-iteration-count: infinite;
 }
 
-@keyframes blink{
-    0%{
+@keyframes blink {
+    0% {
         opacity: 1;
-    }50%{
+    }
+
+    50% {
         opacity: 1;
-    }75%{
+    }
+
+    75% {
         opacity: 0.5;
-    }85%{
+    }
+
+    85% {
         opacity: 0;
-    }100%{
+    }
+
+    100% {
         opacity: 1;
     }
 }
@@ -4351,14 +4363,14 @@ ul.record-list li .client-record {
     color: var(--blue-1);
 }
 
-ul.record-list .client-info{
+ul.record-list .client-info {
     display: flex;
     flex-direction: column;
     align-items: baseline;
     gap: 5px;
 }
 
-ul.record-list .client-info p.client-bookref{
+ul.record-list .client-info p.client-bookref {
     font-size: var(--s);
     text-transform: uppercase;
     display: flex;
@@ -4366,7 +4378,7 @@ ul.record-list .client-info p.client-bookref{
     gap: 5px;
 }
 
-ul.record-list .client-info p.client-bookref span{
+ul.record-list .client-info p.client-bookref span {
     font-size: var(--l);
     font-weight: 600;
     letter-spacing: 1px;
@@ -4376,7 +4388,7 @@ ul.record-list .client-info p.client-name {
     text-transform: uppercase;
 }
 
-ul.record-list .client-info p.client-name span{
+ul.record-list .client-info p.client-name span {
     text-transform: capitalize;
     font-size: var(--m);
     font-weight: bold;
@@ -4456,14 +4468,14 @@ button.no-button {
     background-color: var(--gray-4);
 }
 
-.confirm-container .confirm-button{
+.confirm-container .confirm-button {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     padding: 0 0.5rem;
 }
 
-.confirm-button button{
+.confirm-button button {
     width: calc(100% / 2 - 10px);
     display: flex;
     align-items: center;
@@ -4472,7 +4484,45 @@ button.no-button {
     flex-wrap: nowrap;
 }
 
-.confirm-button button:nth-child(1){
+.confirm-button button:nth-child(1) {
     background-color: var(--gray-4);
 }
 
+.update-button {
+    background-color: #22326E;
+    /* Green background */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 5px 10px;
+    /* Padding for size */
+    text-align: center;
+    /* Centered text */
+    text-decoration: none;
+    /* No underline */
+    display: inline-block;
+    /* Inline-block display */
+    font-size: 16px;
+    /* Larger font */
+    margin: 4px 2px;
+    /* Margin around the button */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: background-color 0.3s, transform 0.2s;
+    /* Smooth transitions */
+}
+
+.update-button:hover {
+    background-color: #1fd2ff;
+    /* Darker green on hover */
+    transform: scale(1.05);
+    /* Slightly enlarge on hover */
+}
+
+.update-button i {
+    margin-right: 5px;
+    /* Space between icon and text */
+}

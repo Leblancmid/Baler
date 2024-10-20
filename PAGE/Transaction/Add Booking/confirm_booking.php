@@ -231,13 +231,13 @@ include 'Form/confirm_booking_form.php';
                             <td>Availed Amenities</td>
                             <td>:</td>
                             <td id="availed-amenities">
-                                <?php echo empty($amenities) ? "No availed amenities" : count($amenities); ?>
+                                <?php echo empty($selectedAmenities) ? "No availed amenities" : count($selectedAmenities); ?>
                             </td>
                         </tr>
 
                         <!-- Individual Amenity Rows -->
                         <?php foreach ($amenities as $amenity) { ?>
-                            <?php if (in_array($amenity['id'], $amenities)) { ?>
+                            <?php if (in_array($amenity['id'], $selectedAmenities)) { ?>
                                 <tr>
                                     <td><?php echo ucfirst($amenity['name']); ?></td>
                                     <td>:</td>

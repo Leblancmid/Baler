@@ -153,13 +153,19 @@ include 'Add Booking/Form/booking_form.php';
                   <td>₱ <?php echo number_format($booking['total'], 2); ?></td>
                   <td><?php echo $booking['balance']; ?></td>
                   <td class="record-status">
-                    <select class="booking-status" name="status">
-                      <option value="booked">Booked</option>
-                      <option value="pending">Pending</option>
-                      <option value="canceled">Canceled</option>
-                      <option value="checkIn">Checked-In</option>
-                      <option value="checkOut">Checked-Out</option>
-                    </select>
+                    <form method="POST" action="update_status.php">
+                      <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                      <select class="booking-status" name="status">
+                        <option value="1" <?php echo ($booking['status'] == 1) ? 'selected' : ''; ?>>Booked</option>
+                        <option value="2" <?php echo ($booking['status'] == 2) ? 'selected' : ''; ?>>Pending</option>
+                        <option value="3" <?php echo ($booking['status'] == 3) ? 'selected' : ''; ?>>Canceled</option>
+                        <option value="4" <?php echo ($booking['status'] == 4) ? 'selected' : ''; ?>>Checked-In</option>
+                        <option value="5" <?php echo ($booking['status'] == 5) ? 'selected' : ''; ?>>Checked-Out</option>
+                      </select>
+                      <button type="submit" class="update-button">
+                        <i class="fa-solid fa-save"></i>
+                      </button>
+                    </form>
                   </td>
                   <td class="modify-button">
                     <button class="edit-button" data-id="<?php echo $booking['id']; ?>">
@@ -189,119 +195,41 @@ include 'Add Booking/Form/booking_form.php';
             </tbody>
           </table>
         </div>
-        <div class="sort">
-          <div class="sorting-section">
-            <div>
-              <label for="sort-day">Name</label>
-              <select name="sort-day">
-                <option value="default">Default</option>
-                <option value="ascending">Ascending</option>
-                <option value="descending">Descending</option>
-              </select>
+        <form class="sort" method="GET" action="sorting.php">
+          <div>
+            <div class="sorting-section">
+              <div>
+                <label for="sort-first-name">First Name</label>
+                <input type="text" name="sort-first-name" placeholder="Search by First Name">
+              </div>
+              <div>
+                <label for="sort-last-name">Last Name</label>
+                <input type="text" name="sort-last-name" placeholder="Search by Last Name">
+              </div>
+              <div>
+                <label for="sort-email">Email</label>
+                <input type="text" name="sort-email" placeholder="Search by Email">
+              </div>
+              <div>
+                <label for="sort-date">Date Booked</label>
+                <input type="date" name="sort-date">
+              </div>
+              <div>
+                <label for="sort-status">Status</label>
+                <select name="sort-status">
+                  <option value="default-status">Default</option>
+                  <option value="1">Booked</option>
+                  <option value="2">Pending</option>
+                  <option value="3">Canceled</option>
+                  <option value="4">Checked-In</option>
+                  <option value="5">Checked-Out</option>
+                </select>
+              </div>
+              <button type="submit">Sort</button>
             </div>
-            <div>
-              <label for="sort-day">Date Booked</label>
-              <!-- <select name="sort-day">
-              <option value="default">Default</option>
-              <option value="ascending">Ascending</option>
-              <option value="descending">Descending</option>
-            </select> -->
-              <input type="date" id="sort-day">
-            </div>
-            <div>
-              <label for="sort-status">Status</label>
-              <select name="sort-day">
-                <option value="default-status">Default</option>
-                <option value="booked">Booked</option>
-                <option value="pending">Pending</option>
-                <option value="canceled">Canceled</option>
-                <option value="checkIn">Checked-In</option>
-                <option value="checkOut">Checked-Out</option>
-              </select>
-            </div>
-            <fieldset class="header-sort">
-              <div>
-                <label>
-                  <input id="booking-ref" type="checkbox" name="booking-ref">
-                  Booking Ref No.
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="room-id" type="checkbox" name="room-id">
-                  Room Id
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="date-booked" type="checkbox" name="date-booked">
-                  Date Booked
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="client-name" type="checkbox" name="client-name">
-                  Name
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="check-in" type="checkbox" name="check-in">
-                  Check-In
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="check-out" type="checkbox" name="check-out">
-                  Check-Out
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="booking-status" type="checkbox" name="booking-status">
-                  Status
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="check-in" type="checkbox" name="check-in">
-                  Check-In
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="check-out" type="checkbox" name="check-out">
-                  Check-Out
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="booking-status" type="checkbox" name="booking-status">
-                  Status
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="check-in" type="checkbox" name="check-in">
-                  Check-In
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="check-out" type="checkbox" name="check-out">
-                  Check-Out
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input id="booking-status" type="checkbox" name="booking-status">
-                  Status
-                </label>
-              </div>
-            </fieldset>
           </div>
-          <button class="reset-button">RESET</button>
-        </div>
+        </form>
+
       </div>
     </div>
 </body>

@@ -61,9 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $query = "SELECT * FROM amenities WHERE id IN ($amenitiesString)";
         $result = $conn->query($query);
         if ($result) {
-            $selectedAmenities = $result->fetch_all();
+            $result = $result->fetch_all();
             $amenitiesTotal = 0;
-            foreach ($selectedAmenities as $amenity) {
+            foreach ($result as $amenity) {
                 $price = (int)$amenity[2]; // Make sure to cast the price to an integer
                 $amenitiesTotal += $price; // Add the price to the total sum
             }
@@ -74,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // Handle the case where no options were selected
         $amenitiesTotal = 0; // Ensure $amenitiesTotal is initialized
     }
+
     $paxTotal = 0;
 
     foreach ($additionalPax as $pax) {

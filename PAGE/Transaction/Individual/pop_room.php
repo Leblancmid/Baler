@@ -1,3 +1,21 @@
+<?php
+include '../Add Booking/Form/room_selection_form.php';
+
+// Initialize $rooms as an empty array to avoid warnings
+$rooms = [];
+
+$query = "SELECT id, type, image, pax, price, room_id, description FROM rooms"; // Adjust this to your table structure
+$result = $conn->query($query);
+
+if ($result && $result->num_rows > 0) {
+    // Fetch all rooms into the $rooms array
+    $rooms = $result->fetch_all(MYSQLI_ASSOC);
+} else {
+    // Optional: you can set a message for no rooms found
+    echo "No rooms found.";
+}
+?>
+
 <div class="individual-pop indiv-pop-container room-pop-up">
     <div class="pop-room">
         <div class="content">
@@ -20,169 +38,39 @@
                 </button>
             </div>
 
-            <form class="room-content-1" action="">
-                <div class="calendar-form">
-                    <div class="calendar" id="currentMonthCalendar">
-                        <div class="calendar-header">
-                            <div class="calendar-btn prev">
-                                <i class="fa-solid fa-angle-left"></i>
-                            </div>
-                            <div class="calendar-month"></div>
-
-                            <div class="calendar-btn today">
-                                <i class="fa-solid fa-calendar-day"></i>
-                            </div>
-                        </div>
-                        <div class="weekdays">
-                            <div>Sun</div>
-                            <div>Mon</div>
-                            <div>Tue</div>
-                            <div>Wed</div>
-                            <div>Thu</div>
-                            <div>Fri</div>
-                            <div>Sat</div>
-                        </div>
-                        <div class="days">
-
-                        </div>
-                    </div>
-
-
-                    <div class="calendar" id="nextMonthCalendar">
-                        <div class="calendar-header">
-                            <div class="calendar-btn btn-disabled">
-                                <i class="fa-solid fa-calendar-day"></i>
-                            </div>
-                            <div class="calendar-month"></div>
-                            <div class="calendar-btn">
-                                <div class="btn next">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="weekdays">
-                            <div>Sun</div>
-                            <div>Mon</div>
-                            <div>Tue</div>
-                            <div>Wed</div>
-                            <div>Thu</div>
-                            <div>Fri</div>
-                            <div>Sat</div>
-                        </div>
-                        <div class="days">
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="price" value="<?php echo $_POST['price'] ?? ''; ?>">
-                    <input type="hidden" name="startDate" id="startDate"
-                        value="<?php echo $_GET['startDate'] ?? ''; ?>">
-                    <input type="hidden" name="endDate" id="endDate" value="<?php echo $_GET['endDate'] ?? ''; ?>">
-                </div>
-                <div class="individual-pop-button">
-                    <button type="button" class="cancel">cancel</button>
-                    <button type="button" class="update-date">save</button>
-                </div>
-            </form>
-
-
             <form class="room-content-2" action="">
-                <div class="form-navigation">
-                    <a href="#" class="active-room" data-filter="all">All</a>
-                    <a href="#" data-filter="small">Small</a>
-                    <a href="#" data-filter="big">Big</a>
-                    <a href="#" data-filter="sweet">Sweet</a>
-                </div>
                 <div class="room-list">
-                    <div class="room">
-                        <label for="room-1">
-                            <div class="room-IMAGES">
-                                <img class="actual-IMAGES" src="../../../IMAGES/prec.jpg" />
-                            </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Precious Room</p>
-                                        <p class="room-type">SMALL ROOM</p>
+                    <?php if (!empty($rooms)) { // Only loop if $rooms is not empty 
+                    ?>
+                        <?php foreach ($rooms as $room) { ?>
+                            <div class="room room-<?php echo $roomClass[$room['type']]; ?>">
+                                <label for="room-<?php echo $room['id']; ?>">
+                                    <div class="room-image">
+                                        <img class="actual-image" src="<?php echo $room['image']; ?>" />
                                     </div>
-                                </div>
-                                <p class="room-price">₱ 1,200<span>.00</span></p>
-                            </div>
-                        </label>
-                        <input class="room-selection" type="checkbox" id="room-1" name="room-selection" value="room-1">
-                    </div>
-                    <div class="room">
-                        <label for="room-2">
-                            <div class="room-IMAGES">
-                                <img class="actual-IMAGES" src="../../../IMAGES/hao.jpg" />
-                            </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Haooo Room</p>
-                                        <p class="room-type">SMALL ROOM</p>
+                                    <div class="room-text">
+                                        <div class="room-details">
+                                            <div class="room-heading">
+                                                <p class="pax-number"><?php echo $room['pax'] . ' [Room ' . $room['room_id'] . ']'; ?></p>
+                                                <p class="room-price">₱ <?php echo number_format($room['price'], 2); ?></p>
+                                            </div>
+                                        </div>
+                                        <p class="room-type"><?php echo $roomTypes[$room['type']]; ?></p>
                                     </div>
+                                </label>
+                                <div class="room-content">
+                                    <!-- Room content details here -->
                                 </div>
-                                <p class="room-price">₱ 1,200<span>.00</span></p>
-                            </div>
-                        </label>
-                        <input class="room-selection" type="checkbox" id="room-2" name="room-selection" value="room-2">
-                    </div>
 
-                    <div class="room">
-                        <label for="room-3">
-                            <div class="room-IMAGES">
-                                <img class="actual-IMAGES" src="../../../IMAGES/shayne.jpeg" />
+                                <!-- Room Selection Checkbox -->
+                                <input class="room-selection" type="checkbox" id="room-<?php echo $room['id']; ?>"
+                                    name="room-selection[]" value="<?php echo $room['id']; ?>">
+                                <span class="display-none form-price"><?php echo $room['price']; ?></span>
                             </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Shayne Room</p>
-                                        <p class="room-type">SMALL ROOM</p>
-                                    </div>
-                                </div>
-                                <p class="room-price">₱ 1,200<span>.00</span></p>
-                            </div>
-                        </label>
-                        <input class="room-selection" type="checkbox" id="room-3" name="room-selection" value="room-3">
-                    </div>
-                    <div class="room">
-                        <label for="room-4">
-                            <div class="room-IMAGES">
-                                <img class="actual-IMAGES" src="../../../IMAGES/nab.jpg" />
-                            </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Adriane Room</p>
-                                        <p class="room-type">BIG ROOM</p>
-                                    </div>
-                                </div>
-                                <p class="room-price">₱ 1,200<span>.00</span></p>
-                            </div>
-                        </label>
-                        <input class="room-selection" type="checkbox" id="room-4" name="room-selection" value="room-4">
-                    </div>
-                    <div class="room">
-                        <label for="room-5">
-                            <div class="room-IMAGES">
-                                <img class="actual-IMAGES" src="../../../IMAGES/jeff.jpg" />
-                            </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Jeff Room</p>
-                                        <p class="room-type">SWEET ROOM</p>
-                                    </div>
-                                </div>
-                                <p class="room-price">₱ 1,200<span>.00</span></p>
-                            </div>
-                        </label>
-                        <input class="room-selection" type="checkbox" id="room-5" name="room-selection" value="room-5">
-                    </div>
-                </div>
-                <div class="individual-pop-button">
-                    <button type="button" class="cancel">cancel</button>
-                    <button type="button" class="update-room">save</button>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <p>No rooms available.</p>
+                    <?php } ?>
                 </div>
             </form>
         </div>

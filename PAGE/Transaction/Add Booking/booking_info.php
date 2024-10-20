@@ -213,7 +213,7 @@ if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
                                     <label for="yesAmenities">Yes</label>
                                 </div>
                                 <div class="checkbox-container">
-                                    <?php foreach ($amenities as $amenity) { ?>
+                                    <?php foreach ($options as $amenity) { ?>
                                         <div class="flex">
                                             <input type="checkbox" name="amenities[]" id="<?php echo $amenity['name']; ?>"
                                                 value="<?php echo $amenity['id']; ?>">

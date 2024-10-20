@@ -2,17 +2,19 @@
 include '../../connection.php';
 
 // Initialize variables for output
-$name = '';
+$first_name = '';
+$last_name = '';
 $email = '';
 $contact = '';
 $address = '';
+$reference_no = ''; // Ensure this variable is initialized
 
 // Check if the 'id' parameter is present in the URL and not empty
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $bookingId = intval($_GET['id']); // Convert to integer to prevent SQL injection
 
     // Prepare and bind
-    $stmt = $conn->prepare("SELECT first_name, last_name, email, contact, address FROM bookings WHERE id = ?");
+    $stmt = $conn->prepare("SELECT first_name, last_name, email, contact, reference_no, address FROM bookings WHERE id = ?");
     $stmt->bind_param("i", $bookingId); // "i" means the parameter is an integer
 
     $stmt->execute();
@@ -21,10 +23,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     if ($result->num_rows > 0) {
         // Output data of the booking
         $row = $result->fetch_assoc();
-        $name = $row["first_name"] . " " . $row["last_name"];
+
+        $first_name = $row["first_name"]; // Assign first name
+        $last_name = $row["last_name"]; // Assign last name
         $email = $row["email"];
         $contact = $row["contact"];
         $address = $row["address"];
+        $reference_no = $row["reference_no"]; // Fix: add the dollar sign here
     } else {
         echo "No results found for the specified booking ID.";
     }
@@ -34,6 +39,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     echo "Error: Booking ID is not specified or is invalid.";
 }
 ?>
+
 
 
 
@@ -140,7 +146,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     </a>
                     <p>
                         Booking Reference No.:
-                        <span>1234567890</span>
+                        <span><?php echo isset($reference_no) ? htmlspecialchars($reference_no) : 'N/A'; ?></span>
                     </p>
                 </div>
                 <div class="individual-content">
@@ -150,20 +156,27 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                 <i class="fa-solid fa-user-tag"></i>
                                 Client Details
                             </span>
-                            <button class="pop-indiv-clientInfo" data-id="<?php echo $booking['id']; ?>">
+                            <?php
+                            // Get the ID from the URL parameter
+                            $bookingId = isset($_GET['id']) ? intval($_GET['id']) : 0; // Default to 0 if not set
+                            ?>
+
+                            <button class="pop-indiv-clientInfo" data-id="<?php echo $bookingId; ?>">
                                 <span>edit</span>
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
 
+
                         </p>
                         <table class="content">
-                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+                            <input type="hidden" name="id" value="<?php echo $bookingId; ?>">
 
                             <tr>
                                 <td>Name</td>
                                 <td>:</td>
-                                <td><?php echo $name; ?></td>
+                                <td><?php echo $first_name . ' ' . $last_name; ?></td>
                             </tr>
+
                             <tr>
                                 <td>Email</td>
                                 <td>:</td>

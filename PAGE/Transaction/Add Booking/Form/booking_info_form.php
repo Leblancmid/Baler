@@ -28,7 +28,7 @@ $checkOutDate = $_GET['endDate'];
 $query = "SELECT * FROM amenities";
 $result = $conn->query($query);
 if ($result) {
-    $amenities = $result->fetch_all(MYSQLI_ASSOC);
+    $options = $result->fetch_all(MYSQLI_ASSOC);
 } else {
     die("Error fetching rooms: " . $conn->error);
 }

@@ -100,47 +100,49 @@ document.addEventListener("DOMContentLoaded", function () {
     let inputCount = 0;
 
     addButton.addEventListener("click", function () {
-        inputCount++;
-        const inputContainer = document.createElement("div");
-        inputContainer.classList.add("id-container");
+        if (inputCount < 1) {  // Limit to 1 input
+            inputCount++;
+            const inputContainer = document.createElement("div");
+            inputContainer.classList.add("id-container");
 
-        const idInput = document.createElement("input");
-        idInput.setAttribute("type", "text");
-        idInput.classList.add("id-input");
-        idInput.setAttribute("placeholder", "ID Number");
-        inputContainer.appendChild(idInput);
+            const idInput = document.createElement("input");
+            idInput.setAttribute("type", "text");
+            idInput.classList.add("id-input");
+            idInput.setAttribute("placeholder", "ID Number");
+            inputContainer.appendChild(idInput);
 
-        const selectInput = document.createElement("select");
-        const options = [
-            { value: "idPWD", text: "PWD" },
-            { value: "idSenior", text: "Senior" }
-        ];
-        options.forEach(option => {
-            const optionElement = document.createElement("option");
-            optionElement.value = option.value;
-            optionElement.textContent = option.text;
-            selectInput.appendChild(optionElement);
-        });
-        inputContainer.appendChild(selectInput);
+            const selectInput = document.createElement("select");
+            const options = [
+                { value: "idPWD", text: "PWD" },
+                { value: "idSenior", text: "Senior" }
+            ];
+            options.forEach(option => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option.value;
+                optionElement.textContent = option.text;
+                selectInput.appendChild(optionElement);
+            });
+            inputContainer.appendChild(selectInput);
 
-        const removeButton = document.createElement("button");
-        removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        removeButton.classList.add("id-remove");
-        removeButton.addEventListener("click", function () {
-            inputContainer.remove();
-            inputCount--;
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            removeButton.classList.add("id-remove");
+            removeButton.addEventListener("click", function () {
+                inputContainer.remove();
+                inputCount--;
+                totalInputs.textContent = inputCount;
+
+                // Update total when an ID is removed
+                updateTotal();
+            });
+            inputContainer.appendChild(removeButton);
+
+            inputsContainer.appendChild(inputContainer);
             totalInputs.textContent = inputCount;
 
-            // Update total when an ID is removed
+            // Update total when a new ID is added
             updateTotal();
-        });
-        inputContainer.appendChild(removeButton);
-
-        inputsContainer.appendChild(inputContainer);
-        totalInputs.textContent = inputCount;
-
-        // Update total when a new ID is added
-        updateTotal();
+        }
     });
 
     const messageAlert = document.querySelector('.message-alert');

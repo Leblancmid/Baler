@@ -6,15 +6,15 @@ include 'Add Booking/Form/booking_form.php';
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | Baler Nina</title>
-    <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
-    <script src="../../JS/script.js"></script>
-    <script src="../../JS/Transaction/booking.js"></script>
-    <link rel="icon" href="../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!--chart-->
-    <link rel="stylesheet" href="../../CSS/newstyle.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Baler Nina</title>
+  <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
+  <script src="../../JS/script.js"></script>
+  <script src="../../JS/Transaction/booking.js"></script>
+  <link rel="icon" href="../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!--chart-->
+  <link rel="stylesheet" href="../../CSS/newstyle.css" />
 </head>
 
 <body>
@@ -150,7 +150,7 @@ include 'Add Booking/Form/booking_form.php';
                   <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
                   <td><?php echo formatDate($booking['check_in']); ?></td>
                   <td><?php echo formatDate($booking['check_out']); ?></td>
-                  <td><?php echo $booking['total']; ?></td>
+                  <td>₱ <?php echo number_format($booking['total'], 2); ?></td>
                   <td><?php echo $booking['balance']; ?></td>
                   <td class="record-status">
                     <select class="booking-status" name="status">
@@ -162,7 +162,7 @@ include 'Add Booking/Form/booking_form.php';
                     </select>
                   </td>
                   <td class="modify-button">
-                    <button class="edit-button">
+                    <button class="edit-button" data-id="<?php echo $booking['id']; ?>">
                       <i class="fa-solid fa-pen-to-square"></i>
                       <span class="modify-edit">edit</span>
                     </button>

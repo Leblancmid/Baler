@@ -146,33 +146,24 @@ include 'sales.php'
                 <div class="content-section">
                     <div class="content-heading">
                         <p class="heading-2">Total Sales</p>
-                        <button class="eye"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="eye" id="toggleVisibility"><i class="fa-solid fa-eye-slash"></i></button>
                     </div>
                     <div class="sales">
                         <div class="sales-amount" data-original="<?= number_format($todaySales, 2) ?: '0.00'; ?>">
                             <div class="sub-heading">Today</div>
-                            <div class="heading-3">₱
-                                <?= number_format($todaySales, 2); ?>
-                            </div>
+                            <div class="heading-3">₱ <?= number_format($todaySales, 2); ?></div>
                         </div>
                         <div class="sales-amount" data-original="<?= number_format($monthSales, 2) ?: '0.00'; ?>">
-                            <div class="sub-heading">Month (
-                                <?= strtoupper(date('F')); ?>)
-                            </div>
-                            <div class="heading-3">₱
-                                <?= number_format($monthSales, 2); ?>
-                            </div>
+                            <div class="sub-heading">Month (<?= strtoupper(date('F')); ?>)</div>
+                            <div class="heading-3">₱ <?= number_format($monthSales, 2); ?></div>
                         </div>
                         <div class="sales-amount" data-original="<?= number_format($yearSales, 2) ?: '0.00'; ?>">
-                            <div class="sub-heading">Year (
-                                <?= $currentYear; ?>)
-                            </div>
-                            <div class="heading-3">₱
-                                <?= number_format($yearSales, 2); ?>
-                            </div>
+                            <div class="sub-heading">Year (<?= $currentYear; ?>)</div>
+                            <div class="heading-3">₱ <?= number_format($yearSales, 2); ?></div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="content-section">
                     <div class="content-heading">
@@ -220,4 +211,30 @@ include 'sales.php'
 
     leftButton.addEventListener("click", toggleChart);
     rightButton.addEventListener("click", toggleChart);
+
+    // Get the button and sales amount elements
+    const toggleButton = document.getElementById('toggleVisibility');
+    const salesAmounts = document.querySelectorAll('.sales-amount');
+
+    // Initial state to track visibility
+    let areVisible = true;
+
+    // Add click event listener to the button
+    toggleButton.addEventListener('click', () => {
+        // Toggle visibility
+        areVisible = !areVisible;
+
+        // Change the display of sales amounts
+        salesAmounts.forEach(amount => {
+            const amountValue = amount.querySelector('.heading-3');
+            if (areVisible) {
+                amountValue.textContent = `₱ ${amount.dataset.original}`;
+            } else {
+                amountValue.textContent = '₱ ******';
+            }
+        });
+
+        // Change the icon based on visibility state
+        toggleButton.innerHTML = `<i class="fa-solid ${areVisible ? 'fa-eye-slash' : 'fa-eye'}"></i>`;
+    });
 </script>

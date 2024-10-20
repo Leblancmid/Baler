@@ -98,9 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.querySelectorAll('.button-yes').forEach((button) => {
+    document.querySelectorAll('.edit-button').forEach((button) => {
         button.addEventListener('click', () => {
-            window.location.href = 'Individual/edit_booking.php';
+            const bookingId = button.getAttribute('data-id'); // Get the ID from the button
+            window.location.href = `Individual/edit_booking.php?id=${bookingId}`; // Redirect with the ID
         });
     });
+
+
 });

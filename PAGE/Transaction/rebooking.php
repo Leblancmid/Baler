@@ -99,7 +99,7 @@
                 <a href="booking.php">Booking</a>
                 <a class="active-content" href="rebooking.php">Re-Booking</a>
                 <a href="payment.php">Payment</a>
-                <a href="penalty">Penalty</a>
+                <a href="penalty.php">Penalty</a>
             </div>
 
             <div class="section">

@@ -18,11 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     popupClientInfo.forEach((btn) => {
         btn.addEventListener('click', () => {
+            const bookingId = btn.getAttribute('data-id'); // Get the ID from the button
             document.querySelector('.clientInfo-pop-up').style.display = 'flex';
             document.querySelector('.pop-clientInfo').style.animationName = 'zoomIn';
             document.querySelector('.pop-clientInfo form').style.display = 'flex';
+
+            // You can use the bookingId here to fetch or display additional client information
+            console.log('Booking ID:', bookingId); // Just for demonstration; you can replace this with your logic
         });
     });
+
 
     popupRoom.forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -544,20 +549,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //alert if theres a selected check in and check out dates before proceeding
-    nextButton.addEventListener("click", () => {
-        const newTotalPrice = localStorage.getItem('newTotalPrice');
+    // nextButton.addEventListener("click", () => {
+    //    const newTotalPrice = localStorage.getItem('newTotalPrice');
 
-        if (!(selectedStartDate && selectedEndDate)) {
-            errorContainer.style.display = "flex";
-            if (!selectedStartDate) {
-                errorMessage.textContent = "You must select a check-in and check-out date.";
-            } else {
-                errorMessage.textContent = "You must select a check-out date.";
-            }
-        } else {
-            document.getElementById('bookingForm').submit(); // Submit the form
-        }
-    });
+    //    if (!(selectedStartDate && selectedEndDate)) {
+    //       errorContainer.style.display = "flex";
+    //       if (!selectedStartDate) {
+    //           errorMessage.textContent = "You must select a check-in and check-out date.";
+    //        } else {
+    //           errorMessage.textContent = "You must select a check-out date.";
+    //        }
+    //    } else {
+    //        document.getElementById('bookingForm').submit(); // Submit the form
+    //    }
+    // });
 
 });
 

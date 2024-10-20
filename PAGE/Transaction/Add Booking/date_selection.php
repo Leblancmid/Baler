@@ -167,7 +167,8 @@
 
                     $parsedUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
                     ?>
-                    <input type="hidden" name="price" value="<?php echo $_POST['price'] ?? ''; ?>">
+                    <input type="hidden" name="price" value="<?php echo $_GET['price'] ?? ''; ?>">
+
                     <input type="hidden" name="startDate" id="startDate"
                         value="<?php echo $_GET['startDate'] ?? ''; ?>">
                     <input type="hidden" name="endDate" id="endDate" value="<?php echo $_GET['endDate'] ?? ''; ?>">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2024 at 03:26 PM
+-- Generation Time: Oct 19, 2024 at 06:00 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -50,9 +50,12 @@ INSERT INTO `amenities` (`id`, `name`, `price`) VALUES
 CREATE TABLE `bookings` (
   `id` int(11) NOT NULL,
   `reference_no` int(11) NOT NULL,
+  `rooms` varchar(255) NOT NULL,
+  `room_pax` varchar(255) NOT NULL,
+  `amenities` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `check_in` datetime NOT NULL,
-  `check_out` datetime NOT NULL,
+  `check_in` date NOT NULL,
+  `check_out` date NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -71,34 +74,24 @@ CREATE TABLE `bookings` (
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `reference_no`, `price`, `check_in`, `check_out`, `first_name`, `last_name`, `email`, `address`, `contact`, `additional_pax`, `total`, `balance`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(15, 4219975, 0, '2024-10-05 13:00:00', '2024-10-12 00:00:00', 'Kamotenggg', 'Kahoyya', 'broken data', 'full street address', 'me@mydomain.com', 350, 68350, 0, 0, '2024-10-04 10:26:51', NULL, NULL),
-(16, 7558201, 0, '2024-10-05 00:00:00', '2024-10-12 00:00:00', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 350, 68350, 0, 0, '2024-10-04 10:29:14', NULL, NULL),
-(17, 9007144, 0, '2024-10-05 00:00:00', '2024-10-07 00:00:00', 'Michael', 'Adriane', 'kasd', 'kasd', 'kasd', 700, 65300, 0, 0, '2024-10-04 10:31:41', NULL, NULL),
-(18, 5993422, 0, '2024-10-05 00:00:00', '2024-10-07 00:00:00', 'kasd', 'kasd', 'kasd', 'kasd', 'kasd', 700, 65300, 0, 0, '2024-10-04 10:31:58', NULL, NULL),
-(19, 9151262, 0, '2024-10-05 00:00:00', '2024-10-12 00:00:00', 'Michael', 'Nabong', 'nabongmichaeladriane@gmail.com', '150 Balut', '+639677163126', 0, 40000, 0, 0, '2024-10-04 10:41:36', NULL, NULL),
-(21, 6670896, 0, '2024-10-12 00:00:00', '2024-10-19 00:00:00', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 350, 35350, 0, 0, '2024-10-11 14:57:02', NULL, NULL),
-(22, 4257591, 0, '2024-10-14 00:00:00', '2024-10-16 00:00:00', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 350, 5350, 0, 0, '2024-10-13 06:49:00', NULL, NULL);
+INSERT INTO `bookings` (`id`, `reference_no`, `rooms`, `room_pax`, `amenities`, `price`, `check_in`, `check_out`, `first_name`, `last_name`, `email`, `address`, `contact`, `additional_pax`, `total`, `balance`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(15, 4219975, '1,2,3', '1:2,2:3,3:4', '1,2', 0, '2024-10-05', '2024-10-12', 'Kamotenggg', 'Kahoyya', 'broken data', 'full street address', 'me@mydomain.com', 350, 68350, 0, 0, '2024-10-04 10:26:51', NULL, NULL),
+(28, 9688670, '', '', '', 0, '2024-10-17', '2024-10-21', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 0, 5600, 0, 0, '2024-10-16 10:50:14', NULL, NULL),
+(29, 2119390, '', '', '', 0, '2024-10-17', '2024-10-21', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 0, 5600, 0, 0, '2024-10-16 10:50:37', NULL, NULL),
+(30, 4404759, '', '', '', 0, '2024-10-17', '2024-10-19', 'Ako ', 'Lang ', 'TO', '1333', '093131', 0, 3600, 0, 0, '2024-10-16 11:05:27', NULL, NULL),
+(31, 1828662, '3,4,5,6', '6:2,6:1', '', 0, '2024-10-17', '2024-10-19', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 1050, 23050, 0, 0, '2024-10-16 15:27:23', NULL, NULL),
+(32, 4147982, '1,2,5,6,8', '5:1,6:2,8:0,', '', 0, '2024-10-17', '2024-10-26', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 0, 116250, 0, 0, '2024-10-16 15:39:10', NULL, NULL),
+(33, 9072604, '1,4,7,10,13', '7:2,10:0,13:1,', '', 0, '2024-10-17', '2024-10-19', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 0, 33850, 0, 0, '2024-10-16 15:40:08', NULL, NULL),
+(34, 3736920, '1,2,6,8,14', '6:2,8:1,14:1,', '1,2', 0, '2024-10-17', '2024-10-26', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 0, 130900, 0, 0, '2024-10-16 15:49:25', NULL, NULL),
+(35, 5702542, '2,3', '', '1', 0, '2024-10-19', '2024-10-21', 'my first name', 'my last name', 'me@mydomain.com', 'full street address', 'me@mydomain.com', 0, 8100, 0, 0, '2024-10-18 16:43:26', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking_amenities`
+-- Table structure for table `discounts`
 --
 
-CREATE TABLE `booking_amenities` (
-  `id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
-  `amenity_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `booking_discounts`
---
-
-CREATE TABLE `booking_discounts` (
+CREATE TABLE `discounts` (
   `id` int(11) NOT NULL,
   `booking_id` int(11) NOT NULL,
   `id_number` int(11) NOT NULL,
@@ -108,14 +101,21 @@ CREATE TABLE `booking_discounts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking_rooms`
+-- Table structure for table `logs`
 --
 
-CREATE TABLE `booking_rooms` (
-  `id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penalty`
+--
+
+CREATE TABLE `penalty` (
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -126,27 +126,39 @@ CREATE TABLE `booking_rooms` (
 
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `pax` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `pax` int(11) NOT NULL
+  `inclusions` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `name`, `price`, `image`, `description`, `type`, `pax`) VALUES
-(1, 'Good for 2', 1400, '../../../IMAGES/nab.jpg', 'Lorem Ipsum', '1', 2),
-(2, 'Good for 4', 2500, '../../../IMAGES/hao.jpg', 'Loremm', '1', 8),
-(3, 'Good for 5', 5000, '../../../IMAGES/jeff.jpg', 'Lorem Ipsum', '2', 14),
-(4, 'Good for 6', 3500, '../../../IMAGES/shayne.jpeg', 'Lorem Ipsum', '2', 6),
-(5, 'Good for 8', 4000, '../../../IMAGES/prec.jpg', 'Lorem ipsum', '2', 8),
-(6, 'Good for 10', 4500, '../../../IMAGES/room.jpg', 'Lorem', '3', 10),
-(7, 'Good for 12 ', 5000, '../../../IMAGES/new.png', 'Lorem', '3', 12),
-(8, 'Good for 14', 6000, '../../../IMAGES/sgag.png', 'Lorem', '3', 14);
+INSERT INTO `rooms` (`id`, `room_id`, `pax`, `price`, `image`, `description`, `type`, `inclusions`) VALUES
+(1, 20, 'Good for 2', 1400, '../../../IMAGES/Room/2/1.jpg', 'lorem', '1', ''),
+(2, 22, 'Good for 2', 1400, '../../../IMAGES/Room/2/1.jpg', 'Lorem Ipsum', '1', ''),
+(3, 2, 'Good for 4', 2500, '../../../IMAGES/Room/4/2.jpg', '', '1', ''),
+(4, 4, 'Good for 4', 2500, '../../../IMAGES/Room/4/2.jpg', 'Lorem Ipsum', '1', ''),
+(5, 9, 'Good for 5', 3000, '../../../IMAGES/Room/5/5.jpg', 'Lorem', '2', ''),
+(6, 10, 'Good for 5', 3000, '../../../IMAGES/Room/5/5.jpg', 'Lorem Ipsum', '2', ''),
+(7, 6, 'Good for 6', 3500, '../../../IMAGES/Room/4/2.jpg', 'Lorem ipsum', '2', ''),
+(8, 19, 'Good for 8', 4000, '../../../IMAGES/Room/8-9/2.jpg', 'Lorem Ipsum', '2', ''),
+(9, 23, 'Good for 8', 4000, '../../../IMAGES/Room//8-9/2.jpg', 'Loremm', '2', ''),
+(10, 1, 'Good for 10', 4500, '../../../IMAGES/Room/10/7.jpg', 'Lorem', '3', ''),
+(11, 12, 'Good for 10', 4500, '../../../IMAGES/Room/10/5.jpg', 'Lorem', '3', ''),
+(12, 14, 'Good for 10', 4500, '../../../IMAGES/Room/10/7.jpg', 'Lorem', '3', ''),
+(13, 15, 'Good for 10', 4500, '../../../IMAGES/Room/10/1.jpg', 'lorem', '3', ''),
+(14, 16, 'Good for 10', 4500, '../../../IMAGES/Room/10/4.jpg', 'lorem', '3', ''),
+(15, 17, 'Good for 10', 4500, '../../../IMAGES/Room/10/5.jpg', 'lorem', '3', ''),
+(16, 18, 'Good for 10', 4500, '../../../IMAGES/Room/10/7.jpg', 'lorem', '3', ''),
+(17, 21, 'Good for 12', 5000, '../../../IMAGES/Room/12-14/6.jpg', 'lorem', '3', ''),
+(18, 0, 'Good for 14', 6000, '../../../IMAGES/Room/14/5.jpg', '', '3', ''),
+(19, 3, 'Good for 14', 6000, '../../../IMAGES/Room/14/2.jpg', '', '3', '');
 
 -- --------------------------------------------------------
 
@@ -204,15 +216,15 @@ ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `booking_amenities`
+-- Indexes for table `logs`
 --
-ALTER TABLE `booking_amenities`
+ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `booking_rooms`
+-- Indexes for table `penalty`
 --
-ALTER TABLE `booking_rooms`
+ALTER TABLE `penalty`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -247,25 +259,25 @@ ALTER TABLE `amenities`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT for table `booking_amenities`
+-- AUTO_INCREMENT for table `logs`
 --
-ALTER TABLE `booking_amenities`
+ALTER TABLE `logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `booking_rooms`
+-- AUTO_INCREMENT for table `penalty`
 --
-ALTER TABLE `booking_rooms`
+ALTER TABLE `penalty`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `sales`

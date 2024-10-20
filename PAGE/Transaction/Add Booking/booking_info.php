@@ -1,6 +1,26 @@
 <?php
 include 'Form/booking_info_form.php';
 include 'Form/confirm_booking_form.php';
+
+$pricePerDay = isset($_GET['price']) ? floatval($_GET['price']) : 0;
+$totalAmount = 0;
+
+if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
+    // Retrieve the start and end dates from the URL
+    $startDate = new DateTime($_GET['startDate']);
+    $endDate = new DateTime($_GET['endDate']);
+
+    // Calculate the difference in days
+    $interval = $startDate->diff($endDate);
+    $totalDays = $interval->days; // Number of days between the two dates
+
+    // Calculate the total amount using the price from the URL
+    $totalAmount = $totalDays * $pricePerDay;
+} else {
+    $totalDays = 0; // Default value if dates are not set
+}
+
+// Now, $totalAmount should reflect the correct value based on the number of days and price
 ?>
 
 <!DOCTYPE html>
@@ -224,7 +244,9 @@ include 'Form/confirm_booking_form.php';
                             </div>
                             <div class="id-count">
                                 <button type="button" id="add-id">Add ID</button>
+                                <p><span id="total-counts" style="display: none;"></span></p> <!-- Hidden element via CSS -->
                             </div>
+
                         </div>
                     </div>
                     <input type="hidden" id="hidden-total-amount" name="totalAmount" value="0">
@@ -267,7 +289,7 @@ include 'Form/confirm_booking_form.php';
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td>=======================================</td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
                                     <?php  } ?>
@@ -284,12 +306,12 @@ include 'Form/confirm_booking_form.php';
                                     <tr>
                                         <td>Total no. of stay</td>
                                         <td>:</td>
-                                        <td>4</td>
+                                        <td><?php echo $totalDays; ?></td>
                                     </tr>
                                     <tr class="price-text">
                                         <td>AMOUNT</td>
                                         <td>=</td>
-                                        <td>₱ 0.00</td>
+                                        <td>₱ <?php echo number_format($totalAmount, 2); ?></td>
                                     </tr>
                                 </table>
                                 <table class="detail-summary">

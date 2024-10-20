@@ -1,6 +1,7 @@
 <?php
 include 'Form/booking_info_form.php';
 include 'Form/confirm_booking_form.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -132,6 +133,7 @@ include 'Form/confirm_booking_form.php';
                     <?php foreach ($selectedRooms as $selectedRoom) { ?>
                         <input type="hidden" name="rooms[]" value="<?php echo $selectedRoom; ?>">
                     <?php } ?>
+
                     <input type="hidden" name="paxTotal" value="<?php echo $paxTotal; ?>">
 
                     <table class="detail-summary">
@@ -177,7 +179,7 @@ include 'Form/confirm_booking_form.php';
                         <?php foreach ($rooms as $index => $room) { ?>
                             <table class="detail-summary confirm-room">
                                 <tr class="room-name">
-                                    <td colspan="3">Room for <?php echo $room['pax']; ?></td>
+                                    <td colspan="3">Room <?php echo $room['pax']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Room Type</td>
@@ -192,7 +194,8 @@ include 'Form/confirm_booking_form.php';
                                 <tr>
                                     <td>Price</td>
                                     <td>:</td>
-                                    <td>₱<span id="totalPrice<?php echo $index; ?>"><?php echo $room['price']; ?></span>
+                                    <td>₱<span id="totalPrice<?php echo $index; ?>"><?php echo number_format($room['price'], 2); ?></span></td>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -210,9 +213,9 @@ include 'Form/confirm_booking_form.php';
                         <?php } ?>
                         <table class="detail-summary">
                             <tr class="price-text">
-                                <td>AMOUNT</td>
-                                <td>=</td>
-                                <td>₱</td>
+                                <td>Price</td>
+                                <td>:</td>
+                                <td><span id=""></span></td>
 
                             </tr>
                         </table>
@@ -227,7 +230,9 @@ include 'Form/confirm_booking_form.php';
                         <tr>
                             <td>Availed Amenities</td>
                             <td>:</td>
-                            <td id="availed-amenities"><?php echo count($amenities); ?></td>
+                            <td id="availed-amenities">
+                                <?php echo empty($amenities) ? "No availed amenities" : count($amenities); ?>
+                            </td>
                         </tr>
 
                         <!-- Individual Amenity Rows -->
@@ -308,3 +313,32 @@ include 'Form/confirm_booking_form.php';
 <?php
 include '../../alert.php';
 ?>
+
+<script>
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+    let roomTotal = 0;
+    if (startDate && endDate) {
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+        var timeDifference = end - start;
+        var daysDifference = timeDifference / (1000 * 3600 * 24);
+        if (daysDifference < 1) {
+            daysDifference = 1;
+        }
+        <?php foreach ($rooms as $index => $room) { ?>
+            var roomPrice<?php echo $index; ?> = <?php echo $room['price']; ?>;
+            var totalPrice<?php echo $index; ?> = roomPrice<?php echo $index; ?> * daysDifference;
+            document.getElementById("totalPrice<?php echo $index; ?>").textContent = totalPrice<?php echo $index; ?>.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            roomTotal += totalPrice<?php echo $index; ?>;
+        <?php } ?>
+        roomTotal = roomTotal.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'PHP'
+        });
+        document.getElementById('roomTotal').textContent = roomTotal;
+    }
+</script>

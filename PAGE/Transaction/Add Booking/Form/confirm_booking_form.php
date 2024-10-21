@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $address = $_GET['address'] ?? '';
     $totalAmount = $_GET['totalAmount'] ?? '';
     $selectedAmenities = $_GET['amenities'] ?? [];
-    $additionalPax = $_GET['additionalPax'] ?? [];
+    $additionalPax = $addedPax = $_GET['additionalPax'] ?? [];
     $selectedRooms = $_GET['room-selection'];
 
     $roomPax = '';
@@ -75,13 +75,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $amenitiesTotal = 0; // Ensure $amenitiesTotal is initialized
     }
 
-    $paxTotal = 0;
+    $paxTotals = [];
 
-    foreach ($additionalPax as $pax) {
-        $paxTotal += $pax * $paxPrice;
+    foreach ($addedPax as $key => $pax) {
+        $paxTotals[] = $pax * $paxPrice;
     }
 
-    $totalSum = $paxTotal + $amenitiesTotal;
+    $totalSum = array_sum($paxTotals) + $amenitiesTotal;
 
     // Proceed with your booking confirmation logic here
 }

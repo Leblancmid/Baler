@@ -205,7 +205,7 @@ include 'Form/confirm_booking_form.php';
                                     <?php } else { ?>
                                         <td>Additional Pax</td>
                                         <td>:</td>
-                                        <td><?php echo $paxTotal; ?></td>
+                                        <td><?php echo $paxTotals[$index] . ' [' . $addedPax[$index] . ']'; ?> </td>
                                     <?php } ?>
                                     </td>
                                 </tr>

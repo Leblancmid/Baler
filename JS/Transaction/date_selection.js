@@ -26,7 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let totalPrice = roomPrice * daysDiff;
 
             // Update the UI with the total price
-            document.getElementById('total-amount').textContent = `₱${totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            if (document.getElementById('total-amount')) {
+                document.getElementById('total-amount').textContent = `₱${totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            }
 
             // Store the total price in local storage
             localStorage.setItem('newTotalPrice', totalPrice.toFixed(2)); // Store as string
@@ -85,6 +87,30 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentDate < today) {
                 classList.push("day-over");  // Add "day-over" class if the day is in the past
             }
+
+            const year = currentDate.getFullYear();
+            const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based, so +1
+            const day = currentDate.getDate().toString().padStart(2, '0');
+
+            // Format the date as Y-m-d
+            const formattedDate = `${year}-${month}-${day}`;
+
+            let startDateDB = document.getElementById('startDate').value;
+            let endDateDB = document.getElementById('endDate').value;
+
+            console.log(startDateDB, formattedDate);
+            if (startDateDB == formattedDate) {
+                classList.push("selected-start");
+            }
+
+            if (formattedDate > startDateDB && formattedDate < endDateDB) {
+                classList.push("in-range");
+            }
+
+            if (endDateDB == formattedDate) {
+                classList.push("selected-end");
+            }
+
             if (selectedStartDate) {
                 let formattedSelectedStartDate = formatDate(selectedStartDate);
                 let formattedSelectedCurrentDate = formatDate(currentDate);
@@ -259,8 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    function prevMonthDisable(btn)
-    {
+    function prevMonthDisable(btn) {
         if (currentDisplayedMonth === 0) {
             btn.disabled = true;
             btn.style.backgroundColor = 'var(--gray-1)';
@@ -280,6 +305,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //updating the button if theres a selected check in and check out dates
     function updateButtonColor() {
+        if (!nextButton) {
+            return;
+        }
         if (selectedStartDate && selectedEndDate) {
             nextButton.style.backgroundColor = 'var(--blue-1)';
             nextButton.style.cursor = 'pointer';
@@ -302,23 +330,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //alert if theres a selected check in and check out dates before proceeding
-    nextButton.addEventListener("click", () => {
-        const newTotalPrice = localStorage.getItem('newTotalPrice');
-        if (!(selectedStartDate && selectedEndDate)) {
-            errorContainer.style.display = "flex";
-            if (!selectedStartDate) {
-                errorMessage.textContent = "You must select a check-in and check-out date.";
+    if (nextButton) {
+        nextButton.addEventListener("click", () => {
+            const newTotalPrice = localStorage.getItem('newTotalPrice');
+            if (!(selectedStartDate && selectedEndDate)) {
+                errorContainer.style.display = "flex";
+                if (!selectedStartDate) {
+                    errorMessage.textContent = "You must select a check-in and check-out date.";
+                } else {
+                    errorMessage.textContent = "You must select a check-out date.";
+                }
             } else {
-                errorMessage.textContent = "You must select a check-out date.";
+                document.getElementById('bookingForm').submit(); // Submit the form
             }
-        } else {
-            document.getElementById('bookingForm').submit(); // Submit the form
-        }
-    });
-
-    // Call this function whenever you update the displayed month
-    updateButtonColor();
-
+        });
+        // Call this function whenever you update the displayed month
+        updateButtonColor();
+    }
 });
 
 document.addEventListener('DOMContentLoaded', () => {

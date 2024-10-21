@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const room = event.target.parentNode;
             const roomId = room.querySelectorAll('.room-selection')[0].value
             const roomSummaries = document.querySelectorAll(`.room-summary-` + roomId);
-            console.log(roomId);
+
             let price = parseInt(room.querySelector('.form-price').textContent);
             if (event.target.checked) {
                 // Add the background color to the selected room element

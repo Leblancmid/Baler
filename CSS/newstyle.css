@@ -3620,7 +3620,17 @@ table.confirm-room tr.room-name {
     gap: 10px;
 }
 
-.indiv-pop-container .room-content-1,
+/* ako to */
+.indiv-pop-container .room-content-1 {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    gap: 5px;
+    padding: 0.5rem;
+
+}
+
 .indiv-pop-container form.room-content-2 {
     height: 100%;
     display: flex;
@@ -4525,4 +4535,30 @@ button.no-button {
 .update-button i {
     margin-right: 5px;
     /* Space between icon and text */
+}
+
+.pop-indiv-other {
+    background-color: #283C81;
+    /* Set background color */
+    color: white;
+    /* Set text color */
+    border: none;
+    /* Remove border */
+    padding: 10px 15px;
+    /* Add some padding */
+    border-radius: 5px;
+    /* Optional: rounded corners */
+    cursor: pointer;
+    /* Change cursor on hover */
+    display: flex;
+    /* Use flexbox for alignment */
+    align-items: center;
+    /* Center align items vertically */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+.pop-indiv-other:hover {
+    background-color: #1a2a6d;
+    /* Darker shade on hover */
 }

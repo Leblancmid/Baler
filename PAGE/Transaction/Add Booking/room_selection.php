@@ -107,7 +107,7 @@ include 'Form/room_selection_form.php';
                             <a href="#" class="active-room" data-filter="all">All</a>
                             <a href="#" data-filter="small">Small</a>
                             <a href="#" data-filter="big">Big</a>
-                            <a href="#" data-filter="sweet">Sweet</a>
+                            <a href="#" data-filter="sweet">Suite</a>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ include 'Form/room_selection_form.php';
                                             <!-- <button type="button">SELECT</button> -->
                                         </div>
                                         <p class="price">₱ <?php echo number_format($room['price'], 2); ?></p>
-                                        <p class="details"><?php echo $room['description']; ?></p>
+                                        <p class="details"><?php echo $room['inclusions']; ?></p>
                                         <p class="inclusion-title">Room Inclusions:</p>
                                         <div class="room-inclusion">
                                             <ul>

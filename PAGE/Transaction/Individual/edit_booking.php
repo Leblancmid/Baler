@@ -1,47 +1,6 @@
 <?php
-include '../../connection.php';
-
-// Initialize variables for output
-$first_name = '';
-$last_name = '';
-$email = '';
-$contact = '';
-$address = '';
-$reference_no = ''; // Ensure this variable is initialized
-
-// Check if the 'id' parameter is present in the URL and not empty
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $bookingId = intval($_GET['id']); // Convert to integer to prevent SQL injection
-
-    // Prepare and bind
-    $stmt = $conn->prepare("SELECT first_name, last_name, email, contact, reference_no, address FROM bookings WHERE id = ?");
-    $stmt->bind_param("i", $bookingId); // "i" means the parameter is an integer
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // Output data of the booking
-        $row = $result->fetch_assoc();
-
-        $first_name = $row["first_name"]; // Assign first name
-        $last_name = $row["last_name"]; // Assign last name
-        $email = $row["email"];
-        $contact = $row["contact"];
-        $address = $row["address"];
-        $reference_no = $row["reference_no"]; // Fix: add the dollar sign here
-    } else {
-        echo "No results found for the specified booking ID.";
-    }
-
-    $stmt->close();
-} else {
-    echo "Error: Booking ID is not specified or is invalid.";
-}
+include 'edit_booking_form.php';
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +11,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <title>Transaction | Baler Nina</title>
     <script src="https://kit.fontawesome.com/d8f0503c9b.js" crossorigin="anonymous"></script>
     <script src="../../../JS/script.js"></script>
+    <script src="../../../JS/Transaction/date_selection.js"></script>
     <script src="../../../JS/Transaction/edit_booking.js"></script>
     <link rel="icon" href="../../../IMAGES/Asset 7 (2)@4x.png"><!--icon tab-->
     <link rel="stylesheet" href="../../../CSS/newstyle.css" />
@@ -174,23 +134,23 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             <tr>
                                 <td>Name</td>
                                 <td>:</td>
-                                <td><?php echo $first_name . ' ' . $last_name; ?></td>
+                                <td><?php echo $result['first_name'] . ' ' . $result['last_name']; ?></td>
                             </tr>
 
                             <tr>
                                 <td>Email</td>
                                 <td>:</td>
-                                <td><?php echo $email; ?></td>
+                                <td><?php echo $result['email']; ?></td>
                             </tr>
                             <tr>
                                 <td>Contact #</td>
                                 <td>:</td>
-                                <td><?php echo $contact; ?></td>
+                                <td><?php echo $result['contact']; ?></td>
                             </tr>
                             <tr>
                                 <td>Address</td>
                                 <td>:</td>
-                                <td><?php echo $address; ?></td>
+                                <td><?php echo $result['address']; ?></td>
                             </tr>
                         </table>
                     </div>
@@ -207,71 +167,22 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         </p>
                         <table class="content">
                             <tr>
-                                <td>Room 1 Name</td>
+                                <td>Check In </td>
                                 <td>:</td>
-                                <td>Room for 1-2 pax</td>
+                                <td><?php echo $result['check_in']; ?></td>
                             </tr>
                             <tr>
-                                <td>Room 1 Type</td>
+                                <td>Check Out </td>
                                 <td>:</td>
-                                <td>Small</td>
+                                <td><?php echo $result['check_out']; ?></td>
                             </tr>
-                            <tr>
-                                <td>Room 1 Pax</td>
-                                <td>:</td>
-                                <td>2 pax</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>:</td>
-                                <td>₱ 0.00</td>
-                            </tr>
-                        </table>
-                        <table class="content">
-                            <tr>
-                                <td>Room 2 Name</td>
-                                <td>:</td>
-                                <td>Room for 1-2 pax</td>
-                            </tr>
-                            <tr>
-                                <td>Room 2 Type</td>
-                                <td>:</td>
-                                <td>Small</td>
-                            </tr>
-                            <tr>
-                                <td>Room 2 Pax</td>
-                                <td>:</td>
-                                <td>2 pax</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>:</td>
-                                <td>₱ 0.00</td>
-                            </tr>
-                        </table>
-                        <table class="content">
-                            <tr>
-                                <td>Check-in Date</td>
-                                <td>:</td>
-                                <td>11-02-2024</td>
-                            </tr>
-                            <tr>
-                                <td>Check-in Date</td>
-                                <td>:</td>
-                                <td>11-05-2024</td>
-                            </tr>
-                            <tr>
-                                <td>Total no. of stay</td>
-                                <td>:</td>
-                                <td>4</td>
-                            </tr>
-                        </table>
-                        <table class="content">
-                            <tr>
-                                <td>AMOUNT</td>
-                                <td>:</td>
-                                <td>₱ 0.00</td>
-                            </tr>
+                            <?php foreach ($selectedRooms as $room) { ?>
+                                <tr>
+                                    <td><?php echo $room['pax']; ?> pax</td>
+                                    <td>:</td>
+                                    <td><?php echo $roomTypes[$room['type']]; ?></td>
+                                </tr>
+                            <?php } ?>
                         </table>
                     </div>
                     <div class="record">
@@ -425,6 +336,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 </body>
 
 </html>
+
+<script>
+    var selectedRoomsJs = "<?php echo $result['rooms']; ?>";
+</script>
 
 <?php
 include '../../alert.php';

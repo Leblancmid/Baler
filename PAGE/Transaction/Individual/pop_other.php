@@ -1,5 +1,10 @@
+<?php
+include 'edit_booking_form.php';
+?>
+
 <!-- pop pop pop -->
 <div class="individual-pop indiv-pop-container other-pop-up">
+<input type="hidden" name="booking_id" value="<?php echo $bookingId; ?>">
     <div class="pop-other">
         <div class="content">
             <p class="record-subheading">

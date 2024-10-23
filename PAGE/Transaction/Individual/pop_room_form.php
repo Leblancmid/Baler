@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bookingId = $_POST['booking_id'];
 
     if ($_POST['startDate'] && $_POST['endDate']) {
-        $query = "UPDATE bookings SET check_in = ?, check_out = ? WHERE id = ?";
+        $query = "UPDATE client SET check_in = ?, check_out = ? WHERE id = ?";
         $checkIn = $_POST['startDate'];
         $checkOut = $_POST['endDate'];
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($_POST['room-selection']) {
-        $query = "UPDATE bookings SET rooms = ? WHERE id = ?";
+        $query = "UPDATE client SET rooms = ? WHERE id = ?";
         $roomSelection = $_POST['room-selection'];
         $roomSelectionString = implode(',', $roomSelection);
 

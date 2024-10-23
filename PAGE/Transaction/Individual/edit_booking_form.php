@@ -14,7 +14,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $bookingId = intval($_GET['id']); // Convert to integer to prevent SQL injection
     
     // Prepare and bind
-    $stmt = $conn->prepare("SELECT * FROM bookings WHERE id = ?");
+    $stmt = $conn->prepare("SELECT * FROM client WHERE id = ?");
     $stmt->bind_param("i", $bookingId); // "i" means the parameter is an integer
 
     $stmt->execute();
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the booking ID is valid
     if ($bookingId > 0) {
         // Prepare and bind the update statement
-        $stmt = $conn->prepare("UPDATE bookings SET first_name = ?, last_name = ?, email = ?, contact = ?, address = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE client SET first_name = ?, last_name = ?, email = ?, contact = ?, address = ? WHERE id = ?");
         $stmt->bind_param("sssssi", $first_name, $last_name, $email, $contact, $address, $bookingId);
 
         // Execute the update

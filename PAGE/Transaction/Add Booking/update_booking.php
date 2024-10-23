@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Add more fields as needed
 
     // Update the booking details in the database
-    $stmt = $conn->prepare("UPDATE bookings SET first_name = ?, last_name = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE client SET first_name = ?, last_name = ? WHERE id = ?");
     $stmt->bind_param("ssi", $first_name, $last_name, $booking_id);
 
     if ($stmt->execute()) {

@@ -28,7 +28,7 @@ include 'Form/confirm_booking_form.php';
 
             <div class="side-nav-content">
                 <div class="navigation">
-                    <a href="#">
+                    <a href="../../Index/dashboard.php">
                         <i class="fa-solid fa-chart-line"></i>
                         <p>Dashboard</p>
                     </a>
@@ -205,7 +205,7 @@ include 'Form/confirm_booking_form.php';
                                     <?php } else { ?>
                                         <td>Additional Pax</td>
                                         <td>:</td>
-                                        <td><?php echo $paxTotals[$index] . ' [' . $addedPax[$index] . ']'; ?> </td>
+                                        <td><?php echo '₱' . number_format($paxTotals[$index], 2) . '  [' . intval($addedPax[$index]) . ']'; ?> </td>
                                     <?php } ?>
                                     </td>
                                 </tr>

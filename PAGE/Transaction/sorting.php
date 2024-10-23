@@ -3,7 +3,7 @@ include '../connection.php'; // Include MySQLi connection
 include 'Add Booking/Form/booking_form.php';
 
 // Initialize query with default filtering
-$query = "SELECT * FROM bookings WHERE 1";
+$query = "SELECT * FROM client WHERE 1";
 
 // Handle filtering by date
 if (isset($_GET['sort-date']) && !empty($_GET['sort-date'])) {

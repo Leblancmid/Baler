@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     popOther.forEach((btn) => {
         btn.addEventListener('click', () => {
+            const bookingId = btn.getAttribute('data-id');
             document.querySelector('.other-pop-up').style.display = 'flex';
             document.querySelector('.pop-other').style.animationName = 'zoomIn';
             document.querySelector('.other-pop-options').style.display = 'flex';
@@ -49,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.other-content-2').style.display = 'none';
             document.querySelector('.other-content-3').style.display = 'none';
             document.querySelector('.other-content-4').style.display = 'none';
+
+            console.log('Booking ID:', bookingId);
         });
     });
 

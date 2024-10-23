@@ -78,7 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $paxTotals = [];
 
     foreach ($addedPax as $key => $pax) {
-        $paxTotals[] = $pax * $paxPrice;
+        if (isset($pax)) { // Check if the value exists
+            $paxTotals[] = $pax * $paxPrice;
+        } else {
+            $paxTotals[] = 0; // Optionally, handle the missing key (e.g., by setting a default value)
+        }
     }
 
     $totalSum = array_sum($paxTotals) + $amenitiesTotal;

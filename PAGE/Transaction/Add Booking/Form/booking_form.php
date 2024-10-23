@@ -1,7 +1,7 @@
 <?php
 include '../connection.php';
 
-$query = "SELECT * FROM bookings";
+$query = "SELECT * FROM client";
 $result = $conn->query($query);
 
 if ($result) {

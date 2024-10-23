@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = (int)$_POST['status']; // Cast to int for safety
 
     // Prepare the SQL query
-    $query = "UPDATE bookings SET status = ? WHERE id = ?";
+    $query = "UPDATE client SET status = ? WHERE id = ?";
     
     // Prepare the statement
     if ($stmt = $conn->prepare($query)) {

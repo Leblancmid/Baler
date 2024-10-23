@@ -58,22 +58,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $amenitiesString = implode(',', $selectedAmenities);
 
     if (!empty($amenitiesString)) {
+        // Ensure the query string is valid and safe
         $query = "SELECT * FROM amenities WHERE id IN ($amenitiesString)";
         $result = $conn->query($query);
+
         if ($result) {
-            $result = $result->fetch_all();
+            $result = $result->fetch_all(MYSQLI_ASSOC); // Fetch the result as an associative array
             $amenitiesTotal = 0;
+
             foreach ($result as $amenity) {
-                $price = (int)$amenity[2]; // Make sure to cast the price to an integer
+                // Assuming the price is in the third column (index 2)
+                $price = (int)$amenity['price']; // Make sure to cast the price to an integer
                 $amenitiesTotal += $price; // Add the price to the total sum
             }
         } else {
-            die("Error fetching selected amenities: " . $conn->error);
         }
     } else {
         // Handle the case where no options were selected
         $amenitiesTotal = 0; // Ensure $amenitiesTotal is initialized
+        echo "No amenities selected. Total: ₱0.00";
     }
+
 
     $paxTotals = [];
 
@@ -86,6 +91,5 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     $totalSum = array_sum($paxTotals) + $amenitiesTotal;
-
     // Proceed with your booking confirmation logic here
 }

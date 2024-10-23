@@ -200,34 +200,43 @@ include 'edit_booking_form.php';
                             <tr>
                                 <td>Availed Amenities</td>
                                 <td>:</td>
-                                <td>none</td>
+                                <td id="availed-amenities">
+                                    <?php
+                                    if (empty($selectedAmenities)) {
+                                        echo "No availed amenities";
+                                    } else {
+                                        // Convert comma-separated string to array
+                                        $amenitiesArray = explode(',', $selectedAmenities);
+                                        echo count($amenitiesArray) . " availed amenities";
+                                    }
+                                    ?>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>Gasul</td>
-                                <td>:</td>
-                                <td>₱ 0.00</td>
-                            </tr>
-                            <tr>
-                                <td>Karaoke</td>
-                                <td>:</td>
-                                <td>₱ 0.00</td>
-                            </tr>
-                            <tr>
-                                <td>Additional Pax x0</td>
-                                <td>:</td>
-                                <td>none</td>
-                            </tr>
-                            <tr>
-                                <td>Additional Pax x2</td>
-                                <td>:</td>
-                                <td>₱ 0.00</td>
-                            </tr>
+
+                            <?php
+                            if (!empty($amenities)) {
+                                foreach ($amenities as $amenity) {
+                            ?>
+                                    <tr>
+                                        <td><?php echo ucfirst($amenity['name']); ?></td>
+                                        <td>:</td>
+                                        <td>₱<?php echo number_format($amenity['price'], 2); ?></td>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                // If there are no amenities, display "No availed amenities"
+                                ?>
+                            <?php
+                            }
+                            ?>
                         </table>
+
                         <table class="content">
                             <tr>
                                 <td>AMOUNT</td>
                                 <td>:</td>
-                                <td>₱ 0.00</td>
+                                <td><?php echo number_format($amenitiesTotal, 2); ?></td>
                             </tr>
                         </table>
                     </div>

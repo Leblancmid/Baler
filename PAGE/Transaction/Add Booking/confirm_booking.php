@@ -195,8 +195,6 @@ include 'Form/confirm_booking_form.php';
                                     <td>Price</td>
                                     <td>:</td>
                                     <td>₱<span id="totalPrice<?php echo $index; ?>"><?php echo number_format($room['price'], 2); ?></span></td>
-
-                                    </td>
                                 </tr>
                                 <tr>
                                     <?php
@@ -211,14 +209,6 @@ include 'Form/confirm_booking_form.php';
                                 </tr>
                             </table>
                         <?php } ?>
-                        <table class="detail-summary">
-                            <tr class="price-text">
-                                <td>Price</td>
-                                <td>:</td>
-                                <td><span id=""></span></td>
-
-                            </tr>
-                        </table>
                     </table>
 
 

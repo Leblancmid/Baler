@@ -7,12 +7,14 @@ $last_name = '';
 $email = '';
 $contact = '';
 $address = '';
-$reference_no = ''; // Ensure this variable is initialized
+$reference_no = '';
+$selectedAmenities = '';  // Initialize it as an empty string by default
+
 
 // Check if the 'id' parameter is present in the URL and not empty
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $bookingId = intval($_GET['id']); // Convert to integer to prevent SQL injection
-    
+
     // Prepare and bind
     $stmt = $conn->prepare("SELECT * FROM client WHERE id = ?");
     $stmt->bind_param("i", $bookingId); // "i" means the parameter is an integer
@@ -22,14 +24,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     if ($result->num_rows > 0) {
         // Output data of the booking
         $result = $result->fetch_assoc();
+        $selectedAmenities = isset($result['amenities']) ? $result['amenities'] : '';
     } else {
         echo "No results found for the specified booking ID.";
     }
 
     $stmt->close();
 
+    // Fetch selected rooms
     $selectedRooms = $result['rooms'];
-
     $query = "SELECT * FROM rooms WHERE id IN ($selectedRooms)";
     $selectedRooms = $conn->query($query);
 
@@ -37,6 +40,32 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         $selectedRooms = $selectedRooms->fetch_all(MYSQLI_ASSOC);
     } else {
         die("Error fetching rooms: " . $conn->error);
+    }
+
+    // Fetch amenities details if available
+    if (!empty($selectedAmenities)) {
+        // Convert comma-separated string to an array of IDs
+        $amenitiesIds = explode(',', $selectedAmenities);
+        $amenitiesIdsString = implode(',', array_map('intval', $amenitiesIds));
+
+        // Prepare the SQL query to fetch amenities details
+        $query = "SELECT * FROM amenities WHERE id IN ($amenitiesIdsString)";
+        $amenitiesResult = $conn->query($query);
+
+        if ($amenitiesResult) {
+            $amenities = $amenitiesResult->fetch_all(MYSQLI_ASSOC);
+            $amenitiesTotal = 0;
+
+            foreach ($amenities as $amenity) {
+                // Assuming the price is in the third column (index 2)
+                $price = (int)$amenity['price']; // Make sure to cast the price to an integer
+                $amenitiesTotal += $price; // Add the price to the total sum
+            }
+        } else {
+            die("Error fetching amenities: " . $conn->error);
+        }
+    } else {
+
     }
 } else {
     echo "Error: Booking ID is not specified or is invalid.";

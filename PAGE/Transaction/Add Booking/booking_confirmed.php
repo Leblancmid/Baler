@@ -39,10 +39,6 @@ include 'Form/booking_confirmed_form.php'; // Include your database connection f
                         <p>Accounts</p>
                     </a>
                     <a href="#">
-                        <i class="fa-brands fa-buffer"></i>
-                        <p>Offers</p>
-                    </a>
-                    <a href="#">
                         <i class="fa-solid fa-door-open"></i>
                         <p>Rooms</p>
                     </a>

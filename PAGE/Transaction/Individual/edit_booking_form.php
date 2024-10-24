@@ -9,6 +9,25 @@ $contact = '';
 $address = '';
 $reference_no = '';
 $selectedAmenities = '';  // Initialize it as an empty string by default
+$additionalPax = $addedPax = $_GET['additionalPax'] ?? [];
+$selectedRooms = $_GET['room-selection'] ?? [];
+$roomPax = '';
+
+foreach ($selectedRooms as $id) {
+    $query = $query = "SELECT * FROM rooms WHERE id = " . $id;
+    $result = $conn->query($query);
+
+    $room = $result->fetch_assoc();
+    if (in_array($room['type'], [2, 3])) { // Assuming 2 and 3 represent big or suite rooms
+        $pax = array_shift($additionalPax);
+        $roomPax = $roomPax . $room['id'] . ":$pax";
+        $roomPax = $roomPax . ',';
+    }
+    if ($result) {
+    } else {
+        die("Error fetching room: " . $conn->error);
+    }
+}
 
 
 // Check if the 'id' parameter is present in the URL and not empty
@@ -65,7 +84,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             die("Error fetching amenities: " . $conn->error);
         }
     } else {
-
     }
 } else {
     echo "Error: Booking ID is not specified or is invalid.";
@@ -103,6 +121,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error: Booking ID is not specified or is invalid.";
     }
+
+    $paxTotals = [];
+
+    foreach ($addedPax as $key => $pax) {
+        if (isset($pax)) { // Check if the value exists
+            $paxTotals[] = $pax * $paxPrice;
+        } else {
+            $paxTotals[] = 0; // Optionally, handle the missing key (e.g., by setting a default value)
+        }
+    }
+
+    $totalSum = array_sum($paxTotals) + $amenitiesTotal;
 }
 
 $conn->close(); // Close the database connection

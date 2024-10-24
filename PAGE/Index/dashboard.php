@@ -43,10 +43,6 @@ include 'sales.php'
                         <p>Accounts</p>
                     </a>
                     <a href="#">
-                        <i class="fa-brands fa-buffer"></i>
-                        <p>Offers</p>
-                    </a>
-                    <a href="#">
                         <i class="fa-solid fa-door-open"></i>
                         <p>Rooms</p>
                     </a>

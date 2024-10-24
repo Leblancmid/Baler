@@ -40,10 +40,6 @@ include 'Add Booking/Form/booking_form.php';
             <p>Accounts</p>
           </a>
           <a href="#">
-            <i class="fa-brands fa-buffer"></i>
-            <p>Offers</p>
-          </a>
-          <a href="#">
             <i class="fa-solid fa-door-open"></i>
             <p>Rooms</p>
           </a>
@@ -101,7 +97,6 @@ include 'Add Booking/Form/booking_form.php';
       <!-- CONTENT -->
       <div class="content-navigation">
         <a class="active-content" href="booking.php">Booking</a>
-        <a href="rebooking.php">Re-Booking</a>
         <a href="payment.php">Payment</a>
         <a href="penalty.php">Penalty</a>
       </div>

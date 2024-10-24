@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else {
         // Handle the case where no options were selected
         $amenitiesTotal = 0; // Ensure $amenitiesTotal is initialized
-        echo "No amenities selected. Total: ₱0.00";
     }
 
 

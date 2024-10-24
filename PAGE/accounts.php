@@ -30,13 +30,9 @@
                         <i class="fa-solid fa-bars-progress"></i>
                         <p>Transaction</p>
                     </a>
-                    <a class="active-nav" href="../accounts.php">
+                    <a class="active-nav" href="accounts.php">
                         <i class="fa-solid fa-user"></i>
                         <p>Accounts</p>
-                    </a>
-                    <a href="#">
-                        <i class="fa-brands fa-buffer"></i>
-                        <p>Offers</p>
                     </a>
                     <a href="#">
                         <i class="fa-solid fa-door-open"></i>

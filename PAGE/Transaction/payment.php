@@ -23,7 +23,7 @@
 
             <div class="side-nav-content">
                 <div class="navigation">
-                    <a href="../dashboard.php">
+                    <a href="../Index/dashboard.php">
                         <i class="fa-solid fa-chart-line"></i>
                         <p>Dashboard</p>
                     </a>
@@ -34,10 +34,6 @@
                     <a href="../accounts.php">
                         <i class="fa-solid fa-user"></i>
                         <p>Accounts</p>
-                    </a>
-                    <a href="#">
-                        <i class="fa-brands fa-buffer"></i>
-                        <p>Offers</p>
                     </a>
                     <a href="#">
                         <i class="fa-solid fa-door-open"></i>
@@ -97,7 +93,6 @@
             <!-- CONTENT -->
             <div class="content-navigation">
                 <a href="booking.php">Booking</a>
-                <a href="rebooking.php">Re-Booking</a>
                 <a class="active-content" href="payment.php">Payment</a>
                 <a href="penalty.php">Penalty</a>
             </div>

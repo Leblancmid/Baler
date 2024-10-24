@@ -40,10 +40,6 @@ include 'edit_booking_form.php';
                         <p>Accounts</p>
                     </a>
                     <a href="#">
-                        <i class="fa-brands fa-buffer"></i>
-                        <p>Offers</p>
-                    </a>
-                    <a href="#">
                         <i class="fa-solid fa-door-open"></i>
                         <p>Rooms</p>
                     </a>
@@ -222,14 +218,32 @@ include 'edit_booking_form.php';
                                         <td>:</td>
                                         <td>₱<?php echo number_format($amenity['price'], 2); ?></td>
                                     </tr>
-                                <?php
+                            <?php
                                 }
                             } else {
                                 // If there are no amenities, display "No availed amenities"
-                                ?>
-                            <?php
+                                echo "<tr><td>No availed amenities</td></tr>";
                             }
                             ?>
+
+                            <tr>
+                                <?php
+                                // Check if the room type is 2 or 3
+                                if (in_array($room['type'], [2, 3])) {
+                                    // Ensure $index is defined and within bounds
+                                    if (isset($index) && isset($paxTotals[$index]) && isset($addedPax[$index])) { ?>
+                                        <td>Additional Pax</td>
+                                        <td>:</td>
+                                        <td>
+                                            <?php echo '₱' . number_format($paxTotals[$index], 2) . '  [' . intval($addedPax[$index]) . ']'; ?>
+                                        </td>
+                                    <?php } else { ?>
+                                        <td colspan="3">No additional pax details available</td>
+                                <?php }
+                                }
+                                ?>
+                            </tr>
+
                         </table>
 
                         <table class="content">

@@ -187,7 +187,7 @@ include 'edit_booking_form.php';
                                 <i class="fa-solid fa-square-plus"></i>
                                 OTHER
                             </span>
-                            <button class="pop-indiv-other">
+                            <button class="pop-indiv-other" data-id="<?php echo $bookingId; ?>">
                                 <span>edit</span>
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>

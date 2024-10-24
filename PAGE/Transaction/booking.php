@@ -1,5 +1,25 @@
 <?php
 include 'Add Booking/Form/booking_form.php';
+
+// Initialize sorting variables with default values
+$orderBy = 'created_at'; // Default sorting column
+$orderDirection = 'ASC'; // Default sorting direction
+
+// Check if the form has been submitted
+if (isset($_POST['sort_name'])) {
+  if ($_POST['sort_name'] === 'ascending') {
+    $orderBy = 'first_name';
+    $orderDirection = 'ASC';
+  } elseif ($_POST['sort_name'] === 'descending') {
+    $orderBy = 'first_name';
+    $orderDirection = 'DESC';
+  }
+}
+
+// Use the sorting variables in your query
+$query = "SELECT * FROM client ORDER BY $orderBy $orderDirection";
+$bookings = mysqli_query($conn, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -118,23 +138,23 @@ include 'Add Booking/Form/booking_form.php';
 
       <div class="table-container">
         <div class="record-container">
-          <table class="overall-table">
+          <table class="overall-table" id="bookingTable">
             <thead class="record-header">
               <tr>
-                <th>Booking Ref No</th>
-                <th>Room ID</th>
-                <th>Date Booked</th>
-                <th>Name</th>
-                <th>Check-In</th>
-                <th>Check-Out</th>
-                <th>Total</th>
-                <th>Balance</th>
-                <th>Status</th>
-                <th>Modify</th>
+                <th class="booking-ref">Booking Ref No.</th>
+                <th class="room-id">Room Id</th>
+                <th class="date-booked">Date Booked</th>
+                <th class="client-name">Name</th>
+                <th class="check-in">Check-In</th>
+                <th class="check-out">Check-Out</th>
+                <th class="total">Total</th>
+                <th class="balance">Balance</th>
+                <th class="booking-status">Status</th>
+                <th class="modify-button">Modify</th>
               </tr>
             </thead>
 
-            <tbody class="record-list">
+            <tbody class="record-list" id="bookingBody">
               <?php
               foreach ($bookings as $booking) {
               ?>
@@ -176,56 +196,50 @@ include 'Add Booking/Form/booking_form.php';
               <?php
               }
               if (empty($bookings)) {
-                echo "<tr><td colspan='3'>No records found</td></tr>";
+                echo "<tr><td colspan='10'>No records found</td></tr>";
               }
               ?>
-              <!-- wag mo gagalawin to for extra space sa baba to para di matabunan yung dropdown ng booking ref no -->
               <tr>
-                <td>
-                  <br>
-                  <br>
-                  <br>
+                <td colspan="10">
+                  <br><br><br>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <form class="sort" method="GET" action="sorting.php">
-          <div>
-            <div class="sorting-section">
-              <div>
-                <label for="sort-first-name">First Name</label>
-                <input type="text" name="sort-first-name" placeholder="Search by First Name">
-              </div>
-              <div>
-                <label for="sort-last-name">Last Name</label>
-                <input type="text" name="sort-last-name" placeholder="Search by Last Name">
-              </div>
-              <div>
-                <label for="sort-email">Email</label>
-                <input type="text" name="sort-email" placeholder="Search by Email">
-              </div>
-              <div>
-                <label for="sort-date">Date Booked</label>
-                <input type="date" name="sort-date">
-              </div>
-              <div>
-                <label for="sort-status">Status</label>
-                <select name="sort-status">
-                  <option value="default-status">Default</option>
-                  <option value="1">Booked</option>
-                  <option value="2">Pending</option>
-                  <option value="3">Canceled</option>
-                  <option value="4">Checked-In</option>
-                  <option value="5">Checked-Out</option>
-                </select>
-              </div>
-              <button type="submit">Sort</button>
+
+        <!-- Sorting Controls -->
+        <div class="sort">
+          <div class="sorting-section">
+            <!-- Make sure the select is inside a form element -->
+            <form method="POST" action="booking.php">
+              <label for="sort-name">Name</label>
+              <select id="sort-name" name="sort_name" onchange="this.form.submit()">
+                <option value="default" <?php echo (isset($_POST['sort_name']) && $_POST['sort_name'] == 'default') ? 'selected' : ''; ?>>Default</option>
+                <option value="ascending" <?php echo (isset($_POST['sort_name']) && $_POST['sort_name'] == 'ascending') ? 'selected' : ''; ?>>Ascending</option>
+                <option value="descending" <?php echo (isset($_POST['sort_name']) && $_POST['sort_name'] == 'descending') ? 'selected' : ''; ?>>Descending</option>
+              </select>
+            </form>
+
+            <div>
+              <label for="sort-date">Date Booked</label>
+              <input type="date" id="sort-date">
+            </div>
+            <div>
+              <label for="sort-status">Status</label>
+              <select id="sort-status">
+                <option value="default-status">Default</option>
+                <option value="1">Booked</option>
+                <option value="2">Pending</option>
+                <option value="3">Canceled</option>
+                <option value="4">Checked-In</option>
+                <option value="5">Checked-Out</option>
+              </select>
             </div>
           </div>
-        </form>
-
+        </div>
       </div>
+
     </div>
 </body>
 

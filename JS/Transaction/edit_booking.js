@@ -78,8 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     selectAmenities.forEach((btn) => {
         btn.addEventListener('click', () => {
+            const bookingId = btn.getAttribute('data-id');
             document.querySelector('.other-pop-options').style.display = 'none';
             document.querySelector('.other-content-2').style.display = 'flex';
+            console.log('Booking ID:', bookingId);
         });
     });
 
@@ -277,16 +279,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.amenities-option input').forEach((input) => {
         input.addEventListener('change', () => {
+            const bookingId = input.getAttribute('data-id');
             checkboxContainer.style.display = input.id === 'yesAmenities' ? 'flex' : 'none';
-
+    
             // Reset amenities when 'No' is selected
             if (input.id === 'noneAmenities') {
                 checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                     checkbox.checked = false;
                 });
             }
+    
+            // Check amenities if 'Yes' is selected
+            if (input.id === 'yesAmenities') {
+                checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = true; // Check each checkbox
+                });
+            }
+    
+            // Log selected amenities
+            const selectedAmenities = [];
+            checkboxContainer.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedAmenities.push(checkbox.getAttribute('data-name')); // Get name from data attribute
+            });
+    
+            console.log('Selected Amenities:', selectedAmenities.join(', '));
+            console.log('Booking ID:', bookingId);
         });
     });
+    
+
 
     // Get all the add and minus buttons
     const addButtons = document.querySelectorAll('.add');

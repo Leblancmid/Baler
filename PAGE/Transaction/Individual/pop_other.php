@@ -4,7 +4,7 @@ include 'edit_booking_form.php';
 
 <!-- pop pop pop -->
 <div class="individual-pop indiv-pop-container other-pop-up">
-<input type="hidden" name="booking_id" value="<?php echo $bookingId; ?>">
+    <input type="hidden" name="booking_id" value="<?php echo $bookingId; ?>">
     <div class="pop-other">
         <div class="content">
             <p class="record-subheading">
@@ -19,7 +19,7 @@ include 'edit_booking_form.php';
                     <i class="fa-solid fa-person-circle-plus"></i>
                     <p>Update Additional Pax</p>
                 </button>
-                <button class="amenities-option">
+                <button class="amenities-option" data-id="<?php echo $bookingId; ?>">
                     <i class="fa-solid fa-layer-group"></i>
                     <p>Update Amenities Selected</p>
                 </button>
@@ -32,6 +32,7 @@ include 'edit_booking_form.php';
                     <p>Update Penalty Record</p>
                 </button>
             </div>
+            <input type="hidden" name="id" value="<?php echo $bookingId; ?>">
 
             <form class="other-content-1">
                 <div class="selected-room-list">
@@ -103,14 +104,14 @@ include 'edit_booking_form.php';
                     <p>Amenities:</p>
                     <div class="input-container">
                         <div class="amenities-option">
-                            <input type="radio" name="choice" value="none" id="noneAmenities" checked>
+                            <input type="radio" name="choice" value="none" id="noneAmenities" checked data-id="<?php echo $bookingId; ?>">
                             <label for="noneAmenities">No</label>
-                            <input type="radio" name="choice" value="yes" id="yesAmenities">
+                            <input type="radio" name="choice" value="yes" id="yesAmenities" data-id="<?php echo $bookingId; ?>">
                             <label for="yesAmenities">Add</label>
                         </div>
-                        <div class="checkbox-container">
+                        <div class="checkbox-container" style="display: none;"> <!-- Initially hidden -->
                             <div class="flex">
-                                <input type="checkbox" name="option" id="gasul" value="gasul">
+                                <input type="checkbox" name="option" id="gasul" value="Gasul">
                                 <label for="gasul">
                                     <span class="checked-amenities">✔</span>
                                     Gasul
@@ -118,7 +119,7 @@ include 'edit_booking_form.php';
                                 <span>₱ 300</span>
                             </div>
                             <div class="flex">
-                                <input type="checkbox" name="option" id="karaoke" value="karaoke">
+                                <input type="checkbox" name="option" id="karaoke" value="Karaoke">
                                 <label for="karaoke">
                                     <span class="checked-amenities">✔</span>
                                     Karaoke
@@ -128,6 +129,7 @@ include 'edit_booking_form.php';
                         </div>
                     </div>
                 </div>
+
                 <div class="individual-pop-button">
                     <button type="button" class="cancel">cancel</button>
                     <button type="button" class="update-room">save</button>

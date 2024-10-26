@@ -35,10 +35,6 @@
                         <p>Accounts</p>
                     </a>
                     <a href="#">
-                        <i class="fa-solid fa-door-open"></i>
-                        <p>Rooms</p>
-                    </a>
-                    <a href="#">
                         <i class="fa-solid fa-window-restore"></i>
                         <p>Content Control</p>
                     </a>

@@ -60,10 +60,6 @@ $bookings = mysqli_query($conn, $query);
             <p>Accounts</p>
           </a>
           <a href="#">
-            <i class="fa-solid fa-door-open"></i>
-            <p>Rooms</p>
-          </a>
-          <a href="#">
             <i class="fa-solid fa-window-restore"></i>
             <p>Content Control</p>
           </a>
@@ -141,12 +137,10 @@ $bookings = mysqli_query($conn, $query);
           <table class="overall-table" id="bookingTable">
             <thead class="record-header">
               <tr>
-                <th class="booking-ref">Booking Ref No.</th>
-                <th class="room-id">Room Id</th>
-                <th class="date-booked">Date Booked</th>
                 <th class="client-name">Name</th>
                 <th class="check-in">Check-In</th>
                 <th class="check-out">Check-Out</th>
+                <th class="room-id">Room Id</th>
                 <th class="total">Total</th>
                 <th class="balance">Balance</th>
                 <th class="booking-status">Status</th>
@@ -159,12 +153,10 @@ $bookings = mysqli_query($conn, $query);
               foreach ($bookings as $booking) {
               ?>
                 <tr>
-                  <td><?php echo htmlspecialchars($booking['reference_no']); ?></td>
-                  <td><?php echo $booking['id']; ?></td>
-                  <td><?php echo formatDate($booking['created_at']); ?></td>
                   <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
                   <td><?php echo formatDate($booking['check_in']); ?></td>
                   <td><?php echo formatDate($booking['check_out']); ?></td>
+                  <td><?php echo $booking['id']; ?></td>
                   <td>₱ <?php echo number_format($booking['total'], 2); ?></td>
                   <td><?php echo $booking['balance']; ?></td>
                   <td class="record-status">
@@ -220,28 +212,24 @@ $bookings = mysqli_query($conn, $query);
                 <option value="descending" <?php echo (isset($_POST['sort_name']) && $_POST['sort_name'] == 'descending') ? 'selected' : ''; ?>>Descending</option>
               </select>
             </form>
-
-            <div>
-              <label for="sort-date">Date Booked</label>
-              <input type="date" id="sort-date">
-            </div>
-            <div>
-              <label for="sort-status">Status</label>
-              <select id="sort-status">
-                <option value="default-status">Default</option>
-                <option value="1">Booked</option>
-                <option value="2">Pending</option>
-                <option value="3">Canceled</option>
-                <option value="4">Checked-In</option>
-                <option value="5">Checked-Out</option>
-              </select>
-            </div>
           </div>
         </div>
       </div>
 
     </div>
 </body>
+
+<script>
+  document.getElementById("search").addEventListener("input", function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#bookingBody tr");
+
+    rows.forEach(row => {
+      const rowData = row.innerText.toLowerCase();
+      row.style.display = rowData.includes(searchTerm) ? "" : "none";
+    });
+  });
+</script>
 
 </html>
 

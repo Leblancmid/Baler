@@ -112,7 +112,7 @@ $bookings = mysqli_query($conn, $query);
 
       <!-- CONTENT -->
       <div class="content-navigation">
-        <a class="active-content" href="booking.php">Booking</a>
+        <a class="active-content" href="booking.php">Booked</a>
         <a href="payment.php">Payment</a>
         <a href="penalty.php">Penalty</a>
       </div>

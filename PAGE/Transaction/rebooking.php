@@ -88,7 +88,7 @@
 
             <!-- CONTENT -->
             <div class="content-navigation">
-                <a href="booking.php">Booking</a>
+                <a href="booking.php">Booked</a>
                 <a class="active-content" href="rebooking.php">Re-Booking</a>
                 <a href="payment.php">Payment</a>
                 <a href="penalty.php">Penalty</a>

@@ -223,21 +223,11 @@ include 'edit_booking_form.php';
                             ?>
 
                             <tr>
-                                <?php
-                                // Check if the room type is 2 or 3
-                                if (in_array($room['type'], [2, 3])) {
-                                    // Ensure $index is defined and within bounds
-                                    if (isset($index) && isset($paxTotals[$index]) && isset($addedPax[$index])) { ?>
-                                        <td>Additional Pax</td>
-                                        <td>:</td>
-                                        <td>
-                                            <?php echo '₱' . number_format($paxTotals[$index], 2) . '  [' . intval($addedPax[$index]) . ']'; ?>
-                                        </td>
-                                    <?php } else { ?>
-                                        <td colspan="3">No additional pax details available</td>
-                                <?php }
-                                }
-                                ?>
+                                <td>Additional Pax</td>
+                                <td>:</td>
+                                <td>
+                                <?php echo $totalNumberOfPaxes; ?>
+                                </td>
                             </tr>
 
                         </table>

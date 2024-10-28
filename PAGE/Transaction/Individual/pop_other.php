@@ -1,5 +1,32 @@
 <?php
+
 include 'edit_booking_form.php';
+
+$roomPaxRatio = [];
+
+$pairs = explode(',', $result['room_pax']);
+// Loop through each pair and split by colon to get room id and pax values
+foreach ($pairs as $pair) {
+    $roomId = null;
+    $pax = null;
+
+    // Split the pair by colon and check if both values exist
+    if (strpos($pair, ':') !== false) {
+        list($roomId, $pax) = explode(':', $pair);
+        $roomId = trim($roomId); // Optional: trim whitespace
+        $pax = trim($pax);       // Optional: trim whitespace
+    }
+
+    // Set the pax value in the array only if both roomId and pax are valid
+    if ($roomId !== null && $pax !== null) {
+        $roomPaxRatio[$roomId] = (int)$pax; // Convert pax to integer
+    }
+}
+
+function getPaxValue($roomId, $roomPaxRatio)
+{
+    return isset($roomPaxRatio[$roomId]) ? $roomPaxRatio[$roomId] : null;
+}
 ?>
 
 <!-- pop pop pop -->
@@ -32,74 +59,57 @@ include 'edit_booking_form.php';
                     <p>Update Penalty Record</p>
                 </button>
             </div>
-            <input type="hidden" name="id" value="<?php echo $bookingId; ?>">
 
-            <form class="other-content-1">
-                <div class="selected-room-list">
-                    <div class="selected-room">
-                        <div class="selected-room-info">
-                            <div class="room-IMAGES">
-                                <img src="../../../IMAGES/nab.jpg" alt="" class="actual-IMAGES">
-                            </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Adriane Room</p>
-                                        <p class="room-type">[BIG ROOM]</p>
+            <form class="other-content-1" action="pop_room_form.php" method="POST">
+                <input type="hidden" name="booking_id" value="<?php echo $bookingId; ?>">
+                <?php foreach ($selectedRooms as $key => $room) { ?>
+                    <div class="selected-room-list">
+                        <div class="selected-room">
+                            <div class="selected-room-info">
+                                <!-- <div class="room-IMAGES">
+                                    <img src="../../../IMAGES/hao.jpg" alt="" class="actual-IMAGES">
+                                </div> -->
+                                <div class="room-text">
+                                    <div class="room-details">
+                                        <div class="room-heading">
+                                            <p class="pax-number"><?php echo $room['pax']; ?></p>
+                                            <p class="room-type">[<?php echo $roomTypes[$room['type']]; ?>]</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="add-pax-container">
-                            <label for="add-pax">Additional Pax:</label>
-                            <div class="add-pax-input">
-                                <button type="button" class="minus">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                                <input type="text" class="add-pax" value="0">
-                                <button type="button" class="add">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="selected-room">
-                        <div class="selected-room-info">
-                            <div class="room-IMAGES">
-                                <img src="../../../IMAGES/hao.jpg" alt="" class="actual-IMAGES">
-                            </div>
-                            <div class="room-text">
-                                <div class="room-details">
-                                    <div class="room-heading">
-                                        <p class="pax-number">Hao Room</p>
-                                        <p class="room-type">[BIG ROOM]</p>
+                            <?php if (!in_array($room['type'], [2, 3])) { ?>
+                                <input type="hidden" name="additionalPax[]" value="0">
+                                <p>No additional pax</p>
+                            <?php } else { ?>
+                                if theres big rooms selected
+                                <div class="add-pax-container">
+                                    <label for="add-pax">Additional Pax:</label>
+                                    <div class="add-pax-input">
+                                        <button type="button" class="minus">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </button>
+                                        <input type="text" name="addPax[<?php echo $room['id']; ?>]" class="add-pax" id="add-pax-<?php echo $room['id']; ?>" data-id="<?php echo $room['id']; ?>" value="<?php echo getPaxValue($room['id'], $roomPaxRatio); ?>">
+                                        <button type="button" class="add">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="add-pax-container">
-                            <label for="add-pax">Additional Pax:</label>
-                            <div class="add-pax-input">
-                                <button type="button" class="minus">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                                <input type="text" class="add-pax" value="0">
-                                <button type="button" class="add">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
 
-                    <p class="note"><span>Note:</span> max of 2 addtional pax per room only</p>
-                </div>
+                <?php } ?>
+                <p class="note"><span>Note:</span> max of 2 addtional pax per room only</p>
                 <div class="individual-pop-button">
                     <button type="button" class="cancel">cancel</button>
-                    <button type="button" class="update-room">save</button>
+                    <button type="submit" class="update-room">save</button>
                 </div>
+
             </form>
 
-            <form class="other-content-2">
+            <form class="other-content-2" action="pop_room_form.php" method="POST">
+                <input type="hidden" name="booking_id" value="<?php echo $bookingId; ?>">
                 <div class="details-input">
                     <p>Amenities:</p>
                     <div class="input-container">
@@ -111,17 +121,15 @@ include 'edit_booking_form.php';
                         </div>
                         <div class="checkbox-container" style="display: none;"> <!-- Initially hidden -->
                             <div class="flex">
-                                <input type="checkbox" name="option" id="gasul" value="Gasul">
+                                <input type="checkbox" name="options[]" id="gasul" value="<?php echo 1; ?>" <?php if (in_array(1, $amenitiesIds)) echo 'checked'; ?>>
                                 <label for="gasul">
-                                    <span class="checked-amenities">✔</span>
                                     Gasul
                                 </label>
                                 <span>₱ 300</span>
                             </div>
                             <div class="flex">
-                                <input type="checkbox" name="option" id="karaoke" value="Karaoke">
+                                <input type="checkbox" name="options[]" id="karaoke" value="<?php echo 2; ?>" <?php if (in_array(2, $amenitiesIds)) echo 'checked'; ?>>
                                 <label for="karaoke">
-                                    <span class="checked-amenities">✔</span>
                                     Karaoke
                                 </label>
                                 <span>₱ 500</span>
@@ -132,7 +140,7 @@ include 'edit_booking_form.php';
 
                 <div class="individual-pop-button">
                     <button type="button" class="cancel">cancel</button>
-                    <button type="button" class="update-room">save</button>
+                    <button type="submit" class="update-room">save</button>
                 </div>
             </form>
 

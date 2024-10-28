@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let startDateDB = document.getElementById('startDate').value;
             let endDateDB = document.getElementById('endDate').value;
 
-            console.log(startDateDB, formattedDate);
             if (startDateDB == formattedDate) {
                 classList.push("selected-start");
             }

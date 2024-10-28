@@ -1,3 +1,7 @@
+<?php
+include 'accounts_form.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,56 +88,51 @@
                     <p class="am-pm">PM</p>
                 </div>
             </div>
-            <div class="user-account-container">
-                <div class="user-info image-pop-up">
-                    <p class="label">Profile Picture</p>
-                    <div class="main-image-container">
-                        <div class="user-image">
-                            <img src="../IMAGES/nab.jpg" alt="">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+                <div class="user-account-container">
+                    <div class="user-info image-pop-up">
+                        <p class="label">Profile Picture</p>
+                        <div class="main-image-container">
+                            <div class="user-image">
+                                <img src="../IMAGES/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
+                                <input type="file" name="profile_picture">
+                                <input type="hidden" name="existing_profile_picture" value="<?php echo htmlspecialchars($user['profile_picture']); ?>">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- <div class="details-input">
-                                <label for="user-username">Username</label>
-                                <input type="text" id="user-username">
-                            </div>
-                            <div class="details-input">
-                                <label for="user-email">Email</label>
-                                <input type="text" id="user-email">
-                            </div> -->
-                <div class="user-info name-pop-up">
-                    <div class="info-content">
-                        <p class="label">Name:</p>
-                        <p class="info">Michael Adriane</p>
+
+                    <div class="user-info name-pop-up">
+                        <div class="info-content">
+                            <p class="label">Name:</p>
+                            <input type="text" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                        </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="user-info username-pop-up">
-                    <div class="info-content">
-                        <p class="label">Username:</p>
-                        <p class="info">michael123</p>
+
+                    <div class="user-info username-pop-up">
+                        <div class="info-content">
+                            <p class="label">Username:</p>
+                            <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+                        </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="user-info email-pop-up">
-                    <div class="info-content">
-                        <p class="label">Email:</p>
-                        <p class="info">michael@gmail.com</p>
+
+                    <div class="user-info email-pop-up">
+                        <div class="info-content">
+                            <p class="label">Email:</p>
+                            <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                        </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <div class="user-info password-pop-up">
-                    <div class="info-content">
-                        <p class="label">Password:</p>
-                        <p class="info">******</p>
+
+                    <div class="user-info password-pop-up">
+                        <div class="info-content">
+                            <p class="label">Password:</p>
+                            <input type="password" name="password" placeholder="Leave blank to keep current password">
+                            <input type="hidden" name="existing_password" value="<?php echo htmlspecialchars($user['password']); ?>">
+                        </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <!-- <div class="info-p">
-                                    <p class="info">******</p>
-                                    <button class="eye-visible"><i class="fa-solid fa-eye-slash"></i></button>
-                                </div> -->
+
+                    <button type="submit">Update</button>
                 </div>
-            </div>
+            </form>
 
             <!-- pop ups -->
             <!-- for image -->

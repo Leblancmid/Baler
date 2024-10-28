@@ -93,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
         totalElement.value = newTotal;
     }
 
+    //
+
     const addButton = document.getElementById("add-id");
     const inputsContainer = document.getElementById("input-container");
     const totalInputs = document.getElementById("total-counts");
@@ -146,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const messageAlert = document.querySelector('.message-alert');
-    const messageNote = document.querySelector('.alert-message');
     const okButton = document.querySelector('.ok-button');
 
     okButton.addEventListener("click", () => {

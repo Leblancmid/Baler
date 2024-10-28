@@ -173,6 +173,7 @@ if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
                                 <p>Additional Pax</p>
                                 <?php
                                 if (!in_array($room['type'], [2, 3])) { ?>
+                                    <input type="hidden" name="additionalPax[]" value="0">
                                     <p>No additional pax</p>
                                 <?php } else { ?>
                                     <!-- if theres big rooms selected -->
@@ -222,17 +223,6 @@ if (isset($_GET['startDate']) && isset($_GET['endDate'])) {
                         <div class="details-input">
                             <p>Senior Citizen/PWDs:</p>
                             <div id="input-container">
-                                <!-- for id -->
-                                <!-- <div class="id-container">
-                                    <input type="text" placeholder="ID Number">
-                                    <select name="idType">
-                                        <option value="idPWD">PWD</option>
-                                        <option value="idSenior">Senior</option>
-                                    </select>
-                                    <button type="button" class="id-remove">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div> -->
                             </div>
                             <div class="id-count">
                                 <button type="button" id="add-id">Add ID</button>

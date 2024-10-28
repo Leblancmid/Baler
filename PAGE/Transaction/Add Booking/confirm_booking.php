@@ -190,12 +190,10 @@ include 'Form/confirm_booking_form.php';
                                 </tr>
                                 <tr>
                                     <?php
-                                    if (!in_array($room['type'], [2, 3])) { ?>
-
-                                    <?php } else { ?>
+                                    if (in_array($room['type'], [2, 3])) { ?>
                                         <td>Additional Pax</td>
                                         <td>:</td>
-                                        <td><?php echo '₱' . number_format($paxTotals[$index], 2) . '  [' . intval($addedPax[$index]) . ']'; ?> </td>
+                                        <td><?php echo $addedPax[$index]; ?> </td>
                                     <?php } ?>
                                     </td>
                                 </tr>

@@ -281,35 +281,34 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('change', () => {
             const bookingId = input.getAttribute('data-id');
             checkboxContainer.style.display = input.id === 'yesAmenities' ? 'flex' : 'none';
-    
+
             // Reset amenities when 'No' is selected
             if (input.id === 'noneAmenities') {
                 checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.checked = false;
                 });
             }
-    
+
             // Check amenities if 'Yes' is selected
             if (input.id === 'yesAmenities') {
                 checkboxContainer.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.checked = true; // Check each checkbox
                 });
             }
-    
+
             // Log selected amenities
             const selectedAmenities = [];
             checkboxContainer.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
                 selectedAmenities.push(checkbox.getAttribute('data-name')); // Get name from data attribute
             });
-    
+
             console.log('Selected Amenities:', selectedAmenities.join(', '));
             console.log('Booking ID:', bookingId);
         });
     });
-    
+
 
 
     // Get all the add and minus buttons
+    const addPax = document.querySelectorAll('.add-pax');
     const addButtons = document.querySelectorAll('.add');
     const minusButtons = document.querySelectorAll('.minus');
 
@@ -324,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const container = button.closest('.add-pax-container');
             const inputField = container.querySelector('.add-pax');
             const currentValue = parseInt(inputField.value);
+
             if (currentValue < 2) {
                 inputField.value = currentValue + 1;
             } else {
@@ -341,26 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentValue = parseInt(inputField.value);
             if (currentValue > 0) {
                 inputField.value = currentValue - 1;
-            }
-        });
-    });
-
-    // Add event listener to the input field
-    const inputFields = document.querySelectorAll('.add-pax');
-    inputFields.forEach((inputField) => {
-        inputField.value = 0;
-        inputField.addEventListener('input', function () {
-            const inputValue = this.value;
-            if (inputValue.startsWith('0') && inputValue.length > 1) {
-                this.value = inputValue.substring(1);
-            }
-            const numericValue = parseInt(this.value);
-            if (numericValue < 0 || numericValue > 2) {
-                this.value = 0;
-                messageNote.textContent = "max of additional 2 pax only";
-                messageAlert.style.display = "flex";
-            } else {
-                inputField.style.outline = "none";
             }
         });
     });

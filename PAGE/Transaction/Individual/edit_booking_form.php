@@ -60,8 +60,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     } else {
         die("Error fetching rooms: " . $conn->error);
     }
+    $roomPaxes = explode(',', $result['room_pax']);
+    $noOfPax = [];
+
+    foreach ($roomPaxes as $roomPax) {
+        $parts = explode(":", $roomPax);
+        $noOfPax[] = $parts[1] ?? null;
+    }
+    $totalNumberOfPaxes = array_sum($noOfPax);
 
     // Fetch amenities details if available
+    $amenitiesTotal = 0;
+
     if (!empty($selectedAmenities)) {
         // Convert comma-separated string to an array of IDs
         $amenitiesIds = explode(',', $selectedAmenities);
@@ -73,6 +83,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
         if ($amenitiesResult) {
             $amenities = $amenitiesResult->fetch_all(MYSQLI_ASSOC);
+            $amenitiesIds = array_column($amenities, 'id');
             $amenitiesTotal = 0;
 
             foreach ($amenities as $amenity) {
@@ -83,7 +94,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         } else {
             die("Error fetching amenities: " . $conn->error);
         }
-    } else {
     }
 } else {
     echo "Error: Booking ID is not specified or is invalid.";
